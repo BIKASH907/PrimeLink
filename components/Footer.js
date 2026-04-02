@@ -10,11 +10,11 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link href="/" style={{ display: 'inline-block', marginBottom: '8px' }}>
-              <img src="/logo.png" alt="Primelink Human Capital" style={{ height: '60px', width: 'auto' }} />
+              <img src="/logo.png" alt="Primelink Human Capital" style={{ height: '70px', width: 'auto', objectFit: 'contain', background: 'white', borderRadius: '10px', padding: '6px 12px' }} />
             </Link>
             <p>
-              Your trusted partner for South Asian workforce recruitment in Romania.
-              We connect skilled workers from Nepal, India, Bangladesh, and Sri Lanka
+              Your trusted partner for international workforce recruitment in Romania.
+              We connect skilled workers from Asia and Africa
               with Romanian employers across all major industries.
             </p>
             <div style={{ marginTop: '20px', fontSize: '0.85rem', lineHeight: '1.8' }}>

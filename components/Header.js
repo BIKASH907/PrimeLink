@@ -38,7 +38,7 @@ export default function Header() {
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
         <div className="header-inner">
           <Link href="/" className="logo">
-            <img src="/logo.png" alt="Primelink Human Capital" style={{ height: '52px', width: 'auto' }} />
+            <img src="/logo.png" alt="Primelink Human Capital" style={{ height: '65px', width: 'auto', objectFit: 'contain' }} />
           </Link>
 
           <nav className="nav">
