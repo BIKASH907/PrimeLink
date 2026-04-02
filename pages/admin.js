@@ -88,10 +88,10 @@ export default function Admin() {
               <h2 style={{ marginBottom: '24px' }}>Dashboard</h2>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '30px' }}>
                 {[
-                  { label: 'Applications', value: stats?.applications || 0, color: '#CC2229' },
-                  { label: 'Employer Inquiries', value: stats?.inquiries || 0, color: '#E8A817' },
-                  { label: 'Contact Messages', value: stats?.contacts || 0, color: '#16A34A' },
-                  { label: 'Job Listings', value: stats?.jobs || 0, color: '#1A1A2E' },
+                  { label: 'Applications', value: stats?.totalApplications || stats?.stats?.totalApplications || 0 || 0, color: '#CC2229' },
+                  { label: 'Employer Inquiries', value: stats?.totalInquiries || stats?.stats?.totalInquiries || 0 || 0, color: '#E8A817' },
+                  { label: 'Contact Messages', value: stats?.totalContacts || stats?.stats?.totalContacts || 0 || 0, color: '#16A34A' },
+                  { label: 'Job Listings', value: stats?.activeJobs || stats?.stats?.activeJobs || 0 || 0, color: '#1A1A2E' },
                 ].map((s, i) => (
                   <div key={i} style={{ background: '#fff', padding: '24px', borderRadius: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
                     <p style={{ color: '#6B7280', fontSize: '0.85rem', marginBottom: '8px' }}>{s.label}</p>
