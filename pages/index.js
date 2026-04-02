@@ -14,7 +14,6 @@ export default function Home() {
               Connecting <span className="highlight">Asian and African Talent</span> with Romanian Industry
             </h1>
             <p>
-              Primelink Human Capital is a Romanian-registered workforce recruitment agency specializing in
               sourcing skilled and semi-skilled workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more for
               Romanian employers across construction, manufacturing, hospitality, and more.
             </p>
@@ -99,7 +98,6 @@ export default function Home() {
               <h2>Romania's Bridge to Asian and African Workforce</h2>
               <p>
                 Romania faces growing labor shortages across key industries. Meanwhile, Asia and Africa has
-                millions of skilled workers seeking international employment. Primelink Human Capital
                 bridges this gap with a fully compliant, transparent, and efficient recruitment process.
               </p>
               <p>
@@ -203,7 +201,6 @@ export default function Home() {
           <div className="section-header">
             <p className="section-label">Legally Registered</p>
             <h2>Fully Compliant Romanian Company</h2>
-            <p>Primelink Human Capital is officially registered with the Romanian Trade Registry and operates under full EU compliance.</p>
           </div>
           <div className="grid-3">
             <div className="card">

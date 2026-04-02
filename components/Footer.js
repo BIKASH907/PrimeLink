@@ -10,8 +10,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ marginBottom: '8px' }}>
-              <div className="logo-icon">PH</div>
-              Primelink<span>HC</span>
+              <img src="/logo.png" alt="Primelink Human Capital" style={{height:'60px',width:'auto'}} />
             </Link>
             <p>
               Your trusted partner for Asian and African workforce recruitment in Romania.
