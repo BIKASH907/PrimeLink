@@ -96,7 +96,7 @@ img { max-width: 100%; height: auto; }
 }
 
 .section-dark {
-  background: var(--white); border-top: 2px solid var(--gray-100);
+  background: var(--navy);
   color: var(--white);
 }
 
@@ -129,7 +129,7 @@ img { max-width: 100%; height: auto; }
   z-index: 1000;
   background: rgba(255,255,255,0.97);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   transition: var(--transition);
 }
 
@@ -185,7 +185,7 @@ img { max-width: 100%; height: auto; }
   padding: 8px 16px;
   font-size: 0.92rem;
   font-weight: 500;
-  color: var(--gray-600);
+  color: rgba(255,255,255,0.7);
   border-radius: var(--radius-sm);
   transition: var(--transition);
 }
@@ -245,7 +245,7 @@ img { max-width: 100%; height: auto; }
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--white); border-top: 2px solid var(--gray-100);
+  background: var(--navy);
   margin: 5px 0;
   transition: var(--transition);
 }
@@ -273,7 +273,7 @@ img { max-width: 100%; height: auto; }
   color: var(--white);
 }
 .btn-primary:hover {
-  background: var(--white); border-top: 2px solid var(--gray-100);
+  background: var(--navy);
   color: var(--white);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
@@ -477,7 +477,7 @@ img { max-width: 100%; height: auto; }
 
 .card-text {
   font-size: 0.93rem;
-  color: var(--gray-500);
+  color: rgba(255,255,255,0.6);
   line-height: 1.7;
 }
 
@@ -523,7 +523,7 @@ img { max-width: 100%; height: auto; }
 }
 
 .section-header p {
-  color: var(--gray-500);
+  color: rgba(255,255,255,0.6);
   font-size: 1.05rem;
 }
 
@@ -595,7 +595,7 @@ img { max-width: 100%; height: auto; }
 }
 
 .form-control::placeholder {
-  color: var(--gray-400);
+  color: rgba(255,255,255,0.5);
 }
 
 textarea.form-control {
@@ -619,8 +619,8 @@ select.form-control {
 
 /* ======== FOOTER ======== */
 .footer {
-  background: var(--white); border-top: 2px solid var(--gray-100);
-  color: var(--gray-600);
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
   padding: 70px 0 0;
 }
 
@@ -629,7 +629,7 @@ select.form-control {
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 50px;
   padding-bottom: 50px;
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .footer-brand p {
@@ -654,7 +654,7 @@ select.form-control {
 }
 
 .footer-links a {
-  color: var(--gray-500);
+  color: rgba(255,255,255,0.6);
   font-size: 0.9rem;
   transition: var(--transition);
 }
@@ -674,12 +674,12 @@ select.form-control {
 }
 
 .footer-legal {
-  background: var(--gray-50);
+  background: rgba(0,0,0,0.15);
   padding: 20px 0;
   margin-top: 30px;
   font-size: 0.78rem;
   line-height: 1.6;
-  color: var(--gray-400);
+  color: rgba(255,255,255,0.5);
 }
 
 /* ======== CTA BANNER ======== */
@@ -731,7 +731,7 @@ select.form-control {
 .testimonial-card blockquote {
   font-size: 0.95rem;
   line-height: 1.8;
-  color: var(--gray-600);
+  color: rgba(255,255,255,0.7);
   margin-bottom: 20px;
   font-style: italic;
 }
@@ -763,7 +763,7 @@ select.form-control {
 
 .testimonial-role {
   font-size: 0.85rem;
-  color: var(--gray-400);
+  color: rgba(255,255,255,0.5);
 }
 
 /* ======== FAQ ======== */
@@ -793,12 +793,12 @@ select.form-control {
 }
 
 .faq-question:hover {
-  background: var(--gray-50);
+  background: rgba(0,0,0,0.15);
 }
 
 .faq-answer {
   padding: 0 24px 20px;
-  color: var(--gray-500);
+  color: rgba(255,255,255,0.6);
   line-height: 1.8;
   font-size: 0.95rem;
 }
@@ -850,7 +850,7 @@ select.form-control {
 }
 
 .data-table th {
-  background: var(--gray-50);
+  background: rgba(0,0,0,0.15);
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
   text-align: left;
@@ -861,12 +861,12 @@ select.form-control {
 
 .data-table td {
   padding: 14px 18px;
-  border-bottom: 1px solid var(--gray-100);
-  color: var(--gray-600);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
 }
 
 .data-table tr:hover td {
-  background: var(--gray-50);
+  background: rgba(0,0,0,0.15);
 }
 
 /* ======== TAGS / BADGES ======== */
@@ -904,7 +904,7 @@ select.form-control {
 }
 
 .two-col-text p {
-  color: var(--gray-500);
+  color: rgba(255,255,255,0.6);
   margin-bottom: 16px;
   line-height: 1.8;
 }
@@ -941,7 +941,7 @@ select.form-control {
 
 .stat-item p {
   font-size: 0.9rem;
-  color: var(--gray-500);
+  color: rgba(255,255,255,0.6);
 }
 
 /* ======== PARTNER LOGOS ======== */
@@ -978,8 +978,8 @@ select.form-control {
   padding: 14px 16px;
   font-size: 1rem;
   font-weight: 500;
-  color: var(--gray-600);
-  border-bottom: 1px solid var(--gray-100);
+  color: rgba(255,255,255,0.7);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 /* ======== TOAST ======== */
@@ -1011,3 +1011,13 @@ select.form-control {
   .page-hero { padding: 120px 0 60px; }
   .footer-bottom { flex-direction: column; text-align: center; }
 }
+
+/* FOOTER WHITE OVERRIDE */
+.footer { background: var(--white) !important; color: var(--gray-600) !important; border-top: 2px solid var(--gray-100); }
+.footer h4 { color: var(--navy) !important; }
+.footer-links a { color: var(--gray-500) !important; }
+.footer-links a:hover { color: var(--blue) !important; }
+.footer-grid { border-bottom: 1px solid var(--gray-100) !important; }
+.footer-brand p { color: var(--gray-500); }
+.footer-bottom { color: var(--gray-500); }
+.footer-legal { background: var(--gray-50) !important; color: var(--gray-400) !important; opacity: 1 !important; }
