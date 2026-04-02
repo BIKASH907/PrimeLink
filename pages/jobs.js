@@ -5,66 +5,66 @@ const industries = [
   {
     name: 'Construction', icon: '🏗️',
     jobs: [
-      { title: 'Licensed Welders (MIG/MAG/TIG)', location: 'București', positions: 15, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–700/month net + accommodation + €100 food' },
-      { title: 'Masons & Bricklayers', location: 'București & Cluj-Napoca', positions: 25, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
-      { title: 'Electricians', location: 'Timișoara', positions: 10, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–650/month net + accommodation + €100 food' },
-      { title: 'Crane Operators', location: 'București', positions: 5, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€560–800/month net + accommodation + €100 food' },
-      { title: 'Carpenters & Formwork Workers', location: 'Brașov', positions: 20, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
-      { title: 'Plumbers & Pipe Fitters', location: 'București', positions: 8, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–650/month net + accommodation + €100 food' },
-      { title: 'Painters & Finishers', location: 'Cluj-Napoca & Brașov', positions: 12, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–560/month net + accommodation + €100 food' },
-      { title: 'General Construction Laborers', location: 'Various Locations', positions: 30, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
+      { title: 'Licensed Welders (MIG/MAG/TIG)', location: 'București', positions: 15, duration: '12 months', accommodation: true, salary: '€530–700/month net + accommodation + €100 food' },
+      { title: 'Masons & Bricklayers', location: 'București & Cluj-Napoca', positions: 25, duration: '12 months', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
+      { title: 'Electricians', location: 'Timișoara', positions: 10, duration: '12 months', accommodation: true, salary: '€530–650/month net + accommodation + €100 food' },
+      { title: 'Crane Operators', location: 'București', positions: 5, duration: '12 months', accommodation: true, salary: '€560–800/month net + accommodation + €100 food' },
+      { title: 'Carpenters & Formwork Workers', location: 'Brașov', positions: 20, duration: '12 months', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
+      { title: 'Plumbers & Pipe Fitters', location: 'București', positions: 8, duration: '12 months', accommodation: true, salary: '€530–650/month net + accommodation + €100 food' },
+      { title: 'Painters & Finishers', location: 'Cluj-Napoca & Brașov', positions: 12, duration: '12 months', accommodation: true, salary: '€530–560/month net + accommodation + €100 food' },
+      { title: 'General Construction Laborers', location: 'Various Locations', positions: 30, duration: '12 months', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
     ]
   },
   {
     name: 'Manufacturing & Production', icon: '🏭',
     jobs: [
-      { title: 'CNC Machine Operators', location: 'Cluj-Napoca', positions: 12, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–650/month net + accommodation + €100 food' },
-      { title: 'Assembly Line Workers', location: 'Sibiu', positions: 30, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
-      { title: 'Factory Machine Operators', location: 'Oradea', positions: 20, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–560/month net + accommodation + €100 food' },
-      { title: 'Quality Control Inspectors', location: 'Timișoara', positions: 8, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
-      { title: 'Textile & Garment Workers', location: 'Iași', positions: 15, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
+      { title: 'CNC Machine Operators', location: 'Cluj-Napoca', positions: 12, duration: '12 months', accommodation: true, salary: '€530–650/month net + accommodation + €100 food' },
+      { title: 'Assembly Line Workers', location: 'Sibiu', positions: 30, duration: '12 months', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
+      { title: 'Factory Machine Operators', location: 'Oradea', positions: 20, duration: '12 months', accommodation: true, salary: '€530–560/month net + accommodation + €100 food' },
+      { title: 'Quality Control Inspectors', location: 'Timișoara', positions: 8, duration: '12 months', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
+      { title: 'Textile & Garment Workers', location: 'Iași', positions: 15, duration: '12 months', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
     ]
   },
   {
     name: 'Hospitality & Tourism', icon: '🍽️',
     jobs: [
-      { title: 'Cooks & Sous Chefs', location: 'Constanța & București', positions: 15, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–650/month net + accommodation + €100 food' },
-      { title: 'Hotel Housekeeping Staff', location: 'Constanța & Brașov', positions: 20, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
-      { title: 'Waiters & Restaurant Staff', location: 'București', positions: 10, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–560/month net + accommodation + €100 food' },
-      { title: 'Kitchen Helpers & Dishwashers', location: 'Various Locations', positions: 15, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
-      { title: 'Hotel Reception & Front Desk', location: 'București & Brașov', positions: 5, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
+      { title: 'Cooks & Sous Chefs', location: 'Constanța & București', positions: 15, duration: '12 months', accommodation: true, salary: '€530–650/month net + accommodation + €100 food' },
+      { title: 'Hotel Housekeeping Staff', location: 'Constanța & Brașov', positions: 20, duration: '12 months', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
+      { title: 'Waiters & Restaurant Staff', location: 'București', positions: 10, duration: '12 months', accommodation: true, salary: '€530–560/month net + accommodation + €100 food' },
+      { title: 'Kitchen Helpers & Dishwashers', location: 'Various Locations', positions: 15, duration: '12 months', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
+      { title: 'Hotel Reception & Front Desk', location: 'București & Brașov', positions: 5, duration: '12 months', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
     ]
   },
   {
     name: 'Logistics & Warehousing', icon: '🚛',
     jobs: [
-      { title: 'Warehouse Operatives', location: 'București & Timișoara', positions: 25, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
-      { title: 'Forklift Operators', location: 'Cluj-Napoca', positions: 8, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
-      { title: 'Professional Drivers (C+E)', location: 'Various Locations', positions: 10, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€560–800/month net + accommodation + €100 food' },
-      { title: 'Package Sorters & Loaders', location: 'București', positions: 20, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
+      { title: 'Warehouse Operatives', location: 'București & Timișoara', positions: 25, duration: '12 months', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
+      { title: 'Forklift Operators', location: 'Cluj-Napoca', positions: 8, duration: '12 months', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
+      { title: 'Professional Drivers (C+E)', location: 'Various Locations', positions: 10, duration: '12 months', accommodation: true, salary: '€560–800/month net + accommodation + €100 food' },
+      { title: 'Package Sorters & Loaders', location: 'București', positions: 20, duration: '12 months', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
     ]
   },
   {
     name: 'Agriculture & Food Processing', icon: '🌾',
     jobs: [
-      { title: 'Agricultural Workers', location: 'Various Locations', positions: 30, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
-      { title: 'Livestock & Farm Workers', location: 'Rural Romania', positions: 10, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
-      { title: 'Food Processing Workers', location: 'Iași & Galați', positions: 15, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
-      { title: 'Greenhouse Workers', location: 'Southern Romania', positions: 12, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
+      { title: 'Agricultural Workers', location: 'Various Locations', positions: 30, duration: '12 months', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
+      { title: 'Livestock & Farm Workers', location: 'Rural Romania', positions: 10, duration: '12 months', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
+      { title: 'Food Processing Workers', location: 'Iași & Galați', positions: 15, duration: '12 months', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
+      { title: 'Greenhouse Workers', location: 'Southern Romania', positions: 12, duration: '12 months', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
     ]
   },
   {
     name: 'Facility Services & Cleaning', icon: '🧹',
     jobs: [
-      { title: 'Industrial Cleaners', location: 'București', positions: 15, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
-      { title: 'Building Maintenance Workers', location: 'București & Cluj-Napoca', positions: 8, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
+      { title: 'Industrial Cleaners', location: 'București', positions: 15, duration: '12 months', accommodation: true, salary: '€530/month net + accommodation + €100 food' },
+      { title: 'Building Maintenance Workers', location: 'București & Cluj-Napoca', positions: 8, duration: '12 months', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
     ]
   },
   {
     name: 'Healthcare & Social Care', icon: '🏥',
     jobs: [
-      { title: 'Care Assistants', location: 'București & Timișoara', positions: 10, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
-      { title: 'Hospital Support Staff', location: 'Cluj-Napoca', positions: 8, duration: '1 Year Contract + Work Permit', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
+      { title: 'Care Assistants', location: 'București & Timișoara', positions: 10, duration: '12 months', accommodation: true, salary: '€530–600/month net + accommodation + €100 food' },
+      { title: 'Hospital Support Staff', location: 'Cluj-Napoca', positions: 8, duration: '12 months', accommodation: true, salary: '€530–550/month net + accommodation + €100 food' },
     ]
   },
 ];
