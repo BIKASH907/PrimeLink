@@ -8,7 +8,7 @@ export default function FAQ() {
   const faqs = [
     { category: 'For Employers', items: [
       { q: 'How long does the recruitment process take?', a: 'Typically 6-10 weeks from initial inquiry to workers arriving in Romania. The timeline depends primarily on work permit processing and visa appointment availability at Romanian embassies in the source country.' },
-      { q: 'What does your service cost?', a: 'Our fees are structured as a per-worker recruitment fee and/or an ongoing management fee for temporary staffing. Exact pricing depends on the number of workers, industry, and contract duration. Contact us for a custom quote.' },
+      { q: 'What does your service cost?', a: 'We charge a flat fee of €2,500 per candidate. No monthly commission, no percentage markup on salaries, no hidden costs. This one-time fee covers sourcing, screening, documentation, work permits, visa coordination, and placement support.' },
       { q: 'Are the workers legally authorized to work in Romania?', a: 'Yes. Every worker we place has a valid work permit (aviz de muncă) issued by IGI, a long-stay visa (Type D), and a Romanian employment contract. We handle all documentation.' },
       { q: 'What if a worker doesn\'t meet our expectations?', a: 'We offer a 30-day replacement guarantee. If a worker is genuinely unsuitable, we provide a replacement at no additional recruitment cost.' },
       { q: 'Do workers speak Romanian or English?', a: 'Most workers have basic to intermediate English. Some positions may not require language skills. We can arrange Romanian language basics training upon arrival.' },

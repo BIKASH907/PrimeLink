@@ -68,7 +68,7 @@ export default function ForEmployers() {
               { icon: '⚡', title: 'Fast Deployment', desc: 'Workers ready for deployment within 6-10 weeks from initial request, depending on permit processing.' },
               { icon: '📜', title: 'Full Legal Compliance', desc: 'All workers come with proper work permits, contracts, and social contributions — zero legal risk for you.' },
               { icon: '🔍', title: 'Pre-Screened Talent', desc: 'Every candidate is skills-tested, interviewed, medically examined, and background-checked before presentation.' },
-              { icon: '💰', title: 'Cost-Effective', desc: 'Competitive rates compared to domestic recruitment. One transparent fee covers the entire process.' },
+              { icon: '💰', title: 'Cost-Effective', desc: '€2,500 flat fee per candidate. No monthly commission, no hidden costs. One payment covers the entire recruitment process.' },
               { icon: '🔄', title: 'Replacement Guarantee', desc: 'If a worker is unsuitable within the first 30 days, we provide a replacement at no additional cost.' },
               { icon: '🛡️', title: 'Ongoing Support', desc: 'We remain the point of contact throughout the placement — handling any issues, paperwork renewals, and worker welfare.' },
             ].map((b, i) => (
