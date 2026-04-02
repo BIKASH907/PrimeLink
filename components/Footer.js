@@ -59,7 +59,7 @@ export default function Footer() {
             <ul className="footer-links">
               <li>📍 Str. Aleksandr Sergheevici Pușkin, Nr. 8, Ap. 2, Sector 1, București</li>
               <li>📧 <a href="mailto:info@primelinkhumancapital.com">info@primelinkhumancapital.com</a></li>
-              <li>📞 <a href="tel:+40XXXXXXXXX">+40 XXX XXX XXX</a></li>
+              <li>📞 <a href="tel:+37063343573">+370 633 43573</a></li>
             </ul>
             <h4 style={{ marginTop: '24px' }}>Legal Details</h4>
             <ul className="footer-links" style={{ fontSize: '0.82rem' }}>

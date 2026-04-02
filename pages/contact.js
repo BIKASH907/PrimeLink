@@ -55,7 +55,7 @@ export default function Contact() {
                 <div className="form-row">
                   <div className="form-group">
                     <label>Phone</label>
-                    <input className="form-control" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} placeholder="+40 XXX XXX XXX" />
+                    <input className="form-control" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} placeholder="+370 633 43573" />
                   </div>
                   <div className="form-group">
                     <label>Company (if applicable)</label>
@@ -113,8 +113,8 @@ export default function Contact() {
                   <div>
                     <h4 style={{ fontSize: '1rem', marginBottom: '4px' }}>Phone</h4>
                     <p style={{ color: 'var(--gray-500)', fontSize: '0.93rem' }}>
-                      Romania: +40 XXX XXX XXX<br />
-                      WhatsApp: +40 XXX XXX XXX
+                      Romania: +370 633 43573<br />
+                      WhatsApp: +370 633 43573
                     </p>
                   </div>
                 </div>

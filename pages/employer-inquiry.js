@@ -68,7 +68,7 @@ export default function EmployerInquiry() {
             <div className="form-row">
               <div className="form-group">
                 <label>Phone <span className="required">*</span></label>
-                <input className="form-control" name="phone" required value={form.phone} onChange={handleChange} placeholder="+40 XXX XXX XXX" />
+                <input className="form-control" name="phone" required value={form.phone} onChange={handleChange} placeholder="+370 633 43573" />
               </div>
               <div className="form-group">
                 <label>Industry <span className="required">*</span></label>

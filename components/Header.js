@@ -10,7 +10,7 @@ const COMPANY = {
   regNo: 'J2026021244007',
   euid: 'ROONRC.J2026021244007',
   address: 'Strada Aleksandr Sergheevici Pușkin, Nr. 8, Ap. 2, Sector 1, București, Romania',
-  phone: '+40 XXX XXX XXX',
+  phone: '+370 633 43573',
   email: 'info@primelinkhumancapital.com',
 };
 
