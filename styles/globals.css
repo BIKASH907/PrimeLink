@@ -1075,3 +1075,6 @@ main { width: 100%; overflow-x: hidden; }
 .btn-outline { border: 2px solid #CC2229 !important; }
 .footer { border-top: 1px solid #E9ECF0 !important; }
 .footer-grid { border-bottom: 1px solid #E9ECF0 !important; }
+html { overflow-x: hidden !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+body { overflow-x: hidden !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+.hero, .page-hero, .section, .section-dark, .section-gray, .section-blue, .section-sm { width: 100% !important; max-width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
