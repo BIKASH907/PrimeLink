@@ -1021,3 +1021,15 @@ select.form-control {
 .footer-brand p { color: var(--gray-500); }
 .footer-bottom { color: var(--gray-500); }
 .footer-legal { background: var(--gray-50) !important; color: var(--gray-400) !important; opacity: 1 !important; }
+
+/* ======== WHITE FOOTER ======== */
+.footer { background: #FFFFFF !important; color: #4B5563 !important; border-top: 2px solid #E9ECF0; }
+.footer h4 { color: #1A1A2E !important; }
+.footer-links a { color: #6B7280 !important; }
+.footer-links a:hover { color: #CC2229 !important; }
+.footer-links li { color: #6B7280; }
+.footer-grid { border-bottom-color: #E9ECF0 !important; }
+.footer-brand p { color: #6B7280; }
+.footer-bottom { color: #6B7280; }
+.footer-bottom a { color: #8892A0 !important; }
+.footer-legal { background: #F5F6F8 !important; color: #8892A0 !important; opacity: 1 !important; }
