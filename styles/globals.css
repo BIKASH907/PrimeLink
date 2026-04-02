@@ -1068,3 +1068,10 @@ main { width: 100%; overflow-x: hidden; }
   h1 { font-size: 1.5rem !important; }
   .hero h1 { font-size: 1.7rem !important; }
 }
+.container { max-width: 1600px !important; padding: 0 60px !important; }
+.container-wide { max-width: 1800px !important; padding: 0 60px !important; }
+* { border: none !important; outline: none !important; }
+.form-control { border: 1px solid #D1D6DE !important; }
+.btn-outline { border: 2px solid #CC2229 !important; }
+.footer { border-top: 1px solid #E9ECF0 !important; }
+.footer-grid { border-bottom: 1px solid #E9ECF0 !important; }
