@@ -1091,3 +1091,8 @@ html, body { margin: 0; padding: 0; width: 100%; overflow-x: hidden; }
 .footer { border: none !important; }
 .footer-grid { border: none !important; border-bottom: 1px solid var(--gray-100) !important; }
 .header { border: none !important; border-bottom: none !important; box-shadow: var(--shadow-sm) !important; }
+.hero .container, .page-hero .container { max-width: 100%; padding: 0 40px; }
+.section-dark .container { max-width: 100%; padding: 0 40px; }
+.hero { padding-left: 0 !important; padding-right: 0 !important; margin: 0 !important; }
+.page-hero { padding-left: 0 !important; padding-right: 0 !important; margin: 0 !important; }
+@media (max-width: 768px) { .hero .container, .page-hero .container, .section-dark .container { padding: 0 20px; } }
