@@ -18,7 +18,7 @@ export default function WhyChooseUs() {
           <div className="grid-2" style={{ gap: '50px' }}>
             {[
               { icon: '🏛️', title: 'Legally Registered Romanian Company', desc: `We are ${COMPANY.legal}, registered with the Romanian Trade Registry (CUI: ${COMPANY.cui}, Nr. ${COMPANY.regNo}). Every operation is fully compliant with Romanian and EU law.` },
-              { icon: '🌏', title: 'Deep South Asian Networks', desc: 'Our founder has deep roots in South Asia with established recruitment partnerships across Nepal, India, Bangladesh, and Sri Lanka. We understand both cultures.' },
+              { icon: '🌏', title: 'Deep Asian and African Networks', desc: 'Our founder has deep roots in Asia and Africa with established recruitment partnerships across Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more. We understand both cultures.' },
               { icon: '⚖️', title: 'Ethical Recruitment Standards', desc: 'We adhere to ILO Fair Recruitment principles. No exploitative fees, no deception, no forced labor. Workers are informed, consenting, and protected at every stage.' },
               { icon: '📋', title: 'End-to-End Service', desc: 'We don\'t just source candidates — we handle screening, documentation, permits, travel, placement, and ongoing support. One partner for the entire process.' },
               { icon: '🔍', title: 'Rigorous Screening', desc: 'Every candidate undergoes skills testing, video interviews, medical examinations, background checks, and reference verification before presentation to employers.' },

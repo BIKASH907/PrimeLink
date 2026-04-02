@@ -4,12 +4,12 @@ import { COMPANY } from '../components/Header';
 
 export default function About() {
   return (
-    <Layout title="About Us" description="Learn about Primelink Human Capital S.R.L. — a Romanian-registered staffing agency connecting South Asian workers with European employers.">
+    <Layout title="About Us" description="Learn about Primelink Human Capital S.R.L. — a Romanian-registered staffing agency connecting Asian and African workers with European employers.">
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb"><Link href="/">Home</Link> / <span>About Us</span></div>
           <h1>About Primelink Human Capital</h1>
-          <p>Bridging South Asian talent with Romanian opportunity — legally, ethically, and efficiently.</p>
+          <p>Bridging Asian and African talent with Romanian opportunity — legally, ethically, and efficiently.</p>
         </div>
       </section>
 
@@ -21,13 +21,13 @@ export default function About() {
               <h2>Built to Bridge Continents</h2>
               <p>
                 {COMPANY.legal} was founded with a clear mission: to address Romania's growing labor shortage by
-                connecting the country's employers with the vast, motivated workforce of South Asia — particularly
-                Nepal, India, Bangladesh, and Sri Lanka.
+                connecting the country's employers with the vast, motivated workforce of Asia and Africa — particularly
+                Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more.
               </p>
               <p>
                 As Romania's economy grows and its domestic workforce shrinks due to emigration and demographic
                 shifts, industries like construction, manufacturing, hospitality, and agriculture face critical staffing gaps.
-                Meanwhile, millions of skilled and semi-skilled workers in South Asia seek legitimate pathways to European employment.
+                Meanwhile, millions of skilled and semi-skilled workers in Asia and Africa seek legitimate pathways to European employment.
               </p>
               <p>
                 Primelink Human Capital exists to create that pathway — transparently, legally, and with the
@@ -46,7 +46,7 @@ export default function About() {
               <p className="section-label">Our Mission</p>
               <h3 style={{ marginBottom: '16px' }}>To be Romania's most trusted international staffing partner</h3>
               <p style={{ color: 'var(--gray-500)', lineHeight: '1.8' }}>
-                We aim to set the industry standard for ethical recruitment of South Asian workers into Romania
+                We aim to set the industry standard for ethical recruitment of Asian and African workers into Romania
                 and the broader EU market. Every placement we make is built on transparency, legal compliance,
                 and mutual benefit for both employers and workers.
               </p>
@@ -106,8 +106,6 @@ export default function About() {
                   ['EUID', COMPANY.euid],
                   ['Certificate', 'Seria B Nr. 5780913 — Issued 01.04.2026'],
                   ['Legal Form', 'Societate cu Răspundere Limitată (S.R.L.)'],
-                  ['Share Capital', '20.000 LEI (200 shares × 100 LEI)'],
-                  ['EUR Equivalent', '€4.000'],
                   ['Primary CAEN', '7820 — Temporary Staffing Agency'],
                   ['Duration', 'Unlimited (Nedeterminată)'],
                   ['Registered Office', 'Str. Aleksandr Sergheevici Pușkin, Nr. 8, Ap. 2, Sector 1, București'],

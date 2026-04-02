@@ -11,11 +11,11 @@ export default function Home() {
           <div className="hero-content">
             <p className="section-label" style={{ color: 'var(--amber)' }}>🇷🇴 Licensed Staffing Agency in Romania</p>
             <h1>
-              Connecting <span className="highlight">South Asian Talent</span> with Romanian Industry
+              Connecting <span className="highlight">Asian and African Talent</span> with Romanian Industry
             </h1>
             <p>
               Primelink Human Capital is a Romanian-registered workforce recruitment agency specializing in
-              sourcing skilled and semi-skilled workers from Nepal, India, Bangladesh, and Sri Lanka for
+              sourcing skilled and semi-skilled workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more for
               Romanian employers across construction, manufacturing, hospitality, and more.
             </p>
             <div className="hero-buttons">
@@ -58,7 +58,7 @@ export default function Home() {
                 <div className="card-icon">🏢</div>
                 <h4 className="card-title">For Romanian Employers</h4>
                 <p className="card-text">
-                  Access a vast pool of motivated, skilled workers from South Asia. We handle recruitment,
+                  Access a vast pool of motivated, skilled workers from Asia and Africa. We handle recruitment,
                   documentation, work permits, and placement — you focus on your business.
                 </p>
                 <Link href="/for-employers" className="btn btn-outline btn-sm" style={{ marginTop: '16px' }}>Learn More</Link>
@@ -69,7 +69,7 @@ export default function Home() {
                 <div className="card-icon">👷</div>
                 <h4 className="card-title">For Workers</h4>
                 <p className="card-text">
-                  Dream of working in Europe? We help workers from Nepal, India, Bangladesh, and Sri Lanka
+                  Dream of working in Europe? We help workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more
                   find legitimate, well-paying jobs in Romania with full legal support.
                 </p>
                 <Link href="/for-workers" className="btn btn-outline btn-sm" style={{ marginTop: '16px' }}>Learn More</Link>
@@ -96,9 +96,9 @@ export default function Home() {
           <div className="two-col">
             <div className="two-col-text">
               <p className="section-label">Why Primelink</p>
-              <h2>Romania's Bridge to South Asian Workforce</h2>
+              <h2>Romania's Bridge to Asian and African Workforce</h2>
               <p>
-                Romania faces growing labor shortages across key industries. Meanwhile, South Asia has
+                Romania faces growing labor shortages across key industries. Meanwhile, Asia and Africa has
                 millions of skilled workers seeking international employment. Primelink Human Capital
                 bridges this gap with a fully compliant, transparent, and efficient recruitment process.
               </p>
@@ -162,7 +162,7 @@ export default function Home() {
           <div className="grid-3">
             {[
               { num: '01', title: 'Employer Inquiry', desc: 'Romanian company submits their workforce requirements — positions, skills, quantity, timeline.' },
-              { num: '02', title: 'Candidate Sourcing', desc: 'We activate our recruitment network across Nepal, India, Bangladesh, and Sri Lanka.' },
+              { num: '02', title: 'Candidate Sourcing', desc: 'We activate our recruitment network across Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more.' },
               { num: '03', title: 'Screening & Selection', desc: 'Candidates undergo skills testing, interviews, medical checks, and background verification.' },
               { num: '04', title: 'Documentation', desc: 'Work permits, visa applications, contracts — all legal paperwork handled by our team.' },
               { num: '05', title: 'Travel & Arrival', desc: 'Workers travel to Romania. We coordinate airport pickup, accommodation, and orientation.' },
@@ -188,7 +188,7 @@ export default function Home() {
         <div className="container">
           <div className="cta-banner">
             <h2>Ready to Solve Your Workforce Needs?</h2>
-            <p>Whether you're a Romanian employer seeking workers or a South Asian professional seeking opportunities in Europe — we're here to help.</p>
+            <p>Whether you're a Romanian employer seeking workers or a Asian and African professional seeking opportunities in Europe — we're here to help.</p>
             <div className="cta-buttons">
               <Link href="/employer-inquiry" className="btn btn-amber btn-lg">I'm an Employer</Link>
               <Link href="/apply" className="btn btn-white btn-lg">I'm a Worker</Link>
@@ -226,7 +226,6 @@ export default function Home() {
                 <table style={{ width: '100%', fontSize: '0.88rem' }}>
                   <tbody>
                     <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Legal Form</td><td style={{ padding: '6px 0', fontWeight: 600 }}>S.R.L. (Limited Liability)</td></tr>
-                    <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Capital</td><td style={{ padding: '6px 0', fontWeight: 600 }}>20.000 LEI (€4.000)</td></tr>
                     <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Primary CAEN</td><td style={{ padding: '6px 0', fontWeight: 600 }}>7820 — Temporary Staffing</td></tr>
                     <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Duration</td><td style={{ padding: '6px 0', fontWeight: 600 }}>Unlimited</td></tr>
                     <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Status</td><td style={{ padding: '6px 0' }}><span className="status-badge status-active">Active</span></td></tr>

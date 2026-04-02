@@ -8,7 +8,7 @@ export default function Team() {
         <div className="container">
           <div className="breadcrumb"><Link href="/">Home</Link> / <span>Our Team</span></div>
           <h1>Our Team</h1>
-          <p>Experienced professionals bridging South Asian talent with Romanian opportunity.</p>
+          <p>Experienced professionals bridging Asian and African talent with Romanian opportunity.</p>
         </div>
       </section>
 
@@ -24,7 +24,7 @@ export default function Team() {
             <p style={{ color: 'var(--blue)', fontWeight: 600, marginBottom: '16px' }}>Founder & Administrator</p>
             <p style={{ color: 'var(--gray-500)', lineHeight: '1.8', maxWidth: '550px', margin: '0 auto' }}>
               Bikash Bhat is the founder and sole administrator of Primelink Human Capital S.R.L. Born in Kailali, Nepal, and based in Europe, 
-              Bikash brings a unique cross-cultural perspective to international workforce recruitment. His deep understanding of both South Asian 
+              Bikash brings a unique cross-cultural perspective to international workforce recruitment. His deep understanding of both Asian and African 
               worker aspirations and Romanian employer needs drives the company's mission of ethical, efficient, and legally compliant staffing solutions.
             </p>
           </div>

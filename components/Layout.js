@@ -5,8 +5,8 @@ import Footer from './Footer';
 export default function Layout({ children, title, description }) {
   const pageTitle = title
     ? `${title} | Primelink Human Capital`
-    : 'Primelink Human Capital — South Asian Workforce Recruitment in Romania';
-  const pageDesc = description || 'Primelink Human Capital S.R.L. connects skilled South Asian workers with Romanian employers. Licensed staffing agency specializing in temporary and permanent workforce placement.';
+    : 'Primelink Human Capital — Asian and African Workforce Recruitment in Romania';
+  const pageDesc = description || 'Primelink Human Capital S.R.L. connects skilled Asian and African workers with Romanian employers. Licensed staffing agency specializing in temporary and permanent workforce placement.';
 
   return (
     <>

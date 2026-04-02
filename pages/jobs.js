@@ -12,12 +12,12 @@ export default function Jobs() {
   ];
 
   return (
-    <Layout title="Job Listings" description="Browse available jobs in Romania for South Asian workers — construction, manufacturing, hospitality, agriculture, and more.">
+    <Layout title="Job Listings" description="Browse available jobs in Romania for Asian and African workers — construction, manufacturing, hospitality, agriculture, and more.">
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb"><Link href="/">Home</Link> / <span>Jobs</span></div>
           <h1>Available Jobs</h1>
-          <p>Browse current openings for South Asian workers in Romania.</p>
+          <p>Browse current openings for Asian and African workers in Romania.</p>
         </div>
       </section>
 

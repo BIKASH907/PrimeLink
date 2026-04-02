@@ -34,7 +34,7 @@ export default function PrivacyPolicy() {
             <p>We never sell personal data to third parties for marketing purposes.</p>
 
             <h3 style={{ marginTop: '36px', marginBottom: '16px' }}>6. International Data Transfers</h3>
-            <p>As we operate across Romania and South Asian countries, some personal data may be transferred outside the EU/EEA. Such transfers are conducted under appropriate safeguards as required by GDPR, including standard contractual clauses.</p>
+            <p>As we operate across Romania and Asian and African countries, some personal data may be transferred outside the EU/EEA. Such transfers are conducted under appropriate safeguards as required by GDPR, including standard contractual clauses.</p>
 
             <h3 style={{ marginTop: '36px', marginBottom: '16px' }}>7. Data Retention</h3>
             <p>We retain personal data for the duration necessary to fulfill the purposes for which it was collected, and for the legally required retention periods thereafter (typically 5-10 years for employment records under Romanian law).</p>

@@ -42,9 +42,9 @@ export default function Services() {
           <div className="grid-3">
             {[
               { icon: '👥', title: 'Temporary Staffing (CAEN 7820)', desc: 'Our primary service. We supply temporary workers to Romanian companies under Munca Temporară contracts. Workers are employed by us and assigned to your worksite. Flexible durations — seasonal, project-based, or ongoing.', link: '/for-employers' },
-              { icon: '🎯', title: 'Permanent Placement (CAEN 7810)', desc: 'Need to hire directly? We source, screen, and present candidates from South Asia for permanent positions in your company. Full recruitment service with post-placement support.', link: '/for-employers' },
+              { icon: '🎯', title: 'Permanent Placement (CAEN 7810)', desc: 'Need to hire directly? We source, screen, and present candidates from Asia and Africa for permanent positions in your company. Full recruitment service with post-placement support.', link: '/for-employers' },
               { icon: '📑', title: 'Work Permit & Visa Processing', desc: 'We handle the entire immigration documentation process — from obtaining aviz de muncă (work permits) through IGI to coordinating long-stay visa applications at Romanian embassies.', link: '/recruitment-process' },
-              { icon: '✈️', title: 'Travel & Relocation', desc: 'We coordinate worker travel from South Asia to Romania, including flights, airport pickup, initial accommodation, and cultural orientation upon arrival.', link: '/recruitment-process' },
+              { icon: '✈️', title: 'Travel & Relocation', desc: 'We coordinate worker travel from Asia and Africa to Romania, including flights, airport pickup, initial accommodation, and cultural orientation upon arrival.', link: '/recruitment-process' },
               { icon: '📋', title: 'Compliance & Documentation', desc: 'All contracts, tax registrations, social contributions, and labor law compliance handled by our team — protecting both employers and workers.', link: '/for-employers' },
               { icon: '🏢', title: 'Business Consulting (CAEN 7020)', desc: 'Advisory services on international recruitment strategy, Romanian labor market, workforce planning, and compliance with Romanian employment law.', link: '/contact' },
             ].map((s, i) => (

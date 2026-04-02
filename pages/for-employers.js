@@ -3,12 +3,12 @@ import Link from 'next/link';
 
 export default function ForEmployers() {
   return (
-    <Layout title="For Employers" description="Hire skilled South Asian workers for your Romanian business. Temporary staffing, permanent placement, and full compliance support.">
+    <Layout title="For Employers" description="Hire skilled Asian and African workers for your Romanian business. Temporary staffing, permanent placement, and full compliance support.">
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb"><Link href="/">Home</Link> / <Link href="/services">Services</Link> / <span>For Employers</span></div>
           <h1>For Romanian Employers</h1>
-          <p>Access a reliable, motivated workforce from South Asia — we handle everything from recruitment to placement.</p>
+          <p>Access a reliable, motivated workforce from Asia and Africa — we handle everything from recruitment to placement.</p>
         </div>
       </section>
 
@@ -24,7 +24,7 @@ export default function ForEmployers() {
             <div className="two-col-text">
               <p className="section-label">The Solution</p>
               <h2>We Bring the Workers to You</h2>
-              <p>Primelink Human Capital sources skilled and semi-skilled workers from Nepal, India, Bangladesh, and Sri Lanka — countries with large, young, motivated workforces eager for European employment.</p>
+              <p>Primelink Human Capital sources skilled and semi-skilled workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more — countries with large, young, motivated workforces eager for European employment.</p>
               <p>We handle the entire process: sourcing, screening, documentation, work permits, travel, and placement. You simply tell us what you need, and we deliver.</p>
             </div>
           </div>
@@ -40,7 +40,7 @@ export default function ForEmployers() {
           <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {[
               { num: '1', title: 'Submit Your Requirements', desc: 'Tell us the positions, skills, number of workers, and timeline through our employer inquiry form.' },
-              { num: '2', title: 'We Source & Screen', desc: 'Our recruitment network in South Asia identifies candidates matching your exact specifications. We conduct skills tests, interviews, and background checks.' },
+              { num: '2', title: 'We Source & Screen', desc: 'Our recruitment network in Asia and Africa identifies candidates matching your exact specifications. We conduct skills tests, interviews, and background checks.' },
               { num: '3', title: 'You Review & Approve', desc: 'We present shortlisted candidates with full profiles. You interview (via video call if preferred) and select your workers.' },
               { num: '4', title: 'Documentation & Permits', desc: 'We process all work permits (aviz de muncă) through IGI, prepare contracts, and coordinate visa applications.' },
               { num: '5', title: 'Workers Arrive & Start', desc: 'Workers travel to Romania, complete orientation, and begin work at your site. We provide ongoing support for the duration of the placement.' },

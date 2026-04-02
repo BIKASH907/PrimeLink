@@ -20,7 +20,7 @@ export default function Terms() {
             <p>This website is operated by <strong>{COMPANY.legal}</strong>, a company registered in Romania under CUI {COMPANY.cui}, registered at the Trade Registry under number {COMPANY.regNo}, EUID: {COMPANY.euid}, with its registered office at {COMPANY.address}. ("Primelink", "we", "our", "us").</p>
 
             <h3 style={{ marginTop: '36px', marginBottom: '16px' }}>2. Services</h3>
-            <p>Primelink provides international workforce recruitment and temporary staffing services. Our primary activity is CAEN 7820 — temporary staffing and supply of human resources. We connect Romanian employers with workers from South Asian countries through a fully legal, compliant recruitment process.</p>
+            <p>Primelink provides international workforce recruitment and temporary staffing services. Our primary activity is CAEN 7820 — temporary staffing and supply of human resources. We connect Romanian employers with workers from Asian and African countries through a fully legal, compliant recruitment process.</p>
 
             <h3 style={{ marginTop: '36px', marginBottom: '16px' }}>3. Website Use</h3>
             <p>By accessing and using this website, you agree to these Terms & Conditions. The information on this website is provided for general informational purposes and does not constitute a binding offer of employment or services. All service agreements are formalized through separate contracts.</p>

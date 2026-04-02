@@ -14,8 +14,8 @@ export default function Footer() {
               Primelink<span>HC</span>
             </Link>
             <p>
-              Your trusted partner for South Asian workforce recruitment in Romania.
-              We connect skilled workers from Nepal, India, Bangladesh, and Sri Lanka
+              Your trusted partner for Asian and African workforce recruitment in Romania.
+              We connect skilled workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more
               with Romanian employers across all major industries.
             </p>
             <div style={{ marginTop: '20px', fontSize: '0.85rem', lineHeight: '1.8' }}>
@@ -86,7 +86,6 @@ export default function Footer() {
           <strong>{COMPANY.legal}</strong> | CUI: {COMPANY.cui} | Nr. Registrul Comerțului: {COMPANY.regNo} |
           EUID: {COMPANY.euid} | Certificat de Înregistrare: Seria B Nr. 5780913 |
           Sediu Social: {COMPANY.address} |
-          Capital Social: 20.000 LEI |
           CAEN Principal: 7820 — Activități ale agențiilor de plasare temporară a forței de muncă și furnizarea altor resurse umane |
           Înregistrată prin Încheierea nr. 263477 din 30.03.2026 la Oficiul Registrului Comerțului de pe lângă Tribunalul București |
           Administrator: BHAT BIKASH — Puteri Depline
