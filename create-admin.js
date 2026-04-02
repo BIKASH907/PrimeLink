@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 mongoose.connect('mongodb+srv://primelink:Z1RjGMWJNuAKndXO@cluster0.zbufj2k.mongodb.net/primelink').then(async () => {
   const AdminSchema = new mongoose.Schema({ name: String, email: String, password: String, role: String, createdAt: { type: Date, default: Date.now } });
