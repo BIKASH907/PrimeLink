@@ -65,8 +65,8 @@ export default function Home() {
           <div className="grid-3">
             <div className="card"><div className="card-body" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>💰</div>
-              <h4 className="card-title">€2,500 Flat Fee</h4>
-              <p className="card-text">One payment per candidate. No monthly commission, no percentage markup on salaries, no hidden costs ever.</p>
+              <h4 className="card-title">Free for Employers</h4>
+              <p className="card-text">Zero recruitment cost for Romanian employers. We supply pre-screened, documented workers ready to start.</p>
             </div></div>
             <div className="card"><div className="card-body" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>📜</div>
@@ -178,7 +178,7 @@ export default function Home() {
         <div className="container">
           <div className="cta-banner">
             <h2>Ready to Solve Your Workforce Shortage?</h2>
-            <p>€2,500 per candidate. No commission. No hidden fees. Submit your requirements and receive a proposal within 48 hours.</p>
+            <p>Zero recruitment cost for employers. We supply workers from Asia and Africa directly to your business. Submit requirements and receive candidates within 6-10 weeks.</p>
             <div className="cta-buttons">
               <Link href="/employer-inquiry" className="btn btn-amber btn-lg">Submit Employer Inquiry →</Link>
               <Link href="/contact" className="btn btn-white btn-lg">Contact Us</Link>
@@ -211,7 +211,7 @@ export default function Home() {
                 <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Legal Form</td><td style={{ padding: '6px 0', fontWeight: 600 }}>S.R.L. (Limited Liability)</td></tr>
                 <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Primary CAEN</td><td style={{ padding: '6px 0', fontWeight: 600 }}>7820 — Temporary Staffing</td></tr>
                 <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Model</td><td style={{ padding: '6px 0', fontWeight: 600 }}>B2B Only</td></tr>
-                <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Pricing</td><td style={{ padding: '6px 0', fontWeight: 600 }}>€2,500/candidate, 0% commission</td></tr>
+                <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Pricing</td><td style={{ padding: '6px 0', fontWeight: 600 }}>Free for employers</td></tr>
                 <tr><td style={{ padding: '6px 0', color: 'var(--gray-400)' }}>Status</td><td style={{ padding: '6px 0' }}><span className="status-badge status-active">Active</span></td></tr>
               </tbody></table>
             </div></div>

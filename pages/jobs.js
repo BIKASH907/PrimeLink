@@ -85,7 +85,7 @@ export default function Jobs() {
       <section className="section">
         <div className="container">
           <div style={{ background: '#FFF0F0', padding: '16px 24px', borderRadius: '10px', marginBottom: '30px' }}>
-            <strong>For Employers:</strong> These reflect current Romanian market demand. <Link href="/employer-inquiry" style={{ fontWeight: 600 }}>Submit your requirements</Link> and we source candidates within 6–10 weeks. €2,500 flat fee, no commission.
+            <strong>For Employers:</strong> These reflect current Romanian market demand. <Link href="/employer-inquiry" style={{ fontWeight: 600 }}>Submit your requirements</Link> and we source candidates within 6–10 weeks. Zero cost for employers.
           </div>
 
           {industries.map((ind, idx) => (
