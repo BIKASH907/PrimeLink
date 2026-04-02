@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       Contact.countDocuments(),
       Application.countDocuments(),
       EmployerInquiry.countDocuments(),
-      Job.countDocuments({ isActive: true }),
+      Job.countDocuments(),
     ]);
 
     const [newContacts, newApplications, newInquiries] = await Promise.all([
