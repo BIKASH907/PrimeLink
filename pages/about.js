@@ -22,7 +22,7 @@ export default function About() {
               <p>
                 {COMPANY.legal} was founded with a clear mission: to address Romania's growing labor shortage by
                 connecting the country's employers with the vast, motivated workforce of Asia and Africa — particularly
-                Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more.
+                Nepal, India, Bangladesh, Sri Lanka, Kenya, Nigeria, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more.
               </p>
               <p>
                 As Romania's economy grows and its domestic workforce shrinks due to emigration and demographic

@@ -78,6 +78,16 @@ export default function Apply() {
                   <option value="Indian">Indian</option>
                   <option value="Bangladeshi">Bangladeshi</option>
                   <option value="Sri Lankan">Sri Lankan</option>
+                  <option value="Pakistani">Pakistani</option>
+                  <option value="Filipino">Filipino</option>
+                  <option value="Kenyan">Kenyan</option>
+                  <option value="Nigerian">Nigerian</option>
+                  <option value="Ethiopian">Ethiopian</option>
+                  <option value="Pakistan">Pakistan</option>
+                  <option value="Philippines">Philippines</option>
+                  <option value="Kenya">Kenya</option>
+                  <option value="Nigeria">Nigeria</option>
+                  <option value="Ethiopia">Ethiopia</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
@@ -89,6 +99,16 @@ export default function Apply() {
                   <option value="India">India</option>
                   <option value="Bangladesh">Bangladesh</option>
                   <option value="Sri Lanka">Sri Lanka</option>
+                  <option value="Pakistani">Pakistani</option>
+                  <option value="Filipino">Filipino</option>
+                  <option value="Kenyan">Kenyan</option>
+                  <option value="Nigerian">Nigerian</option>
+                  <option value="Ethiopian">Ethiopian</option>
+                  <option value="Pakistan">Pakistan</option>
+                  <option value="Philippines">Philippines</option>
+                  <option value="Kenya">Kenya</option>
+                  <option value="Nigeria">Nigeria</option>
+                  <option value="Ethiopia">Ethiopia</option>
                   <option value="Other">Other</option>
                 </select>
               </div>

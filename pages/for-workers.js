@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function ForWorkers() {
   return (
-    <Layout title="For Workers" description="Find legitimate jobs in Romania. We help workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more secure legal employment in Europe.">
+    <Layout title="For Workers" description="Find legitimate jobs in Romania. We help workers from Nepal, India, Bangladesh, Sri Lanka, Kenya, Nigeria, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more secure legal employment in Europe.">
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb"><Link href="/">Home</Link> / <Link href="/services">Services</Link> / <span>For Workers</span></div>
@@ -18,7 +18,7 @@ export default function ForWorkers() {
             <div className="two-col-text">
               <p className="section-label">Your Opportunity</p>
               <h2>Work in Europe Through a Legal, Trusted Channel</h2>
-              <p>Primelink Human Capital is a Romanian-registered company (CUI: 54386335) that helps workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more find real, well-paying jobs in Romania.</p>
+              <p>Primelink Human Capital is a Romanian-registered company (CUI: 54386335) that helps workers from Nepal, India, Bangladesh, Sri Lanka, Kenya, Nigeria, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more find real, well-paying jobs in Romania.</p>
               <p>We are NOT an illegal broker. We are a licensed staffing agency operating under Romanian law. Every placement comes with a proper work contract, work permit, and full legal protections under EU labor law.</p>
               <div style={{ background: 'var(--blue-pale)', padding: '20px', borderRadius: 'var(--radius-md)', marginTop: '20px', borderLeft: '4px solid var(--blue)' }}>
                 <strong style={{ color: 'var(--navy)' }}>⚠️ Important:</strong>

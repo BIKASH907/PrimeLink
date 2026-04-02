@@ -21,7 +21,7 @@ export default function FAQ() {
       { q: 'How long is the work contract?', a: 'Contract durations vary — from 3 months (seasonal) to 1-2 years (temporary) to permanent positions. Your specific contract terms are agreed before you travel.' },
       { q: 'Can I bring my family?', a: 'Family reunification is possible under Romanian law after certain conditions are met (typically after 1 year of legal residence). We can advise on the process.' },
       { q: 'What documents do I need?', a: 'A valid passport (18+ months validity), clean criminal record certificate, medical fitness certificate, and relevant work experience documentation. We guide you through the exact requirements.' },
-      { q: 'Which countries do you recruit from?', a: 'We primarily recruit from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more. We may expand to other Asian and African countries in the future.' },
+      { q: 'Which countries do you recruit from?', a: 'We primarily recruit from Nepal, India, Bangladesh, Sri Lanka, Kenya, Nigeria, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more. We may expand to other Asian and African countries in the future.' },
     ]},
     { category: 'Legal & Compliance', items: [
       { q: 'Is Primelink Human Capital a legally registered company?', a: 'Yes. PRIMELINK HUMAN CAPITAL S.R.L. is registered with the Romanian Trade Registry under CUI 54386335, registration number J2026021244007, EUID ROONRC.J2026021244007. Our Certificate of Registration is Seria B Nr. 5780913.' },

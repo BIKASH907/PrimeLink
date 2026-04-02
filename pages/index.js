@@ -15,7 +15,7 @@ export default function Home() {
             </h1>
             <p>
               Primelink Human Capital is a Romanian-registered workforce recruitment agency specializing in
-              sourcing skilled and semi-skilled workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more for
+              sourcing skilled and semi-skilled workers from Nepal, India, Bangladesh, Sri Lanka, Kenya, Nigeria, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more for
               Romanian employers across construction, manufacturing, hospitality, and more.
             </p>
             <div className="hero-buttons">
@@ -69,7 +69,7 @@ export default function Home() {
                 <div className="card-icon">👷</div>
                 <h4 className="card-title">For Workers</h4>
                 <p className="card-text">
-                  Dream of working in Europe? We help workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more
+                  Dream of working in Europe? We help workers from Nepal, India, Bangladesh, Sri Lanka, Kenya, Nigeria, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more
                   find legitimate, well-paying jobs in Romania with full legal support.
                 </p>
                 <Link href="/for-workers" className="btn btn-outline btn-sm" style={{ marginTop: '16px' }}>Learn More</Link>
@@ -162,7 +162,7 @@ export default function Home() {
           <div className="grid-3">
             {[
               { num: '01', title: 'Employer Inquiry', desc: 'Romanian company submits their workforce requirements — positions, skills, quantity, timeline.' },
-              { num: '02', title: 'Candidate Sourcing', desc: 'We activate our recruitment network across Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more.' },
+              { num: '02', title: 'Candidate Sourcing', desc: 'We activate our recruitment network across Nepal, India, Bangladesh, Sri Lanka, Kenya, Nigeria, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more.' },
               { num: '03', title: 'Screening & Selection', desc: 'Candidates undergo skills testing, interviews, medical checks, and background verification.' },
               { num: '04', title: 'Documentation', desc: 'Work permits, visa applications, contracts — all legal paperwork handled by our team.' },
               { num: '05', title: 'Travel & Arrival', desc: 'Workers travel to Romania. We coordinate airport pickup, accommodation, and orientation.' },

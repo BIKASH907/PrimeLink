@@ -24,7 +24,7 @@ export default function ForEmployers() {
             <div className="two-col-text">
               <p className="section-label">The Solution</p>
               <h2>We Bring the Workers to You</h2>
-              <p>Primelink Human Capital sources skilled and semi-skilled workers from Nepal, India, Bangladesh, Sri Lanka, Philippines, Kenya, Nigeria, and more — countries with large, young, motivated workforces eager for European employment.</p>
+              <p>Primelink Human Capital sources skilled and semi-skilled workers from Nepal, India, Bangladesh, Sri Lanka, Kenya, Nigeria, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more — countries with large, young, motivated workforces eager for European employment.</p>
               <p>We handle the entire process: sourcing, screening, documentation, work permits, travel, and placement. You simply tell us what you need, and we deliver.</p>
             </div>
           </div>
