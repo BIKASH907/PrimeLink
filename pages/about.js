@@ -130,7 +130,7 @@ export default function About() {
         <div className="container">
           <div className="cta-banner">
             <h2>Partner With Us</h2>
-            <p>Whether you need workers for your Romanian business or seek employment in Romania — let's talk.</p>
+            <p>Whether you need workers for your Romanian business or want to explore a B2B staffing partnership — let's talk.</p>
             <div className="cta-buttons">
               <Link href="/employer-inquiry" className="btn btn-amber btn-lg">Employer Inquiry</Link>
               <Link href="/contact" className="btn btn-white btn-lg">Contact Us</Link>

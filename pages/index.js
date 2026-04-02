@@ -188,10 +188,10 @@ export default function Home() {
         <div className="container">
           <div className="cta-banner">
             <h2>Ready to Solve Your Workforce Needs?</h2>
-            <p>Whether you're a Romanian employer seeking workers or a Asian and African professional seeking opportunities in Europe — we're here to help.</p>
+            <p>Whether you're looking to hire international workers for your Romanian business or seeking B2B staffing partnership — we're here to help.</p>
             <div className="cta-buttons">
               <Link href="/employer-inquiry" className="btn btn-amber btn-lg">I'm an Employer</Link>
-              <Link href="/apply" className="btn btn-white btn-lg">I'm a Worker</Link>
+              <Link href="/apply" className="btn btn-white btn-lg">I'm a Job Seeker</Link>
             </div>
           </div>
         </div>
