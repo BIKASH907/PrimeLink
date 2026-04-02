@@ -2,7 +2,7 @@
 
 :root {
   --navy: #1A1A2E;
-  --navy-light: #2D1B1B;
+  --navy-light: #2A1525;
   --blue: #CC2229;
   --blue-light: #E03E3E;
   --blue-pale: #FFF0F0;
@@ -129,7 +129,7 @@ img { max-width: 100%; height: auto; }
   z-index: 1000;
   background: rgba(255,255,255,0.97);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid var(--gray-100);
   transition: var(--transition);
 }
 
@@ -185,7 +185,7 @@ img { max-width: 100%; height: auto; }
   padding: 8px 16px;
   font-size: 0.92rem;
   font-weight: 500;
-  color: rgba(255,255,255,0.7);
+  color: var(--gray-600);
   border-radius: var(--radius-sm);
   transition: var(--transition);
 }
@@ -477,7 +477,7 @@ img { max-width: 100%; height: auto; }
 
 .card-text {
   font-size: 0.93rem;
-  color: rgba(255,255,255,0.6);
+  color: var(--gray-500);
   line-height: 1.7;
 }
 
@@ -523,7 +523,7 @@ img { max-width: 100%; height: auto; }
 }
 
 .section-header p {
-  color: rgba(255,255,255,0.6);
+  color: var(--gray-500);
   font-size: 1.05rem;
 }
 
@@ -595,7 +595,7 @@ img { max-width: 100%; height: auto; }
 }
 
 .form-control::placeholder {
-  color: rgba(255,255,255,0.5);
+  color: var(--gray-400);
 }
 
 textarea.form-control {
@@ -679,7 +679,7 @@ select.form-control {
   margin-top: 30px;
   font-size: 0.78rem;
   line-height: 1.6;
-  color: rgba(255,255,255,0.5);
+  opacity: 0.6;
 }
 
 /* ======== CTA BANNER ======== */
@@ -731,7 +731,7 @@ select.form-control {
 .testimonial-card blockquote {
   font-size: 0.95rem;
   line-height: 1.8;
-  color: rgba(255,255,255,0.7);
+  color: var(--gray-600);
   margin-bottom: 20px;
   font-style: italic;
 }
@@ -763,7 +763,7 @@ select.form-control {
 
 .testimonial-role {
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.5);
+  color: var(--gray-400);
 }
 
 /* ======== FAQ ======== */
@@ -793,12 +793,12 @@ select.form-control {
 }
 
 .faq-question:hover {
-  background: rgba(0,0,0,0.15);
+  background: var(--gray-50);
 }
 
 .faq-answer {
   padding: 0 24px 20px;
-  color: rgba(255,255,255,0.6);
+  color: var(--gray-500);
   line-height: 1.8;
   font-size: 0.95rem;
 }
@@ -850,7 +850,7 @@ select.form-control {
 }
 
 .data-table th {
-  background: rgba(0,0,0,0.15);
+  background: var(--gray-50);
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
   text-align: left;
@@ -861,12 +861,12 @@ select.form-control {
 
 .data-table td {
   padding: 14px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.7);
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-600);
 }
 
 .data-table tr:hover td {
-  background: rgba(0,0,0,0.15);
+  background: var(--gray-50);
 }
 
 /* ======== TAGS / BADGES ======== */
@@ -904,7 +904,7 @@ select.form-control {
 }
 
 .two-col-text p {
-  color: rgba(255,255,255,0.6);
+  color: var(--gray-500);
   margin-bottom: 16px;
   line-height: 1.8;
 }
@@ -941,7 +941,7 @@ select.form-control {
 
 .stat-item p {
   font-size: 0.9rem;
-  color: rgba(255,255,255,0.6);
+  color: var(--gray-500);
 }
 
 /* ======== PARTNER LOGOS ======== */
@@ -978,8 +978,8 @@ select.form-control {
   padding: 14px 16px;
   font-size: 1rem;
   font-weight: 500;
-  color: rgba(255,255,255,0.7);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: var(--gray-600);
+  border-bottom: 1px solid var(--gray-100);
 }
 
 /* ======== TOAST ======== */
@@ -1012,17 +1012,7 @@ select.form-control {
   .footer-bottom { flex-direction: column; text-align: center; }
 }
 
-/* FOOTER WHITE OVERRIDE */
-.footer { background: var(--white) !important; color: var(--gray-600) !important; border-top: 2px solid var(--gray-100); }
-.footer h4 { color: var(--navy) !important; }
-.footer-links a { color: var(--gray-500) !important; }
-.footer-links a:hover { color: var(--blue) !important; }
-.footer-grid { border-bottom: 1px solid var(--gray-100) !important; }
-.footer-brand p { color: var(--gray-500); }
-.footer-bottom { color: var(--gray-500); }
-.footer-legal { background: var(--gray-50) !important; color: var(--gray-400) !important; opacity: 1 !important; }
-
-/* ======== WHITE FOOTER ======== */
+/* ======== WHITE FOOTER OVERRIDE ======== */
 .footer { background: #FFFFFF !important; color: #4B5563 !important; border-top: 2px solid #E9ECF0; }
 .footer h4 { color: #1A1A2E !important; }
 .footer-links a { color: #6B7280 !important; }
