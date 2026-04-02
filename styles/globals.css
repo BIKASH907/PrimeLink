@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 
 :root {
-  --navy: #0B1D35;
-  --navy-light: #132D50;
-  --blue: #1E56A0;
-  --blue-light: #3B7DD8;
-  --blue-pale: #E8F0FE;
-  --amber: #F0A500;
-  --amber-light: #FFD166;
-  --amber-dark: #CC8C00;
+  --navy: #1A1A2E;
+  --navy-light: #2D1B1B;
+  --blue: #CC2229;
+  --blue-light: #E03E3E;
+  --blue-pale: #FFF0F0;
+  --amber: #E8A817;
+  --amber-light: #F5C842;
+  --amber-dark: #C48E0F;
   --white: #FFFFFF;
   --off-white: #F8F9FB;
   --gray-50: #F5F6F8;
@@ -96,7 +96,7 @@ img { max-width: 100%; height: auto; }
 }
 
 .section-dark {
-  background: var(--navy);
+  background: var(--white); border-top: 2px solid var(--gray-100);
   color: var(--white);
 }
 
@@ -245,7 +245,7 @@ img { max-width: 100%; height: auto; }
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--navy);
+  background: var(--white); border-top: 2px solid var(--gray-100);
   margin: 5px 0;
   transition: var(--transition);
 }
@@ -273,7 +273,7 @@ img { max-width: 100%; height: auto; }
   color: var(--white);
 }
 .btn-primary:hover {
-  background: var(--navy);
+  background: var(--white); border-top: 2px solid var(--gray-100);
   color: var(--white);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
@@ -619,8 +619,8 @@ select.form-control {
 
 /* ======== FOOTER ======== */
 .footer {
-  background: var(--navy);
-  color: rgba(255,255,255,0.7);
+  background: var(--white); border-top: 2px solid var(--gray-100);
+  color: var(--gray-600);
   padding: 70px 0 0;
 }
 
@@ -629,7 +629,7 @@ select.form-control {
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 50px;
   padding-bottom: 50px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid var(--gray-100);
 }
 
 .footer-brand p {
@@ -654,7 +654,7 @@ select.form-control {
 }
 
 .footer-links a {
-  color: rgba(255,255,255,0.6);
+  color: var(--gray-500);
   font-size: 0.9rem;
   transition: var(--transition);
 }
@@ -674,12 +674,12 @@ select.form-control {
 }
 
 .footer-legal {
-  background: rgba(0,0,0,0.15);
+  background: var(--gray-50);
   padding: 20px 0;
   margin-top: 30px;
   font-size: 0.78rem;
   line-height: 1.6;
-  opacity: 0.6;
+  color: var(--gray-400);
 }
 
 /* ======== CTA BANNER ======== */
