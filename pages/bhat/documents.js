@@ -4,11 +4,14 @@
 //   Level 2: Candidates under a company     /bhat/documents?company=Anatolia
 //   Level 3: Files for a candidate          /bhat/documents?company=...&client=<id>
 // =====================================================
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
 import connectDB from '../../lib/db';
 import BhatClient from '../../models/BhatClient';
 import BhatDocument from '../../models/BhatDocument';
+import BhatCompany from '../../models/BhatCompany';
 import BhatUser from '../../models/BhatUser';
 import BhatLayout from '../../components/bhat/BhatLayout';
 import { requireBhatUser } from '../../lib/bhatAuth';
@@ -35,7 +38,69 @@ export default function DocumentsPage(props) {
 }
 
 // ===================================================== LEVEL 1
-function CompaniesView({ companies, total }) {
+function CompaniesView({ companies, total, user, countryCode }) {
+  const router  = useRouter();
+  const canEdit = user.role === 'super_admin' || user.role === 'admin';
+  const [showAdd, setShowAdd] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [busy,    setBusy]    = useState(false);
+
+  async function addCompany(e) {
+    e.preventDefault();
+    if (!newName.trim()) return;
+    setBusy(true);
+    const r = await fetch('/api/bhat/companies', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: newName.trim(), country: countryCode }),
+    });
+    setBusy(false);
+    if (!r.ok) return alert((await r.json()).error || 'Failed');
+    setNewName(''); setShowAdd(false);
+    router.replace(router.asPath);
+  }
+
+  async function renameCompany(oldName) {
+    const newN = prompt(`Rename "${oldName}" to:`, oldName);
+    if (!newN || newN.trim() === oldName) return;
+    if (!confirm(`Rename ALL clients with company "${oldName}" → "${newN}"?`)) return;
+    const r = await fetch('/api/bhat/companies/rename', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ country: countryCode, oldName, newName: newN.trim() }),
+    });
+    if (r.ok) {
+      const data = await r.json();
+      alert(`Renamed. ${data.clientsUpdated} client(s) updated.`);
+      router.replace(router.asPath);
+    } else {
+      alert((await r.json()).error || 'Rename failed');
+    }
+  }
+
+  async function deleteCompany(name) {
+    const choice = confirm(
+      `Delete company "${name}"?\n\n` +
+      `Click OK to UNASSIGN all candidates from this company.\n` +
+      `(They keep all their other data — only the company link is removed.)\n\n` +
+      `Click Cancel to abort.`
+    );
+    if (!choice) return;
+
+    const r = await fetch('/api/bhat/companies/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ country: countryCode, name }),
+    });
+    if (r.ok) {
+      const data = await r.json();
+      alert(`Company "${name}" deleted. ${data.clientsAffected} candidate(s) set to Unassigned.`);
+      router.replace(router.asPath);
+    } else {
+      alert((await r.json()).error || 'Delete failed');
+    }
+  }
+
   return (
     <>
       <div className="bhat-page-head">
@@ -43,34 +108,65 @@ function CompaniesView({ companies, total }) {
           <div className="bhat-page-title">📁 Documents — Companies</div>
           <div className="bhat-page-sub">Browse documents organised by company • {companies.length} companies • {total} files</div>
         </div>
+        {canEdit && (
+          <div className="bhat-page-actions">
+            <button className="bhat-btn bhat-btn-primary" onClick={() => setShowAdd(v => !v)}>
+              {showAdd ? 'Cancel' : '+ New Company'}
+            </button>
+          </div>
+        )}
       </div>
+
+      {showAdd && canEdit && (
+        <div style={{ padding:'14px 24px' }}>
+          <form onSubmit={addCompany} className="bhat-panel" style={{ display:'flex', gap:10, alignItems:'flex-end' }}>
+            <div className="bhat-form-group" style={{ flex:1, marginBottom:0 }}>
+              <label>Company Name</label>
+              <input type="text" autoFocus required value={newName}
+                onChange={e => setNewName(e.target.value)}
+                placeholder="e.g. Al-Khaleej Construction" />
+            </div>
+            <button className="bhat-btn bhat-btn-primary" type="submit" disabled={busy}>
+              {busy ? 'Creating…' : 'Create Company'}
+            </button>
+          </form>
+        </div>
+      )}
 
       <div style={{ padding:'22px 24px' }}>
         {companies.length === 0 ? (
-          <Empty msg="No companies yet. Add a candidate to get started." />
+          <Empty msg="No companies yet. Click + New Company above to add one." />
         ) : (
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(260px, 1fr))', gap:14 }}>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))', gap:14 }}>
             {companies.map(co => (
-              <Link key={co.name}
-                href={`/bhat/documents?company=${encodeURIComponent(co.name)}`}
-                className="bhat-panel"
-                style={{ display:'block', cursor:'pointer', transition:'all .15s' }}>
-                <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-                  <div style={{
-                    width:48, height:48, borderRadius:10, fontSize:24,
-                    background:'var(--accent-glow)', color:'var(--accent)',
-                    display:'grid', placeItems:'center',
-                  }}>📁</div>
-                  <div style={{ flex:1, minWidth:0 }}>
-                    <div style={{ fontSize:14, fontWeight:600, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
-                      {co.name}
-                    </div>
-                    <div style={{ fontSize:11, color:'var(--text-3)' }}>
-                      {co.candidateCount} candidate{co.candidateCount !== 1 ? 's' : ''} · {co.fileCount} file{co.fileCount !== 1 ? 's' : ''}
+              <div key={co.name} className="bhat-panel" style={{ position:'relative' }}>
+                <Link href={`/bhat/documents?company=${encodeURIComponent(co.name)}`}
+                  style={{ display:'block', cursor:'pointer' }}>
+                  <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+                    <div style={{
+                      width:48, height:48, borderRadius:10, fontSize:24,
+                      background:'var(--accent-glow)', color:'var(--accent)',
+                      display:'grid', placeItems:'center',
+                    }}>📁</div>
+                    <div style={{ flex:1, minWidth:0 }}>
+                      <div style={{ fontSize:14, fontWeight:600, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                        {co.name}
+                      </div>
+                      <div style={{ fontSize:11, color:'var(--text-3)' }}>
+                        {co.candidateCount} candidate{co.candidateCount !== 1 ? 's' : ''} · {co.fileCount} file{co.fileCount !== 1 ? 's' : ''}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+                {canEdit && (
+                  <div style={{ display:'flex', gap:6, marginTop:10, paddingTop:10, borderTop:'1px solid var(--border)' }}>
+                    <button className="bhat-btn bhat-btn-ghost" style={{ padding:'4px 8px', fontSize:11 }}
+                      onClick={() => renameCompany(co.name)}>✏ Rename</button>
+                    <button className="bhat-btn bhat-btn-ghost" style={{ padding:'4px 8px', fontSize:11, color:'var(--red)' }}
+                      onClick={() => deleteCompany(co.name)}>🗑 Delete</button>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         )}
@@ -289,6 +385,13 @@ export async function getServerSideProps(ctx) {
 
   // ----- LEVEL 1: list all companies -----
   const byCompany = {};
+  // Seed with companies that exist as BhatCompany records (even with 0 candidates)
+  const countryCode = user.currentCountry || 'TR';
+  const registered = await BhatCompany.find({ country: countryCode }).lean();
+  for (const r of registered) {
+    byCompany[r.name] = { name: r.name, candidates: [], fileCount: 0 };
+  }
+  // Then aggregate from clients
   for (const c of allClients) {
     const key = c.company || 'Unassigned';
     if (!byCompany[key]) byCompany[key] = { name: key, candidates: [], fileCount: 0 };
@@ -310,6 +413,7 @@ export async function getServerSideProps(ctx) {
     props: {
       user, view: 'companies',
       companies, total: totalFiles,
+      countryCode,
       counts: { pipeline: allClients.length, documents: totalFiles },
     },
   };
