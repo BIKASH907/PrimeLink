@@ -9,14 +9,16 @@ import BhatClient from '../../models/BhatClient';
 import BhatCV from '../../models/BhatCV';
 import BhatUser from '../../models/BhatUser';
 import BhatLayout from '../../components/bhat/BhatLayout';
+import DocumentUploader from '../../components/bhat/DocumentUploader';
 import { requireBhatUser } from '../../lib/bhatAuth';
 
 export default function CVBuilder({ user, clients, selectedClient, cvData }) {
   const router = useRouter();
   const [clientId, setClientId] = useState(selectedClient || (clients[0]?.id || ''));
   const [form, setForm] = useState(cvData || {
-    maritalStatus: 'single', spouseName: '', religion: '',
-    permanentAddress: '', positionApplied: '', yearsExperience: '', languages: '',
+    maritalStatus: 'single', spouseName: '', manualFatherName: '',
+    religion: '', permanentAddress: '', positionApplied: '',
+    yearsExperience: '', languages: '',
     autoFullName:'', autoFatherName:'', autoMotherName:'', autoPassportNo:'',
     autoDob:'', autoGender:'', autoNationality:'',
   });
@@ -48,7 +50,13 @@ export default function CVBuilder({ user, clients, selectedClient, cvData }) {
           <div className="bhat-page-sub">Fill candidate details and preview the CV live</div>
         </div>
         <div className="bhat-page-actions">
-          <button className="bhat-btn bhat-btn-primary" onClick={save}>Save CV</button>
+          <button className="bhat-btn bhat-btn-ghost" onClick={save}>Save CV</button>
+          {clientId && (
+            <a className="bhat-btn bhat-btn-primary"
+               href={`/bhat/cv/${clientId}/print`} target="_blank" rel="noreferrer">
+              📥 Generate &amp; Print PDF
+            </a>
+          )}
         </div>
       </div>
 
@@ -63,12 +71,35 @@ export default function CVBuilder({ user, clients, selectedClient, cvData }) {
           </select>
         </div>
 
+        {clientId && (
+          <div className="bhat-panel" style={{ marginTop:16 }}>
+            <div className="bhat-panel-title">📷 Auto-Scan Passport / Bills (OCR)</div>
+            <DocumentUploader
+              clientId={clientId}
+              defaultDocType="passport"
+              onUploaded={(data) => {
+                if (data?.ocr) {
+                  setForm(prev => ({
+                    ...prev,
+                    autoFullName:    data.ocr.full_name    || prev.autoFullName,
+                    autoPassportNo:  data.ocr.passport_no  || prev.autoPassportNo,
+                    autoDob:         data.ocr.dob          || prev.autoDob,
+                    autoGender:      data.ocr.gender       || prev.autoGender,
+                    autoFatherName:  data.ocr.father_name  || prev.autoFatherName,
+                    autoMotherName:  data.ocr.mother_name  || prev.autoMotherName,
+                    autoNationality: data.ocr.nationality  || prev.autoNationality,
+                  }));
+                }
+              }} />
+          </div>
+        )}
+
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16, marginTop:16 }}>
           <form onSubmit={save}>
             <div style={{ marginBottom:18 }}>
               <div style={{ fontSize:11, color:'var(--text-3)', textTransform:'uppercase', letterSpacing:'.6px', marginBottom:8, display:'flex', alignItems:'center', gap:6 }}>
                 Personal — Auto-Scan Fields
-                <span style={{ fontSize:9, padding:'1px 6px', background:'var(--purple)', color:'white', borderRadius:3 }}>OCR (future)</span>
+                <span style={{ fontSize:9, padding:'1px 6px', background:'var(--purple)', color:'white', borderRadius:3 }}>OCR Auto</span>
               </div>
               <Row label="Full Name (passport)"><input type="text" value={form.autoFullName || ''} onChange={e => set('autoFullName', e.target.value)} /></Row>
               <Row label="Passport No."><input type="text" value={form.autoPassportNo || ''} onChange={e => set('autoPassportNo', e.target.value)} /></Row>
@@ -85,12 +116,28 @@ export default function CVBuilder({ user, clients, selectedClient, cvData }) {
               </div>
               <Row label="Marital Status">
                 <select value={form.maritalStatus} onChange={e => set('maritalStatus', e.target.value)}>
-                  <option value="single">Single</option>
+                  <option value="single">Unmarried</option>
                   <option value="married">Married</option>
                 </select>
               </Row>
+
+              {/* Father Name is ALWAYS shown — auto-fills from passport OCR if available,
+                  but the user can override / correct it. */}
+              <Row label="Father's Name">
+                <input type="text"
+                  value={form.manualFatherName || form.autoFatherName || ''}
+                  onChange={e => set('manualFatherName', e.target.value)}
+                  placeholder={form.autoFatherName ? `Auto from passport: ${form.autoFatherName}` : 'Enter father’s full name'} />
+              </Row>
+
+              {/* Spouse Name shows only when Married */}
               {form.maritalStatus === 'married' && (
-                <Row label="Spouse / Wife Name"><input type="text" value={form.spouseName || ''} onChange={e => set('spouseName', e.target.value)} required /></Row>
+                <Row label="Spouse / Wife Name">
+                  <input type="text"
+                    value={form.spouseName || ''}
+                    onChange={e => set('spouseName', e.target.value)}
+                    required />
+                </Row>
               )}
               <Row label="Religion"><input type="text" value={form.religion || ''} onChange={e => set('religion', e.target.value)} /></Row>
               <Row label="Permanent Address"><input type="text" value={form.permanentAddress || ''} onChange={e => set('permanentAddress', e.target.value)} /></Row>
@@ -119,9 +166,9 @@ export default function CVBuilder({ user, clients, selectedClient, cvData }) {
                 {form.positionApplied || 'Position'} — {form.yearsExperience || 0} years experience
               </div>
               <CVSection title="Personal Information">
-                <CVRow lbl="Father's Name" val={form.autoFatherName || '—'} />
+                <CVRow lbl="Father's Name" val={form.manualFatherName || form.autoFatherName || '—'} />
                 <CVRow lbl="Mother's Name" val={form.autoMotherName || '—'} />
-                <CVRow lbl="Marital Status" val={form.maritalStatus === 'married' ? 'Married' : 'Single'} />
+                <CVRow lbl="Marital Status" val={form.maritalStatus === 'married' ? 'Married' : 'Unmarried'} />
                 {form.maritalStatus === 'married' && <CVRow lbl="Spouse Name" val={form.spouseName || '—'} />}
                 <CVRow lbl="Date of Birth" val={form.autoDob || '—'} />
                 <CVRow lbl="Gender" val={form.autoGender || '—'} />
