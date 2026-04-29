@@ -1,5 +1,8 @@
 // =====================================================
-// /bhat/documents — list + filter
+// /bhat/documents — Hierarchical document browser
+//   Level 1: Companies (folders)            /bhat/documents
+//   Level 2: Candidates under a company     /bhat/documents?company=Anatolia
+//   Level 3: Files for a candidate          /bhat/documents?company=...&client=<id>
 // =====================================================
 import Link from 'next/link';
 import Head from 'next/head';
@@ -9,93 +12,217 @@ import BhatDocument from '../../models/BhatDocument';
 import BhatUser from '../../models/BhatUser';
 import BhatLayout from '../../components/bhat/BhatLayout';
 import { requireBhatUser } from '../../lib/bhatAuth';
-import { STAGE_BY_KEY } from '../../lib/bhatConstants';
+import { STAGE_BY_KEY, COUNTRIES } from '../../lib/bhatConstants';
 
-const FILTERS = [
-  { key: 'all',  label: 'All Documents' },
-  { key: 'miss', label: '❌ Missing Only' },
-  { key: 'exp',  label: '⚠ Expiring Soon' },
-  { key: 'ok',   label: '✔ Verified' },
-];
-
-const STATUS_LABELS = {
-  ok: { class:'ok', label:'✔ Verified' },
-  expiring: { class:'exp', label:'⚠ Expiring' },
-  missing: { class:'miss', label:'❌ Missing' },
+const STATUS_LABEL = {
+  ok: { c:'ok',   l:'✔ Verified' },
+  expiring: { c:'exp', l:'⚠ Expiring' },
+  missing:  { c:'miss', l:'❌ Missing' },
+  needs_review: { c:'exp', l:'? Needs Review' },
 };
 
-export default function DocumentsPage({ user, rows, total, filter, counts }) {
+export default function DocumentsPage(props) {
+  const { user, view, counts } = props;
   return (
     <BhatLayout user={user} active="documents" counts={counts}>
       <Head><title>Documents — BHAT Overseas</title></Head>
-      <div className="bhat-page-head">
-        <div>
-          <div className="bhat-page-title">Documents</div>
-          <div className="bhat-page-sub">{total} documents tracked across all stages</div>
-        </div>
-        <div className="bhat-page-actions">
-          <Link href="/bhat/cv" className="bhat-btn bhat-btn-primary">+ Upload via CV Builder</Link>
-        </div>
-      </div>
 
-      <div style={{ padding:'22px 24px' }}>
-        <div style={{ display:'flex', gap:8, marginBottom:16, alignItems:'center', flexWrap:'wrap' }}>
-          {FILTERS.map(f => (
-            <Link key={f.key} href={`?filter=${f.key}`}
-              className="bhat-btn bhat-btn-ghost"
-              style={{ borderRadius:999, padding:'6px 12px', fontSize:12,
-                background: filter === f.key ? 'var(--accent)' : 'var(--bg-2)',
-                color: filter === f.key ? 'white' : 'var(--text-2)',
-                borderColor: filter === f.key ? 'var(--accent)' : 'var(--border)',
-              }}>{f.label}</Link>
-          ))}
-          <div style={{ marginLeft:'auto', fontSize:12, color:'var(--text-3)' }}>
-            Filtered: <strong>{rows.length}</strong> documents
-          </div>
-        </div>
-
-        <div className="bhat-table">
-          <div className="bhat-th" style={{ gridTemplateColumns: '2fr 1.4fr 1.4fr 1fr 1fr 110px' }}>
-            <div>Document</div><div>Client</div><div>Stage</div>
-            <div>Expires</div><div>Status</div><div>Action</div>
-          </div>
-          {rows.length === 0 && (
-            <div style={{ padding:32, textAlign:'center', color:'var(--text-3)', fontSize:13 }}>
-              No documents match this filter.
-            </div>
-          )}
-          {rows.map(r => {
-            const s = STATUS_LABELS[r.status] || { class:'ok', label: r.status };
-            return (
-              <div className="bhat-tr" key={r.id} style={{ gridTemplateColumns: '2fr 1.4fr 1.4fr 1fr 1fr 110px' }}>
-                <div><strong>{r.label}</strong></div>
-                <div>{r.clientName}</div>
-                <div className="bhat-tt">{r.stage}</div>
-                <div className="bhat-tt">{r.expires || '—'}</div>
-                <div><span className={`bhat-pill ${s.class}`}>{s.label}</span></div>
-                <div>
-                  <Link href={`/bhat/clients/${r.clientId}`} className="bhat-btn bhat-btn-ghost" style={{ padding:'4px 10px', fontSize:11 }}>
-                    View
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {view === 'companies' && <CompaniesView {...props} />}
+      {view === 'candidates' && <CandidatesView {...props} />}
+      {view === 'files' && <FilesView {...props} />}
     </BhatLayout>
   );
 }
 
+// ===================================================== LEVEL 1
+function CompaniesView({ companies, total }) {
+  return (
+    <>
+      <div className="bhat-page-head">
+        <div>
+          <div className="bhat-page-title">📁 Documents — Companies</div>
+          <div className="bhat-page-sub">Browse documents organised by company • {companies.length} companies • {total} files</div>
+        </div>
+      </div>
+
+      <div style={{ padding:'22px 24px' }}>
+        {companies.length === 0 ? (
+          <Empty msg="No companies yet. Add a candidate to get started." />
+        ) : (
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(260px, 1fr))', gap:14 }}>
+            {companies.map(co => (
+              <Link key={co.name}
+                href={`/bhat/documents?company=${encodeURIComponent(co.name)}`}
+                className="bhat-panel"
+                style={{ display:'block', cursor:'pointer', transition:'all .15s' }}>
+                <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+                  <div style={{
+                    width:48, height:48, borderRadius:10, fontSize:24,
+                    background:'var(--accent-glow)', color:'var(--accent)',
+                    display:'grid', placeItems:'center',
+                  }}>📁</div>
+                  <div style={{ flex:1, minWidth:0 }}>
+                    <div style={{ fontSize:14, fontWeight:600, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                      {co.name}
+                    </div>
+                    <div style={{ fontSize:11, color:'var(--text-3)' }}>
+                      {co.candidateCount} candidate{co.candidateCount !== 1 ? 's' : ''} · {co.fileCount} file{co.fileCount !== 1 ? 's' : ''}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+// ===================================================== LEVEL 2
+function CandidatesView({ company, candidates }) {
+  return (
+    <>
+      <div className="bhat-page-head">
+        <div>
+          <Breadcrumb items={[
+            { label:'Companies', href:'/bhat/documents' },
+            { label:company },
+          ]} />
+          <div className="bhat-page-title">📁 {company}</div>
+          <div className="bhat-page-sub">{candidates.length} candidate{candidates.length !== 1 ? 's' : ''} in this company</div>
+        </div>
+      </div>
+
+      <div style={{ padding:'22px 24px' }}>
+        {candidates.length === 0 ? (
+          <Empty msg={`No candidates yet under ${company}.`} />
+        ) : (
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))', gap:14 }}>
+            {candidates.map(c => (
+              <Link key={c.id}
+                href={`/bhat/documents?company=${encodeURIComponent(company)}&client=${c.id}`}
+                className="bhat-panel"
+                style={{ display:'block', cursor:'pointer' }}>
+                <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+                  <div style={{
+                    width:42, height:42, borderRadius:10, fontSize:18,
+                    background:'var(--bg-3)', color:'var(--text-2)',
+                    display:'grid', placeItems:'center',
+                  }}>📂</div>
+                  <div style={{ flex:1, minWidth:0 }}>
+                    <div style={{ fontSize:14, fontWeight:600 }}>{c.name}</div>
+                    <div style={{ fontSize:11, color:'var(--text-3)', fontFamily:'monospace' }}>{c.refNo}</div>
+                  </div>
+                </div>
+                <div style={{ display:'flex', gap:6, marginTop:10, fontSize:11 }}>
+                  <span className="bhat-pill ok">{c.fileCount} file{c.fileCount !== 1 ? 's' : ''}</span>
+                  <span className="bhat-tt" style={{ marginLeft:'auto' }}>{c.stageLabel}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+// ===================================================== LEVEL 3
+function FilesView({ company, client, files }) {
+  return (
+    <>
+      <div className="bhat-page-head">
+        <div style={{ flex:1 }}>
+          <Breadcrumb items={[
+            { label:'Companies', href:'/bhat/documents' },
+            { label:company,     href:`/bhat/documents?company=${encodeURIComponent(company)}` },
+            { label:client.name },
+          ]} />
+          <div className="bhat-page-title">📂 {client.name}</div>
+          <div className="bhat-page-sub">
+            {client.refNo} • {COUNTRIES[client.country]?.flag} {COUNTRIES[client.country]?.name} • {client.stageLabel} • {files.length} file{files.length !== 1 ? 's' : ''}
+          </div>
+        </div>
+        <div className="bhat-page-actions">
+          <Link href={`/bhat/clients/${client.id}`} className="bhat-btn bhat-btn-primary">Open Full Client →</Link>
+        </div>
+      </div>
+
+      <div style={{ padding:'22px 24px' }}>
+        {files.length === 0 ? (
+          <Empty msg="No files uploaded for this candidate yet." />
+        ) : (
+          <div className="bhat-table">
+            <div className="bhat-th" style={{ gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 100px' }}>
+              <div>Document</div><div>Status</div><div>Confidence</div>
+              <div>Issue Date</div><div>Expires</div><div>Action</div>
+            </div>
+            {files.map(f => {
+              const s = STATUS_LABEL[f.status] || { c:'ok', l:f.status };
+              return (
+                <div className="bhat-tr" key={f.id} style={{ gridTemplateColumns:'2fr 1fr 1fr 1fr 1fr 100px' }}>
+                  <div>
+                    <strong>{f.label}</strong>
+                    {f.needsReview && (
+                      <span style={{ marginLeft:8, fontSize:10, padding:'1px 6px', borderRadius:3,
+                        background:'var(--orange-dim)', color:'var(--orange)' }}>Needs Review</span>
+                    )}
+                  </div>
+                  <div><span className={`bhat-pill ${s.c}`}>{s.l}</span></div>
+                  <div>{f.confidence != null ? `${f.confidence}%` : '—'}</div>
+                  <div className="bhat-tt">{f.issueDate || '—'}</div>
+                  <div className="bhat-tt">{f.expiry || '—'}</div>
+                  <div>
+                    {f.fileUrl ? (
+                      <a href={f.fileUrl} target="_blank" rel="noreferrer"
+                         className="bhat-btn bhat-btn-ghost"
+                         style={{ padding:'4px 10px', fontSize:11 }}>
+                        📥 View
+                      </a>
+                    ) : '—'}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+function Breadcrumb({ items }) {
+  return (
+    <div style={{ display:'flex', alignItems:'center', gap:6, fontSize:12, color:'var(--text-3)', marginBottom:6 }}>
+      {items.map((it, i) => (
+        <span key={i} style={{ display:'flex', alignItems:'center', gap:6 }}>
+          {it.href ? <Link href={it.href} style={{ color:'var(--accent)' }}>{it.label}</Link> : <span>{it.label}</span>}
+          {i < items.length - 1 && <span>›</span>}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function Empty({ msg }) {
+  return (
+    <div className="bhat-panel" style={{ textAlign:'center', padding:'60px 20px' }}>
+      <div style={{ fontSize:42, marginBottom:12 }}>📭</div>
+      <div style={{ fontSize:13, color:'var(--text-3)' }}>{msg}</div>
+    </div>
+  );
+}
+
+// ===================================================== Server-side data
 export async function getServerSideProps(ctx) {
   const guard = requireBhatUser(ctx);
   if (guard.redirect) return { redirect: guard.redirect };
   const user = guard.user;
 
   await connectDB();
-  const filter = (ctx.query.filter || 'all').toString();
 
-  // Sub-admin: only their assigned clients
+  // Sub-admin scope: only their assigned clients
   let clientFilter = {};
   if (user.role === 'sub_admin') {
     const me = await BhatUser.findById(user.id).lean();
@@ -103,34 +230,87 @@ export async function getServerSideProps(ctx) {
   } else if (user.currentCountry) {
     clientFilter = { country: user.currentCountry };
   }
-  const clients = await BhatClient.find(clientFilter).lean();
-  const clientIds = clients.map(c => c._id);
-  const clientMap = Object.fromEntries(clients.map(c => [c._id.toString(), c]));
 
-  const all = await BhatDocument.find({ client: { $in: clientIds } }).lean();
-  const total = all.length;
+  const allClients = await BhatClient.find(clientFilter).lean();
+  const clientIds  = allClients.map(c => c._id);
+  const allDocs    = await BhatDocument.find({
+    client: { $in: clientIds }, archivedAt: null,
+  }).lean();
+  const totalFiles = allDocs.length;
 
-  const rows = all
-    .map(d => {
-      const c = clientMap[d.client.toString()];
-      return {
+  // ----- LEVEL 3: specific client -----
+  if (ctx.query.client) {
+    const c = allClients.find(x => x._id.toString() === ctx.query.client);
+    if (!c) return { notFound: true };
+    const files = allDocs.filter(d => d.client.toString() === c._id.toString())
+      .map(d => ({
         id: d._id.toString(),
-        clientId: d.client.toString(),
-        clientName: c?.fullName || '—',
-        stage: STAGE_BY_KEY[c?.stage]?.label || '—',
         label: d.docType.replace(/_/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase()),
-        expires: d.expiryDate ? new Date(d.expiryDate).toISOString().slice(0,10) : null,
-        status: d.status === 'expired' ? 'expiring' : d.status,
-      };
-    })
-    .filter(r => filter === 'all' || (filter === 'miss' && r.status === 'missing')
-                                  || (filter === 'exp' && r.status === 'expiring')
-                                  || (filter === 'ok' && r.status === 'ok'));
+        status: d.status,
+        needsReview: !!d.needsReview,
+        confidence: d.ocrConfidence ?? null,
+        issueDate:  d.issueDate ? new Date(d.issueDate).toISOString().slice(0,10) : null,
+        expiry:     d.expiryDate ? new Date(d.expiryDate).toISOString().slice(0,10) : null,
+        fileUrl:    d.fileUrl || null,
+      }));
+    return {
+      props: {
+        user, view: 'files',
+        company: c.company || 'Unassigned',
+        client: {
+          id: c._id.toString(), name: c.fullName, refNo: c.refNo,
+          country: c.country, stageLabel: STAGE_BY_KEY[c.stage]?.label || c.stage,
+        },
+        files,
+        counts: { pipeline: allClients.length, documents: totalFiles },
+      },
+    };
+  }
+
+  // ----- LEVEL 2: company drill-down -----
+  if (ctx.query.company) {
+    const company = String(ctx.query.company);
+    const inCompany = allClients.filter(c => (c.company || 'Unassigned') === company);
+    const candidates = inCompany.map(c => ({
+      id: c._id.toString(),
+      name: c.fullName,
+      refNo: c.refNo,
+      stageLabel: STAGE_BY_KEY[c.stage]?.label || c.stage,
+      fileCount: allDocs.filter(d => d.client.toString() === c._id.toString()).length,
+    }));
+    return {
+      props: {
+        user, view: 'candidates',
+        company, candidates,
+        counts: { pipeline: allClients.length, documents: totalFiles },
+      },
+    };
+  }
+
+  // ----- LEVEL 1: list all companies -----
+  const byCompany = {};
+  for (const c of allClients) {
+    const key = c.company || 'Unassigned';
+    if (!byCompany[key]) byCompany[key] = { name: key, candidates: [], fileCount: 0 };
+    byCompany[key].candidates.push(c._id.toString());
+  }
+  for (const d of allDocs) {
+    for (const co of Object.values(byCompany)) {
+      if (co.candidates.includes(d.client.toString())) {
+        co.fileCount += 1;
+        break;
+      }
+    }
+  }
+  const companies = Object.values(byCompany)
+    .map(co => ({ name: co.name, candidateCount: co.candidates.length, fileCount: co.fileCount }))
+    .sort((a, b) => b.candidateCount - a.candidateCount);
 
   return {
     props: {
-      user, rows, total, filter,
-      counts: { pipeline: clients.length, documents: total },
+      user, view: 'companies',
+      companies, total: totalFiles,
+      counts: { pipeline: allClients.length, documents: totalFiles },
     },
   };
 }
