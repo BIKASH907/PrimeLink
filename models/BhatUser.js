@@ -16,7 +16,7 @@ const BhatUserSchema = new mongoose.Schema({
   lastLoginAt:       { type: Date },
 }, { timestamps: true });
 
-BhatUserSchema.index({ email: 1 });
+// email already has a unique index from `unique: true` above — no duplicate here
 BhatUserSchema.index({ role: 1, country: 1 });
 
 export default mongoose.models.BhatUser || mongoose.model('BhatUser', BhatUserSchema);

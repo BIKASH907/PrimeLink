@@ -15,7 +15,7 @@ const BhatClientSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 BhatClientSchema.index({ country: 1, stage: 1 });
-BhatClientSchema.index({ refNo: 1 });
+// refNo already has a unique index from `unique: true` above — no duplicate here
 BhatClientSchema.index({ fullName: 'text', passportNo: 'text', refNo: 'text' });
 
 export default mongoose.models.BhatClient || mongoose.model('BhatClient', BhatClientSchema);
