@@ -2,11 +2,6 @@
   "functions": {
     "pages/api/**/*.js": {
       "maxDuration": 30
-    },
-    "api/index.py": {
-      "runtime": "@vercel/python@4.6.0",
-      "maxDuration": 30,
-      "memory": 1024
     }
   }
 }
