@@ -107,16 +107,40 @@ export default function DocumentUploader({ clientId, defaultDocType = 'passport'
             )}
           </div>
           {result.ocr && (
-            <div style={{ marginTop: 10, display:'grid', gridTemplateColumns:'1fr 1fr', gap: 8, fontSize:12 }}>
-              {result.ocr.full_name   && <KV k="Name"        v={result.ocr.full_name} />}
-              {result.ocr.passport_no && <KV k="Passport No" v={result.ocr.passport_no} />}
-              {result.ocr.dob         && <KV k="DOB"         v={result.ocr.dob} />}
-              {result.ocr.expiry_date && <KV k="Expiry"      v={result.ocr.expiry_date} />}
-              {result.ocr.father_name && <KV k="Father"      v={result.ocr.father_name} />}
-              {result.ocr.mother_name && <KV k="Mother"      v={result.ocr.mother_name} />}
-              {result.ocr.address     && <KV k="Address"     v={result.ocr.address} />}
-              {result.ocr._meta?.mock && <div style={{ gridColumn:'1 / -1', fontSize:10, color:'var(--text-3)' }}>(Demo OCR — set OCR_SPACE_API_KEY for real extraction)</div>}
-            </div>
+            <>
+              <div style={{ marginTop: 10, display:'grid', gridTemplateColumns:'1fr 1fr', gap: 8, fontSize:12 }}>
+                {result.ocr.full_name   && <KV k="Name"        v={result.ocr.full_name} />}
+                {result.ocr.passport_no && <KV k="Passport No" v={result.ocr.passport_no} />}
+                {result.ocr.dob         && <KV k="DOB"         v={result.ocr.dob} />}
+                {result.ocr.expiry_date && <KV k="Expiry"      v={result.ocr.expiry_date} />}
+                {result.ocr.father_name && <KV k="Father"      v={result.ocr.father_name} />}
+                {result.ocr.mother_name && <KV k="Mother"      v={result.ocr.mother_name} />}
+                {result.ocr.address     && <KV k="Address"     v={result.ocr.address} />}
+                {result.ocr._meta?.mock && <div style={{ gridColumn:'1 / -1', fontSize:10, color:'var(--text-3)' }}>(Demo OCR — set OCR_SPACE_API_KEY for real extraction)</div>}
+              </div>
+
+              {/* Raw OCR text — collapsible — helps debug bad scans */}
+              <details style={{ marginTop: 10, fontSize: 11, color: 'var(--text-3)' }}>
+                <summary style={{ cursor:'pointer', userSelect:'none' }}>
+                  🔎 Show raw OCR text (for debugging)
+                </summary>
+                <pre style={{
+                  marginTop:8, padding:10, background:'var(--bg-3)',
+                  border:'1px solid var(--border)', borderRadius:5,
+                  whiteSpace:'pre-wrap', wordBreak:'break-word',
+                  maxHeight:200, overflow:'auto', fontFamily:'monospace',
+                  fontSize:11, color:'var(--text-2)',
+                }}>{result.ocr._meta?.raw_text_preview || '(no raw text returned)'}</pre>
+                <div style={{ marginTop:6, color:'var(--text-3)' }}>
+                  Source: <strong>{result.ocr._meta?.source || 'unknown'}</strong>
+                  {' · '}Confidence: <strong>{result.ocr._meta?.confidence ?? '—'}%</strong>
+                </div>
+                <div style={{ marginTop:6 }}>
+                  ⚠ If the name still looks wrong, type the correct values manually in the form below.
+                  The OCR result is just a starting point — the form values you save are what get used.
+                </div>
+              </details>
+            </>
           )}
         </div>
       )}
