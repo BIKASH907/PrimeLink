@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Choose Country — Bhat Overseas{% endblock %}
+
+{% block body %}
+<div class="gate">
+  <div class="brand-row">
+    <div class="logo-mark lg">BO</div>
+    <div>
+      <div class="brand-name">Bhat Overseas System</div>
+      <div class="brand-sub">Internal recruitment operations</div>
+    </div>
+  </div>
+
+  <h1 class="gate-title">Choose Destination System</h1>
+  <p class="gate-sub">Each country runs on its own login &amp; backend</p>
+
+  <div class="country-grid">
+    <a class="country-card" href="{{ url_for('login_get') }}?country=RO">
+      <div class="country-flag">🇷🇴</div>
+      <div class="country-name">Romania</div>
+      <div class="country-stats">{{ ro_count }} active clients</div>
+      <div class="tag-pill">Recruitment Pipeline</div>
+    </a>
+    <a class="country-card" href="{{ url_for('login_get') }}?country=TR">
+      <div class="country-flag">🇹🇷</div>
+      <div class="country-name">Turkey</div>
+      <div class="country-stats">{{ tr_count }} active clients</div>
+      <div class="tag-pill new">Recruitment Pipeline</div>
+    </a>
+  </div>
+
+  <p class="gate-note">
+    Both countries run on the same Bhat Overseas system with separate user accounts, clients, and pipelines.
+    Pick a country to log in &amp; manage that country's recruitment.
+  </p>
+</div>
+{% endblock %}

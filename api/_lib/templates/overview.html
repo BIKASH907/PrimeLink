@@ -1,0 +1,105 @@
+{% extends "app_layout.html" %}
+{% set active = 'overview' %}
+{% block title %}Overview — Bhat Overseas{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <div class="page-title">Overview — {{ country.name }} {{ country.flag }}</div>
+    <div class="page-sub">Operational summary for the current country</div>
+  </div>
+</div>
+
+<div class="ov-page">
+  <div class="alerts-grid">
+    <div class="alert-card danger">
+      <div class="alert-icon">⚠</div>
+      <div class="alert-text">
+        <div class="alert-title">{{ alerts.police_30d }} Police Reports near 30-day mark</div>
+        <div class="alert-sub">Re-issue before VFS appointment</div>
+      </div>
+    </div>
+    <div class="alert-card warn">
+      <div class="alert-icon">📄</div>
+      <div class="alert-text">
+        <div class="alert-title">{{ alerts.missing_docs }} missing documents</div>
+        <div class="alert-sub">Across {{ alerts.affected_clients }} active clients</div>
+      </div>
+    </div>
+    <div class="alert-card warn">
+      <div class="alert-icon">⏱</div>
+      <div class="alert-text">
+        <div class="alert-title">{{ alerts.delayed }} cases delayed &gt;14 days</div>
+        <div class="alert-sub">Stuck in Entry Approval &amp; Kimlik Fee</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="lbl">Total Clients</div>
+      <div class="val">{{ stats.total }}</div>
+      <div class="delta up">▲ {{ stats.new_this_month }} this month</div>
+    </div>
+    <div class="stat-card">
+      <div class="lbl">Avg. Cycle Time</div>
+      <div class="val">{{ stats.avg_cycle }}d</div>
+      <div class="delta down">▼ {{ stats.cycle_change }}d vs last month</div>
+    </div>
+    <div class="stat-card">
+      <div class="lbl">Departed (30d)</div>
+      <div class="val">{{ stats.departed }}</div>
+      <div class="delta up">▲ {{ stats.departed_change }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="lbl">Documents OK</div>
+      <div class="val">{{ stats.docs_ok_pct }}%</div>
+      <div class="delta up">▲ 2%</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-title">Clients per Stage</div>
+      <div class="bar-chart">
+        {% for s in stage_counts %}
+        <div class="bar-row">
+          <div class="bar-name">{{ s.label }}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:{{ s.pct }}%"></div></div>
+          <div class="bar-val">{{ s.count }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Top Agents (by volume)</div>
+      {% for a in top_agents %}
+      <div class="agent-row">
+        <div class="avatar md">{{ a.initials }}</div>
+        <div class="agent-info">
+          <div class="agent-name">{{ a.name }}</div>
+          <div class="agent-vol">{{ a.volume }} clients</div>
+        </div>
+        {% if loop.first %}<div class="pill ok">Top</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:14px;">
+    <div class="panel-title">🤖 Automation Log
+      <span class="tt" style="margin-left:auto; font-weight:normal">Auto-triggered status updates from system</span>
+    </div>
+    <div class="auto-log">
+      {% for ev in automation_log %}
+      <div class="auto-row">
+        <span class="auto-tag">Auto</span>
+        <span><strong>{{ ev.client }}</strong> — {{ ev.action }}</span>
+        <span class="auto-time">{{ ev.when }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

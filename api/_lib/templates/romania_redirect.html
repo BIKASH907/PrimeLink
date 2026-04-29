@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Romania — Bhat Overseas{% endblock %}
+{% block body %}
+<div class="gate">
+  <div class="logo-mark lg" style="margin-bottom:18px;">BO</div>
+  <h1 class="gate-title">🇷🇴 Romania System</h1>
+  <p class="gate-sub" style="max-width:420px; line-height:1.6;">
+    Romania runs on the existing legacy backend.<br/>
+    Redirecting to the Romania login portal…
+  </p>
+  <div style="margin-top:28px; display:flex; gap:10px;">
+    <a class="btn btn-ghost" href="{{ url_for('country_gate') }}">← Back</a>
+    <a class="btn btn-primary" href="https://primelinkhumancapital.com/admin">Open Primelink Admin →</a>
+  </div>
+  <p style="margin-top: 24px; font-size:11px; color:var(--text-3);">
+    No changes were made to the Romania system — this new build is Turkey-only.
+  </p>
+</div>
+{% endblock %}

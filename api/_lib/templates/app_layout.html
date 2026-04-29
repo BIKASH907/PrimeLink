@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{# Layout used by all logged-in pages — adds topbar + sidebar #}
+
+{% block body %}
+<div class="app">
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="logo-mark">BO</div>
+      <div class="name">BHAT OVERSEAS</div>
+    </div>
+
+    <a class="country-pill" href="{{ url_for('country_gate') }}">
+      <span>{{ country.flag if country else '🌍' }}</span>
+      <span>{{ country.name if country else 'Choose Country' }}</span>
+      <span style="color:var(--text-3); font-size:10px;">▼</span>
+    </a>
+
+    <form action="{{ url_for('search') }}" method="get" class="search-box">
+      <span class="icon">🔍</span>
+      <input type="text" name="q" placeholder="Search by Ref No, Agent, or Name..." value="{{ q or '' }}" />
+    </form>
+
+    <div class="top-actions">
+      <span class="sync-pill"><span class="sync-dot"></span> Cloud Sync: Active</span>
+      <a class="top-icon" href="{{ url_for('alerts_page') }}" title="Notifications">🔔<span class="badge"></span></a>
+      <div class="profile-pill">
+        <div class="avatar">{{ user.initials }}</div>
+        <div>
+          <div class="profile-name">{{ user.name }}</div>
+          <div class="profile-role">{{ user.role_label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-area">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="nav-section-title">Workspace</div>
+
+      {% if user.role != 'sub_admin' %}
+      <a class="nav-item {% if active == 'pipeline' %}active{% endif %}" href="{{ url_for('pipeline') }}">
+        <span class="ico">▤</span> Pipeline
+        <span class="count">{{ counts.pipeline }}</span>
+      </a>
+      {% endif %}
+
+      <a class="nav-item {% if active == 'documents' %}active{% endif %}" href="{{ url_for('documents') }}">
+        <span class="ico">📄</span> Documents
+        <span class="count">{{ counts.documents }}</span>
+      </a>
+
+      {% if user.role != 'sub_admin' %}
+      <a class="nav-item {% if active == 'overview' %}active{% endif %}" href="{{ url_for('overview') }}">
+        <span class="ico">📊</span> Overview
+      </a>
+      {% endif %}
+
+      <a class="nav-item {% if active == 'cv' %}active{% endif %}" href="{{ url_for('cv_builder') }}">
+        <span class="ico">📝</span> CV Builder
+      </a>
+
+      <div class="nav-section-title">Operations</div>
+      <a class="nav-item {% if active == 'alerts' %}active{% endif %}" href="{{ url_for('alerts_page') }}">
+        <span class="ico">⚠</span> Alerts
+        {% if counts.alerts %}<span class="count" style="background: var(--red-dim); color: var(--red)">{{ counts.alerts }}</span>{% endif %}
+      </a>
+      <a class="nav-item {% if active == 'automation' %}active{% endif %}" href="{{ url_for('automation_log') }}">
+        <span class="ico">🤖</span> Automation Log
+      </a>
+
+      <div class="sidebar-footer">
+        {% if user.role in ('super_admin', 'admin') %}
+        <a class="nav-item {% if active == 'settings' %}active{% endif %}" href="{{ url_for('settings') }}">
+          <span class="ico">⚙</span> Settings
+        </a>
+        {% endif %}
+        <a class="nav-item" href="{{ url_for('logout') }}">
+          <span class="ico">↩</span> Sign Out
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+{% endblock %}

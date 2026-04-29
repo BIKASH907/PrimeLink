@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Sign In — {{ country.name }} — Bhat Overseas{% endblock %}
+{% block body %}
+<div class="gate">
+  <form class="login-box" action="{{ url_for('login_post') }}" method="post">
+    <a href="{{ url_for('country_gate') }}" class="login-back">← Change country</a>
+    <input type="hidden" name="country" value="{{ country.code }}" />
+
+    <div class="brand-row" style="margin-bottom:0;">
+      <div class="logo-mark">BO</div>
+      <div>
+        <div class="login-title">{{ country.name }} System Login {{ country.flag }}</div>
+        <div class="login-sub">Bhat Overseas — {{ country.name }} Operations</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 22px;">
+      <div class="role-tabs">
+        {% for r, label in [('super_admin','Super Admin'), ('admin','Admin'), ('sub_admin','Sub-Admin')] %}
+          <label>
+            <input type="radio" name="role" value="{{ r }}"
+                   {% if loop.first %}checked{% endif %} hidden id="r_{{ r }}">
+            <span class="role-tab" onclick="document.getElementById('r_{{ r }}').click(); pickRole(this)"
+                  data-r="{{ r }}">{{ label }}</span>
+          </label>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" value="{{ default_email }}" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" value="ChangeMe123!" required />
+      </div>
+
+      {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+      <button class="btn btn-primary btn-block" type="submit">Sign In Securely</button>
+
+      <div class="login-hint" id="loginHint">
+        <strong style="color:var(--text-2);">Super Admin:</strong>
+        Full access — pipeline, documents, users, CV builder, settings.
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+  document.querySelectorAll('.role-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.role-tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const hints = {
+        super_admin: "<strong style='color:var(--text-2);'>Super Admin:</strong> Full access — pipeline, documents, users, CV builder, settings.",
+        admin: "<strong style='color:var(--text-2);'>Admin:</strong> Pipeline + Documents + CV Builder. Cannot manage Super Admin accounts.",
+        sub_admin: "<strong style='color:var(--text-2);'>Sub-Admin:</strong> Documents &amp; CV Builder only — for assigned clients."
+      };
+      document.getElementById('loginHint').innerHTML = hints[t.dataset.r];
+      const country = "{{ country.code }}";
+      const seeds = {
+        RO: { super_admin: 'bikash.ro@bhatoverseas.com', admin: 'anita.ro@bhatoverseas.com', sub_admin: 'ravi.ro@bhatoverseas.com' },
+        TR: { super_admin: 'bikash.tr@bhatoverseas.com', admin: 'anita.tr@bhatoverseas.com', sub_admin: 'ravi.tr@bhatoverseas.com' }
+      };
+      document.querySelector('input[name=email]').value = seeds[country][t.dataset.r];
+    });
+  });
+  document.querySelector('.role-tab').classList.add('active');
+</script>
+{% endblock %}

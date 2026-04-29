@@ -1,0 +1,62 @@
+{% extends "app_layout.html" %}
+{% set active = 'pipeline' %}
+{% block title %}Pipeline — Bhat Overseas{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <div class="page-title">Recruitment Pipeline — {{ country.name }} {{ country.flag }}</div>
+    <div class="page-sub">14-step workflow • Click a card for full client details</div>
+  </div>
+  <div class="page-actions">
+    <a class="btn btn-ghost" href="{{ url_for('documents') }}">View Documents</a>
+    <a class="btn btn-primary" href="{{ url_for('client_new') }}">+ New Client</a>
+  </div>
+</div>
+
+<div class="pipeline-meta">
+  <div class="stat"><span class="stat-label">Active</span><span class="stat-value">{{ stats.total }}</span></div>
+  <div class="stat"><span class="stat-label">In Doc Stage</span><span class="stat-value">{{ stats.in_doc }}</span></div>
+  <div class="stat"><span class="stat-label">Awaiting VFS</span><span class="stat-value">{{ stats.vfs }}</span></div>
+  <div class="stat"><span class="stat-label">Delayed</span><span class="stat-value warn">{{ stats.delayed }}</span></div>
+  <div class="stat"><span class="stat-label">Urgent</span><span class="stat-value danger">{{ stats.urgent }}</span></div>
+  <div class="stat"><span class="stat-label">Ready to Fly</span><span class="stat-value good">{{ stats.ready }}</span></div>
+  <div class="stat"><span class="stat-label">Departed (30d)</span><span class="stat-value">{{ stats.departed }}</span></div>
+</div>
+
+<div class="kanban-wrap">
+  {% for stage in stages %}
+  <div class="col">
+    <div class="col-head">
+      <div class="col-num">{{ loop.index }}</div>
+      <div class="col-title">{{ stage.label }}</div>
+      <div class="col-count">{{ stage.clients|length }}</div>
+    </div>
+    <div class="col-body">
+      {% for c in stage.clients %}
+        <a class="card {% if c.is_urgent %}urgent{% endif %}" href="{{ url_for('client_detail', client_id=c.id) }}">
+          {% if c.is_urgent %}<span class="urgent-flag">🚩</span>{% endif %}
+          <div class="card-name">{{ c.name }}</div>
+          <div class="card-ref">{{ c.ref_no }}</div>
+          <div class="card-meta">
+            <div class="row"><span class="lbl">Company</span> {{ c.company or '—' }}</div>
+            <div class="row"><span class="lbl">Agent</span> {{ c.agent or '—' }}</div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar"><div class="progress-fill" style="width:{{ (c.progress / 14) * 100 }}%"></div></div>
+            <div class="progress-text">{{ c.progress }}/14</div>
+          </div>
+          <div class="card-time">Updated {{ c.updated_human }}</div>
+        </a>
+      {% else %}
+        <div style="padding:16px; text-align:center; font-size:11px; color:var(--text-3);">No clients</div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if show_warning %}
+{% include "components/warning_modal.html" %}
+{% endif %}
+{% endblock %}
