@@ -1,167 +1,137 @@
-# PRIMELINK HUMAN CAPITAL S.R.L.
-## International Workforce Recruitment Platform
-### primelinkhumancapital.com
+# BHAT OVERSEAS SYSTEM
 
----
+Internal Manpower Recruitment Agency Management Dashboard. **Multi-page server-rendered Python web app.** Internal staff only — no external client/agent logins.
 
-## Company Registration Details
-- **Legal Name:** PRIMELINK HUMAN CAPITAL S.R.L.
-- **CUI:** 54386335
-- **Reg. Nr.:** J2026021244007
-- **EUID:** ROONRC.J2026021244007
-- **Certificate:** Seria B Nr. 5780913
-- **Address:** Str. Aleksandr Sergheevici Pușkin, Nr. 8, Ap. 2, Sector 1, București, Romania
-- **CAEN Principal:** 7820 — Temporary Staffing Agency
-- **Capital:** 20.000 LEI (€4.000)
-- **Administrator:** BHAT BIKASH — Full Powers
+## Live deploy
 
----
+This is a real Python web app with a database. Deploy in 5 minutes to **Render.com**:
 
-## Tech Stack
-- **Framework:** Next.js 14 (Pages Router)
-- **Database:** MongoDB Atlas
-- **Styling:** Custom CSS (no Tailwind)
-- **Deployment:** Vercel
-- **Fonts:** Outfit + DM Sans (Google Fonts)
-- **Auth:** JWT-based admin authentication
+➡ **See [RENDER-DEPLOY.md](RENDER-DEPLOY.md)** — push to GitHub, click Blueprint, you're live.
 
----
+You'll get a URL like `https://bhat-overseas.onrender.com` with all pages working, real PostgreSQL database, and auto-deploy on every git push.
 
-## Pages (20 Total)
-1. **/** — Homepage
-2. **/about** — About Us + Full Company Registration Details
-3. **/services** — All Services + CAEN Codes Table
-4. **/for-employers** — Employer Solutions
-5. **/for-workers** — Worker Information & Benefits
-6. **/industries** — Industries We Serve
-7. **/recruitment-process** — 6-Step Process
-8. **/why-romania** — Why Work in Romania
-9. **/why-choose-us** — Competitive Advantages
-10. **/team** — Team & Founder Bio
-11. **/testimonials** — Testimonials (placeholder)
-12. **/blog** — Blog (placeholder posts)
-13. **/faq** — FAQ (Employers, Workers, Legal)
-14. **/contact** — Contact Form + Info
-15. **/privacy-policy** — GDPR-Compliant Privacy Policy
-16. **/terms** — Terms & Conditions
-17. **/cookie-policy** — Cookie Policy
-18. **/jobs** — Job Listings
-19. **/apply** — Worker Application Form
-20. **/employer-inquiry** — Employer Inquiry Form
+## What's in this folder
 
----
-
-## API Routes
-- `POST /api/contact` — Contact form submissions
-- `POST /api/apply` — Worker applications
-- `POST /api/employer-inquiry` — Employer inquiries
-- `GET/POST /api/jobs` — Job listings CRUD
-- `GET/PUT/DELETE /api/jobs/[id]` — Single job management
-- `GET/POST /api/blog` — Blog posts CRUD
-- `GET/PUT/DELETE /api/blog/[id]` — Single post management
-- `GET/POST /api/testimonials` — Testimonials CRUD
-- `POST /api/admin/login` — Admin authentication
-- `GET /api/admin/dashboard` — Dashboard stats
-- `GET /api/admin/applications` — Applications list
-- `GET /api/admin/inquiries` — Inquiries list
-- `PUT /api/admin/update-status` — Update application/inquiry/contact status
-
----
-
-## Setup Instructions
-
-### 1. Clone and Install
-```bash
-git clone https://github.com/BIKASH907/primelink-human-capital.git
-cd primelink-human-capital
-npm install
+```
+bhat-overseas-system/
+├── backend/                       # The actual web app — deploy this
+│   ├── main.py                    # FastAPI entry — mounts pages, static, API
+│   ├── database.py                # SQLAlchemy + auto-seed
+│   ├── models.py                  # ORM models
+│   ├── auth.py                    # Password hashing, role guards
+│   ├── config.py                  # Env settings
+│   ├── seed_demo.py               # Demo seed script
+│   ├── requirements.txt
+│   ├── Procfile                   # Process file (for Render/Railway/Heroku)
+│   ├── runtime.txt                # Python version pin
+│   ├── templates/                 # Jinja2 HTML pages
+│   │   ├── base.html              # Root layout
+│   │   ├── app_layout.html        # Layout w/ topbar + sidebar
+│   │   ├── country_gate.html      # Romania / Turkey selection
+│   │   ├── romania_redirect.html  # Romania notice
+│   │   ├── login.html             # Turkey login (3 roles)
+│   │   ├── pipeline.html          # 14-stage Kanban
+│   │   ├── client_detail.html     # Client info / docs / notes / timeline
+│   │   ├── documents.html         # Documents table + filters
+│   │   ├── overview.html          # Dashboard summary
+│   │   ├── cv_builder.html        # CV with OCR + manual fields
+│   │   ├── settings.html          # Users + role matrix
+│   │   ├── subadmin_dashboard.html# Sub-admin restricted view
+│   │   ├── upload_doc.html        # Upload form
+│   │   └── components/
+│   │       └── warning_modal.html # 30-day police-report popup
+│   ├── static/
+│   │   └── css/
+│   │       └── main.css           # All styles
+│   ├── routes/
+│   │   ├── views.py               # HTML page rendering (server-side)
+│   │   ├── auth_routes.py         # JSON API auth (admin + sub-admin)
+│   │   ├── client_routes.py       # JSON API for clients
+│   │   ├── document_routes.py     # JSON API for documents
+│   │   ├── cv_routes.py           # JSON API for CV
+│   │   ├── overview_routes.py     # JSON API summary
+│   │   ├── user_routes.py         # JSON API users
+│   │   └── subadmin_routes.py     # JSON API sub-admin scope
+│   └── services/
+│       ├── ocr_service.py         # Passport / bill OCR
+│       ├── expiry_service.py      # 30-day police rule + passport expiry
+│       ├── automation.py          # Auto-advance stage on doc upload
+│       └── cv_service.py          # CV → PDF (ReportLab)
+│
+├── database/
+│   └── schema.sql                 # PostgreSQL DDL
+│
+├── render.yaml                    # Render Blueprint (auto-deploys everything)
+├── vercel.json                    # Vercel config (for static demo only)
+│
+├── index.html                     # Standalone single-page demo (no backend needed)
+├── README.md                      # This file
+├── ARCHITECTURE.md                # System design + role matrix
+├── DEPLOY.md                      # Deploy script docs
+├── VERCEL-DEPLOY.md               # Vercel guide (for static demo only)
+├── RENDER-DEPLOY.md               # ★ Live Python deploy guide ★
+├── deploy.sh                      # Multi-target deploy script
+├── quick-push.sh                  # Quick git push
+└── .gitignore
 ```
 
-### 2. Configure Environment
-```bash
-cp .env.example .env.local
-```
-Edit `.env.local` with your values:
-- **MONGODB_URI** — Your MongoDB Atlas connection string
-- **NEXTAUTH_SECRET** — Generate with: `openssl rand -base64 32`
-- **ADMIN_EMAIL** — Your admin email (e.g. bikash@primelinkhumancapital.com)
-- **ADMIN_PASSWORD** — Your admin password
+## Run locally
 
-### 3. Run Development Server
 ```bash
-npm run dev
-```
-Open http://localhost:3000
-
-### 4. Deploy to Vercel
-
-#### Option A: Vercel CLI
-```bash
-npm i -g vercel
-vercel
+cd backend
+python -m venv .venv
+source .venv/bin/activate              # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
 ```
 
-#### Option B: GitHub Integration
-1. Push code to GitHub
-2. Go to vercel.com → Import Project
-3. Connect your GitHub repo
-4. Add environment variables in Vercel dashboard
-5. Deploy
+Open <http://localhost:8000>.
 
-### 5. Custom Domain Setup
-In Vercel dashboard:
-1. Go to Settings → Domains
-2. Add `primelinkhumancapital.com`
-3. Update DNS records at your domain registrar:
-   - Type A: `76.76.21.21`
-   - Type CNAME: `cname.vercel-dns.com` (for www)
+You'll see the Romania/Turkey gate. Pick Turkey, log in with seeded credentials below, and the multi-page dashboard works end-to-end with a local SQLite database.
 
----
+## Seeded credentials
 
-## Git Commands (Quick Deploy)
-```bash
-# Initialize and push to GitHub
-git init
-git add .
-git commit -m "Initial commit: Primelink Human Capital website"
-git branch -M main
-git remote add origin https://github.com/BIKASH907/primelink-human-capital.git
-git push -u origin main
+| Role | Email | Password |
+|------|-------|----------|
+| Super Admin | `bikash@bhatoverseas.com` | `ChangeMe123!` |
+| Admin | `anita@bhatoverseas.com`  | `ChangeMe123!` |
+| Sub-Admin | `ravi.docs@bhatoverseas.com` | `ChangeMe123!` |
 
-# Deploy to Vercel
-vercel --prod
-```
+**Change these immediately in production.**
 
----
+## Pages
 
-## MongoDB Setup
-1. Go to mongodb.com/cloud/atlas
-2. Create free cluster
-3. Create database: `primelink`
-4. Collections will be auto-created: contacts, applications, employerinquiries, jobs, blogs, testimonials, admins
-5. Get connection string and add to .env.local
+| URL | Page | Access |
+|-----|------|--------|
+| `/` | Country gate (Romania / Turkey) | Public |
+| `/romania` | Legacy redirect notice | Public |
+| `/login` | Turkey login | Public |
+| `/pipeline` | 14-stage Kanban | Admin / Super-Admin |
+| `/clients/{id}` | Client detail (info, docs, notes, timeline) | All roles (sub-admin only assigned) |
+| `/documents` | Documents table + filters | All roles |
+| `/documents/upload` | Upload form (OCR auto-scan) | All roles |
+| `/overview` | Dashboard summary + automation log | Admin / Super-Admin |
+| `/cv` | CV auto-builder (OCR + manual) | All roles |
+| `/settings` | Users + roles | Admin / Super-Admin |
+| `/sub` | Sub-admin restricted dashboard | Sub-Admin |
+| `/api/admin/*`, `/api/subadmin/*` | JSON API | Token auth |
 
----
+## Features delivered
 
-## Admin Access
-1. Set ADMIN_EMAIL and ADMIN_PASSWORD in .env.local
-2. First login to `/api/admin/login` auto-creates the admin account
-3. Use the JWT token in Authorization header for admin API calls
+- **Country-first** — Romania / Turkey gate before login. Romania routes to existing legacy backend.
+- **3 roles** — Super Admin, Admin, Sub-Admin. Sub-Admin only sees clients explicitly assigned.
+- **14-step Kanban pipeline** — separate page, click a card to drill into client detail page.
+- **Client detail page** — info, documents, notes, timeline, "Move to Next Step" button.
+- **Documents page** — full-text filters (All / Missing / Expiring / Verified).
+- **Overview page** — stats, top agents, alerts, automation log.
+- **CV Auto-Builder** — OCR auto-extracts father's name, mother's name, passport details from passport scans + addresses from bills. Manual marital status / spouse name / religion / position / experience.
+- **Auto stage advancement** — uploading a passport advances Doc Collection → Advance Paid, etc.
+- **Police-report 30-day rule** — popup warning if a report is approaching/exceeding 30 days before VFS.
+- **Real database** — PostgreSQL on Render, SQLite locally.
+- **Real auth** — bcrypt passwords, HTTP-only session cookies for browser, JWT for API.
 
----
+## Read next
 
-## After Deployment Checklist
-- [ ] Update phone numbers (replace +40 XXX XXX XXX)
-- [ ] Add real email addresses
-- [ ] Configure SMTP for email notifications
-- [ ] Add company logo/favicon
-- [ ] Update meta images for social sharing
-- [ ] Add Google Analytics
-- [ ] Set up Cloudinary for file uploads
-- [ ] Create first job listings via API
-- [ ] Test all forms (contact, apply, employer inquiry)
-- [ ] Verify all legal info matches registration docs
-
----
-
-© 2026 PRIMELINK HUMAN CAPITAL S.R.L. All rights reserved.
+- **[RENDER-DEPLOY.md](RENDER-DEPLOY.md)** — push to live in 5 min
+- [ARCHITECTURE.md](ARCHITECTURE.md) — system design + role matrix
+- [database/schema.sql](database/schema.sql) — full PostgreSQL DDL

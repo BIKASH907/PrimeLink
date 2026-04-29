@@ -1,0 +1,23 @@
+# Ignore backend (deploy separately to Render/Railway/Fly)
+backend/
+database/
+storage/
+*.db
+*.sqlite
+
+# Ignore docs from build (still in repo)
+ARCHITECTURE.md
+DEPLOY.md
+README.md
+
+# Scripts not needed on Vercel
+deploy.sh
+quick-push.sh
+.env
+.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

@@ -1,11 +1,72 @@
-node_modules/
-.next/
+# =====================================================
+# BHAT OVERSEAS SYSTEM — .gitignore
+# =====================================================
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# ----- Environment -----
 .env
 .env.local
 .env.production
-out/
-*.log
-.DS_Store
+*.env
+!.env.example
 
-.vercel
-.env*.local
+# ----- Database -----
+*.db
+*.sqlite
+*.sqlite3
+bhat_overseas.db
+
+# ----- Storage (uploaded docs / generated CVs) -----
+backend/storage/
+storage/
+uploads/
+*.pdf
+!ARCHITECTURE.md
+!README.md
+
+# ----- Node / Frontend (if you split SPA later) -----
+node_modules/
+dist/
+.next/
+.nuxt/
+.cache/
+package-lock.json
+yarn.lock
+
+# ----- IDE -----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ----- OS -----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----- Logs -----
+*.log
+logs/
+
+# ----- Secrets / keys -----
+*.pem
+*.key
+*-credentials.json
+google-vision-key.json
