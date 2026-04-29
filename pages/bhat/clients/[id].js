@@ -35,6 +35,17 @@ export default function ClientDetail({ user, client, documents, notes, timeline,
     await fetch(`/api/bhat/clients/${client.id}/advance`, { method: 'POST' });
     router.replace(router.asPath);
   }
+  async function jumpToStage(newStage) {
+    if (!newStage || newStage === client.stage) return;
+    if (!confirm(`Move ${client.fullName} to "${PIPELINE_STAGES.find(s => s.key === newStage)?.label}"?`)) return;
+    const r = await fetch(`/api/bhat/clients/${client.id}/stage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ stage: newStage }),
+    });
+    if (r.ok) router.replace(router.asPath);
+    else alert((await r.json()).error || 'Stage change failed');
+  }
   async function flagUrgent() {
     await fetch(`/api/bhat/clients/${client.id}/flag`, { method: 'POST' });
     router.replace(router.asPath);
@@ -73,6 +84,22 @@ export default function ClientDetail({ user, client, documents, notes, timeline,
     } else {
       const data = await r.json();
       alert(data.error || 'Delete failed');
+    }
+  }
+
+  // ---- Mark as rejected / refunded ----
+  async function markOutcome(outcome) {
+    const reason = prompt(`Reason for ${outcome.toUpperCase()}? (optional)`) ?? '';
+    if (!confirm(`Mark ${client.fullName} as ${outcome.toUpperCase()}? This moves them out of the active pipeline.`)) return;
+    const r = await fetch(`/api/bhat/clients/${client.id}/outcome`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ outcome, reason }),
+    });
+    if (r.ok) {
+      router.replace(router.asPath);
+    } else {
+      alert((await r.json()).error || 'Failed');
     }
   }
 
@@ -138,8 +165,33 @@ export default function ClientDetail({ user, client, documents, notes, timeline,
           <button className="bhat-btn bhat-btn-ghost" onClick={flagUrgent}>
             {client.isUrgent ? '★ Unflag' : '🚩 Flag Urgent'}
           </button>
-          {client.progress < 14 && (
+          {canEdit && client.stage !== 'rejected' && client.stage !== 'refunded' && (
+            <>
+              <button className="bhat-btn bhat-btn-ghost" onClick={() => markOutcome('rejected')}
+                style={{ background:'var(--red-dim)', color:'var(--red)', borderColor:'var(--red)' }}>
+                ✕ Mark Rejected
+              </button>
+              <button className="bhat-btn bhat-btn-ghost" onClick={() => markOutcome('refunded')}
+                style={{ background:'var(--orange-dim)', color:'var(--orange)', borderColor:'var(--orange)' }}>
+                ↺ Mark Refunded
+              </button>
+            </>
+          )}
+          {client.progress < 14 && client.stage !== 'rejected' && client.stage !== 'refunded' && (
             <button className="bhat-btn bhat-btn-primary" onClick={advance}>Move to Next Step →</button>
+          )}
+          {canEdit && (
+            <select value=""
+              onChange={e => jumpToStage(e.target.value)}
+              style={{ padding:'8px 10px', fontSize:13, background:'var(--bg-2)',
+                       border:'1px solid var(--border)', borderRadius:7, color:'var(--text-1)' }}>
+              <option value="">⇢ Jump to stage…</option>
+              {PIPELINE_STAGES.map(s => (
+                <option key={s.key} value={s.key} disabled={s.key === client.stage}>
+                  {s.terminal ? (s.color === 'red' ? '✕ ' : '↺ ') : ''}{s.label}
+                </option>
+              ))}
+            </select>
           )}
         </div>
       </div>

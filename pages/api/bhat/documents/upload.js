@@ -110,6 +110,13 @@ export default async function handler(req, res) {
     uploadedBy:    user.id,
   });
 
+  // 4a) If we extracted a passport number, sync it onto the client itself
+  //      so finance / search can find the candidate by passport.
+  if (ocr?.passport_no && docType === 'passport' && !client.passportNo) {
+    client.passportNo = ocr.passport_no;
+    await client.save();
+  }
+
   // 4) Auto-fill CV record
   if (ocr && (docType === 'passport' || docType === 'cv')) {
     const cv = (await BhatCV.findOne({ client: client._id })) || new BhatCV({ client: client._id });

@@ -10,7 +10,7 @@ import BhatClient from '../../models/BhatClient';
 import BhatDocument from '../../models/BhatDocument';
 import BhatLayout from '../../components/bhat/BhatLayout';
 import { requireBhatUser } from '../../lib/bhatAuth';
-import { PIPELINE_STAGES, COUNTRIES } from '../../lib/bhatConstants';
+import { PIPELINE_STAGES, ACTIVE_PIPELINE_STAGES, COUNTRIES } from '../../lib/bhatConstants';
 
 export default function PipelinePage({ user, countryCode, stages, stats, counts }) {
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function PipelinePage({ user, countryCode, stages, stats, counts 
       return next;
     });
   }
-  function exitSelect() { setSelectMode(false); setSelected(new Set()); }
+  function exitSelect() { setSelectMode(false); setSelected(new Set()); setShowGroupPay(false); }
 
   async function applyBulkStage() {
     if (selected.size === 0) return;
@@ -47,6 +47,33 @@ export default function PipelinePage({ user, countryCode, stages, stats, counts 
       router.replace(router.asPath);
     } else {
       alert(data.error || 'Bulk update failed');
+    }
+  }
+
+  // Group payment (e.g. group VFS, group flight)
+  const [showGroupPay, setShowGroupPay] = useState(false);
+  const [groupPay, setGroupPay] = useState({
+    type: 'visa_fee_in', amount: '', currency: 'NPR', description: '',
+    paidAt: new Date().toISOString().slice(0, 10),
+  });
+  async function applyGroupPayment() {
+    if (selected.size === 0) return;
+    if (!groupPay.amount) return alert('Enter amount');
+    if (!confirm(`Record ${groupPay.currency} ${groupPay.amount} ${groupPay.type.replace(/_/g, ' ')} for each of ${selected.size} candidates?\n\nTotal: ${groupPay.currency} ${(+groupPay.amount * selected.size).toLocaleString()}`)) return;
+    setBulkBusy(true);
+    const r = await fetch('/api/bhat/ledger/bulk', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ids: Array.from(selected), ...groupPay }),
+    });
+    const data = await r.json();
+    setBulkBusy(false);
+    if (r.ok) {
+      alert(`✔ Created ${data.created} payment entries (total ${groupPay.currency} ${data.totalAmount.toLocaleString()})`);
+      exitSelect();
+      router.replace(router.asPath);
+    } else {
+      alert(data.error || 'Group payment failed');
     }
   }
 
@@ -69,28 +96,87 @@ export default function PipelinePage({ user, countryCode, stages, stats, counts 
       </div>
 
       {selectMode && (
-        <div style={{
-          padding:'10px 24px', background:'var(--accent-glow)',
-          borderBottom:'1px solid var(--accent)',
-          display:'flex', alignItems:'center', gap:12,
-        }}>
-          <div style={{ fontSize:13 }}>
-            <strong>{selected.size}</strong> selected
+        <>
+          <div style={{
+            padding:'10px 24px', background:'var(--accent-glow)',
+            borderBottom:'1px solid var(--accent)',
+            display:'flex', alignItems:'center', gap:12, flexWrap:'wrap',
+          }}>
+            <div style={{ fontSize:13 }}>
+              <strong>{selected.size}</strong> selected
+            </div>
+            <div style={{ marginLeft:'auto', display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
+              <span style={{ fontSize:12, color:'var(--text-2)' }}>Move to:</span>
+              <select value={bulkStage} onChange={e => setBulkStage(e.target.value)} style={{ padding:'5px 9px' }}>
+                {PIPELINE_STAGES.map(s => (
+                  <option key={s.key} value={s.key}>{s.label}</option>
+                ))}
+              </select>
+              <button className="bhat-btn bhat-btn-primary" onClick={applyBulkStage}
+                disabled={bulkBusy || selected.size === 0}>
+                {bulkBusy ? 'Updating…' : `Move ${selected.size} →`}
+              </button>
+              <button className="bhat-btn bhat-btn-ghost"
+                onClick={() => setShowGroupPay(v => !v)}
+                style={{ background:'var(--green-dim)', color:'var(--green)', borderColor:'var(--green)' }}>
+                💵 {showGroupPay ? 'Cancel Group Payment' : 'Record Group Payment'}
+              </button>
+              <button className="bhat-btn bhat-btn-ghost" onClick={exitSelect}>Cancel</button>
+            </div>
           </div>
-          <div style={{ marginLeft:'auto', display:'flex', alignItems:'center', gap:8 }}>
-            <span style={{ fontSize:12, color:'var(--text-2)' }}>Move to:</span>
-            <select value={bulkStage} onChange={e => setBulkStage(e.target.value)} style={{ padding:'5px 9px' }}>
-              {PIPELINE_STAGES.map(s => (
-                <option key={s.key} value={s.key}>{s.label}</option>
-              ))}
-            </select>
-            <button className="bhat-btn bhat-btn-primary" onClick={applyBulkStage}
-              disabled={bulkBusy || selected.size === 0}>
-              {bulkBusy ? 'Updating…' : `Apply to ${selected.size}`}
-            </button>
-            <button className="bhat-btn bhat-btn-ghost" onClick={exitSelect}>Cancel</button>
-          </div>
-        </div>
+
+          {/* Group payment form */}
+          {showGroupPay && (
+            <div style={{
+              padding:'14px 24px', background:'var(--bg-1)',
+              borderBottom:'1px solid var(--border)',
+              display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr 2fr auto', gap:10, alignItems:'end',
+            }}>
+              <div>
+                <div style={{ fontSize:11, color:'var(--text-3)', marginBottom:4 }}>Type</div>
+                <select value={groupPay.type}
+                  onChange={e => setGroupPay(p => ({ ...p, type: e.target.value }))}
+                  style={{ width:'100%' }}>
+                  <option value="visa_fee_in">Visa / VFS Fee</option>
+                  <option value="service_fee">Service Fee</option>
+                  <option value="medical">Medical</option>
+                  <option value="advance">Advance</option>
+                  <option value="other_in">Other</option>
+                </select>
+              </div>
+              <div>
+                <div style={{ fontSize:11, color:'var(--text-3)', marginBottom:4 }}>Amount per candidate</div>
+                <input type="number" step="0.01" min="0" value={groupPay.amount}
+                  onChange={e => setGroupPay(p => ({ ...p, amount: e.target.value }))}
+                  style={{ width:'100%' }} />
+              </div>
+              <div>
+                <div style={{ fontSize:11, color:'var(--text-3)', marginBottom:4 }}>Currency</div>
+                <select value={groupPay.currency}
+                  onChange={e => setGroupPay(p => ({ ...p, currency: e.target.value }))}
+                  style={{ width:'100%' }}>
+                  <option>NPR</option><option>INR</option><option>EUR</option><option>USD</option><option>TRY</option>
+                </select>
+              </div>
+              <div>
+                <div style={{ fontSize:11, color:'var(--text-3)', marginBottom:4 }}>Date</div>
+                <input type="date" value={groupPay.paidAt}
+                  onChange={e => setGroupPay(p => ({ ...p, paidAt: e.target.value }))}
+                  style={{ width:'100%' }} />
+              </div>
+              <div>
+                <div style={{ fontSize:11, color:'var(--text-3)', marginBottom:4 }}>Description (optional)</div>
+                <input type="text" value={groupPay.description}
+                  onChange={e => setGroupPay(p => ({ ...p, description: e.target.value }))}
+                  placeholder="e.g. Group VFS slot 12 May" style={{ width:'100%' }} />
+              </div>
+              <button className="bhat-btn bhat-btn-primary" onClick={applyGroupPayment}
+                disabled={bulkBusy || !groupPay.amount}>
+                {bulkBusy ? 'Recording…' : `Record × ${selected.size}`}
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       <div className="bhat-pipeline-meta">
@@ -100,14 +186,27 @@ export default function PipelinePage({ user, countryCode, stages, stats, counts 
         <Stat label="Delayed"       value={stats.delayed}  klass="warn" />
         <Stat label="Urgent"        value={stats.urgent}   klass="danger" />
         <Stat label="Ready to Fly"  value={stats.ready}    klass="good" />
-        <Stat label="Departed (30d)" value={stats.departed} />
+        <Stat label="Rejected"      value={stats.rejected} klass="danger" />
+        <Stat label="Refunded"      value={stats.refunded} klass="warn" />
       </div>
 
       <div className="bhat-kanban">
-        {stages.map((stage, idx) => (
-          <div className="bhat-col" key={stage.key}>
-            <div className="bhat-col-head">
-              <div className="bhat-col-num">{idx + 1}</div>
+        {stages.map((stage, idx) => {
+          const isTerminal = stage.terminal;
+          const colStyle = isTerminal ? {
+            borderColor: stage.color === 'red' ? 'var(--red)' : 'var(--orange)',
+            background: stage.color === 'red' ? 'rgba(255,84,112,0.06)' : 'rgba(255,159,67,0.06)',
+          } : {};
+          const headStyle = isTerminal ? {
+            background: stage.color === 'red' ? 'var(--red-dim)' : 'var(--orange-dim)',
+            color: stage.color === 'red' ? 'var(--red)' : 'var(--orange)',
+          } : {};
+          return (
+          <div className="bhat-col" key={stage.key} style={colStyle}>
+            <div className="bhat-col-head" style={headStyle}>
+              <div className="bhat-col-num" style={isTerminal ? { background:'transparent', color:'inherit' } : null}>
+                {isTerminal ? (stage.color === 'red' ? '✕' : '↺') : idx + 1}
+              </div>
               <div className="bhat-col-title">{stage.label}</div>
               <div className="bhat-col-count">{stage.clients.length}</div>
             </div>
@@ -155,7 +254,8 @@ export default function PipelinePage({ user, countryCode, stages, stats, counts 
               })}
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </BhatLayout>
   );
@@ -212,14 +312,16 @@ export async function getServerSideProps(ctx) {
   }));
 
   const cutoff = new Date(Date.now() - 14 * 86400000);
+  const activeOnly = clients.filter(c => c.stage !== 'rejected' && c.stage !== 'refunded');
   const stats = {
-    total:    clients.length,
-    inDoc:    clients.filter(c => c.stage === 'doc_collection').length,
-    vfs:      clients.filter(c => c.stage === 'vfs_appointment' || c.stage === 'second_vfs').length,
-    delayed:  clients.filter(c => c.stageEnteredAt && new Date(c.stageEnteredAt) < cutoff).length,
-    urgent:   clients.filter(c => c.isUrgent).length,
-    ready:    clients.filter(c => c.stage === 'flight_ticket' || c.stage === 'flight_status').length,
-    departed: 12,
+    total:    activeOnly.length,
+    inDoc:    activeOnly.filter(c => c.stage === 'doc_collection').length,
+    vfs:      activeOnly.filter(c => c.stage === 'vfs_appointment' || c.stage === 'second_vfs').length,
+    delayed:  activeOnly.filter(c => c.stageEnteredAt && new Date(c.stageEnteredAt) < cutoff).length,
+    urgent:   activeOnly.filter(c => c.isUrgent).length,
+    ready:    activeOnly.filter(c => c.stage === 'flight_ticket' || c.stage === 'flight_status').length,
+    rejected: clients.filter(c => c.stage === 'rejected').length,
+    refunded: clients.filter(c => c.stage === 'refunded').length,
   };
 
   const docCount = await BhatDocument.countDocuments();

@@ -145,11 +145,29 @@ export default function FinancePage({ user, countryCode, clients, entries, total
             <form onSubmit={submitIn} className="bhat-panel">
               <div className="bhat-panel-title">+ Record Payment Received</div>
               <div className="bhat-form-group">
+                <label>Search Candidate (by name, ref no, or passport)</label>
+                <input type="search" placeholder="Type name, BHAT-REF-001, or passport no…"
+                  value={inForm._search || ''}
+                  onChange={e => setInForm(p => ({ ...p, _search: e.target.value }))} />
+              </div>
+              <div className="bhat-form-group">
                 <label>Candidate *</label>
                 <select value={inForm.clientId}
                   onChange={e => setInForm(p => ({ ...p, clientId: e.target.value }))} required>
                   <option value="">— pick a candidate —</option>
-                  {clients.map(c => <option key={c.id} value={c.id}>{c.refNo} — {c.name}</option>)}
+                  {clients
+                    .filter(c => {
+                      const q = (inForm._search || '').trim().toLowerCase();
+                      if (!q) return true;
+                      return c.name.toLowerCase().includes(q)
+                          || c.refNo.toLowerCase().includes(q)
+                          || (c.passportNo || '').toLowerCase().includes(q);
+                    })
+                    .map(c => (
+                      <option key={c.id} value={c.id}>
+                        {c.refNo} — {c.name}{c.passportNo ? ` · ${c.passportNo}` : ''}
+                      </option>
+                    ))}
                 </select>
               </div>
               <div className="bhat-form-group">
@@ -412,7 +430,10 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       user, countryCode,
-      clients: clients.map(c => ({ id: c._id.toString(), name: c.fullName, refNo: c.refNo })),
+      clients: clients.map(c => ({
+        id: c._id.toString(), name: c.fullName, refNo: c.refNo,
+        passportNo: c.passportNo || null,
+      })),
       entries, totals,
     },
   };
