@@ -84,6 +84,12 @@ export default function BhatLayout({ user, children, active, counts = {} }) {
               </Link>
             )}
 
+            {!isSub && (
+              <Link href="/bhat/departed" className={`bhat-nav-item ${active === 'departed' ? 'active' : ''}`}>
+                <span className="bhat-ico">✈</span> Departed
+              </Link>
+            )}
+
             <div className="bhat-nav-section">Operations</div>
             <Link href="/bhat/overview" className="bhat-nav-item">
               <span className="bhat-ico">⚠</span> Alerts

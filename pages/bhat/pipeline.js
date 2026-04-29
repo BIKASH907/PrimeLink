@@ -188,6 +188,7 @@ export default function PipelinePage({ user, countryCode, stages, stats, counts 
         <Stat label="Ready to Fly"  value={stats.ready}    klass="good" />
         <Stat label="Rejected"      value={stats.rejected} klass="danger" />
         <Stat label="Refunded"      value={stats.refunded} klass="warn" />
+        <Stat label="Departed"      value={stats.departed} klass="good" />
       </div>
 
       <div className="bhat-kanban">
@@ -312,7 +313,8 @@ export async function getServerSideProps(ctx) {
   }));
 
   const cutoff = new Date(Date.now() - 14 * 86400000);
-  const activeOnly = clients.filter(c => c.stage !== 'rejected' && c.stage !== 'refunded');
+  const TERMINAL = ['rejected','refunded','departed'];
+  const activeOnly = clients.filter(c => !TERMINAL.includes(c.stage));
   const stats = {
     total:    activeOnly.length,
     inDoc:    activeOnly.filter(c => c.stage === 'doc_collection').length,
@@ -322,6 +324,7 @@ export async function getServerSideProps(ctx) {
     ready:    activeOnly.filter(c => c.stage === 'flight_ticket' || c.stage === 'flight_status').length,
     rejected: clients.filter(c => c.stage === 'rejected').length,
     refunded: clients.filter(c => c.stage === 'refunded').length,
+    departed: clients.filter(c => c.stage === 'departed').length,
   };
 
   const docCount = await BhatDocument.countDocuments();

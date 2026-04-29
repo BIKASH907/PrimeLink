@@ -165,7 +165,7 @@ export default function ClientDetail({ user, client, documents, notes, timeline,
           <button className="bhat-btn bhat-btn-ghost" onClick={flagUrgent}>
             {client.isUrgent ? '★ Unflag' : '🚩 Flag Urgent'}
           </button>
-          {canEdit && client.stage !== 'rejected' && client.stage !== 'refunded' && (
+          {canEdit && !['rejected','refunded','departed'].includes(client.stage) && (
             <>
               <button className="bhat-btn bhat-btn-ghost" onClick={() => markOutcome('rejected')}
                 style={{ background:'var(--red-dim)', color:'var(--red)', borderColor:'var(--red)' }}>
@@ -175,9 +175,16 @@ export default function ClientDetail({ user, client, documents, notes, timeline,
                 style={{ background:'var(--orange-dim)', color:'var(--orange)', borderColor:'var(--orange)' }}>
                 ↺ Mark Refunded
               </button>
+              {/* Mark Departed only when at flight_status (last active stage) */}
+              {client.stage === 'flight_status' && (
+                <button className="bhat-btn bhat-btn-ghost" onClick={() => markOutcome('departed')}
+                  style={{ background:'var(--green-dim)', color:'var(--green)', borderColor:'var(--green)' }}>
+                  ✈ Mark Departed
+                </button>
+              )}
             </>
           )}
-          {client.progress < 14 && client.stage !== 'rejected' && client.stage !== 'refunded' && (
+          {client.progress < 14 && !['rejected','refunded','departed'].includes(client.stage) && (
             <button className="bhat-btn bhat-btn-primary" onClick={advance}>Move to Next Step →</button>
           )}
           {canEdit && (

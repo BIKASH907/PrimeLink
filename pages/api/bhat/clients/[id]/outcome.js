@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
   const { outcome, reason } = req.body || {};
   if (!TERMINAL_STAGE_KEYS.has(outcome)) {
-    return res.status(400).json({ error: 'outcome must be "rejected" or "refunded"' });
+    return res.status(400).json({ error: 'outcome must be "rejected", "refunded", or "departed"' });
   }
 
   await connectDB();
