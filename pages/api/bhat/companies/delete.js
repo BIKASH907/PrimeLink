@@ -1,14 +1,10 @@
 // =====================================================
-// POST /api/bhat/companies/delete
-// Body: {
-//   country,
-//   name,
-//   reassignTo?: string  // optional — move clients to this company
-// }
-// Removes the company. Behavior:
-//   - If reassignTo is provided → all clients move to that company
-//   - Otherwise → clients keep their data but company field is set to null (Unassigned)
-// Clients are NEVER auto-deleted — only company-folder is removed.
+// POST /api/bhat/companies/delete   (Super-Admin only)
+// PERMANENT delete — only allowed via this strict flow:
+//   1. Caller must be Super-Admin
+//   2. Body must include `confirmName` matching the company's name exactly
+//   3. Company should already be archived (defensive — prevents accidental hard delete)
+// All clients linked to the company are unset (NEVER auto-deleted).
 // =====================================================
 import connectDB from '../../../../lib/db';
 import BhatCompany from '../../../../models/BhatCompany';
@@ -19,14 +15,25 @@ import { COUNTRIES } from '../../../../lib/bhatConstants';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const user = requireApiUser(req, res, { minRole: 'admin' });
+  const user = requireApiUser(req, res, { minRole: 'super_admin' });
   if (!user) return;
 
-  const { country, name, reassignTo } = req.body || {};
-  if (!COUNTRIES[country])  return res.status(400).json({ error: 'Invalid country' });
-  if (!name?.trim())        return res.status(400).json({ error: 'Company name required' });
+  const { country, name, confirmName, reassignTo } = req.body || {};
+  if (!COUNTRIES[country]) return res.status(400).json({ error: 'Invalid country' });
+  if (!name?.trim())       return res.status(400).json({ error: 'Company name required' });
+  if (confirmName !== name) {
+    return res.status(400).json({ error: 'confirmName must match the company name exactly' });
+  }
 
   await connectDB();
+
+  const co = await BhatCompany.findOne({ country, name: name.trim() });
+  // Defensive: only allow permanent delete if company is already archived
+  if (co && !co.archivedAt) {
+    return res.status(400).json({
+      error: 'Archive the company first before permanent delete.',
+    });
+  }
 
   // Reassign or unset clients
   const update = reassignTo?.trim()
@@ -36,22 +43,21 @@ export default async function handler(req, res) {
   const before = await BhatClient.find({ country, company: name.trim() }, '_id').lean();
   await BhatClient.updateMany({ country, company: name.trim() }, update);
 
-  // Audit on each affected client
   await Promise.all(before.map(c => BhatTimeline.create({
-    client: c._id,
-    actor: user.id, actorName: user.name,
-    eventType: 'company_removed',
+    client:    c._id,
+    actor:     user.id,
+    actorName: user.name,
+    eventType: 'company_permanent_deleted',
     description: reassignTo?.trim()
-      ? `Company "${name}" deleted — reassigned to "${reassignTo}"`
-      : `Company "${name}" deleted — set to Unassigned`,
+      ? `Company "${name}" PERMANENTLY DELETED — clients reassigned to "${reassignTo}"`
+      : `Company "${name}" PERMANENTLY DELETED — clients set to Unassigned`,
   })));
 
-  // If a registered BhatCompany row exists for the OLD name, remove it
-  await BhatCompany.deleteOne({ country, name: name.trim() });
+  if (co) await BhatCompany.deleteOne({ _id: co._id });
 
   return res.status(200).json({
     ok: true,
-    clientsAffected: before.length,
+    affectedCandidates: before.length,
     reassignedTo: reassignTo || null,
   });
 }

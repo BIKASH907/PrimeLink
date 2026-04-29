@@ -38,12 +38,14 @@ export default function DocumentsPage(props) {
 }
 
 // ===================================================== LEVEL 1
-function CompaniesView({ companies, total, user, countryCode }) {
+function CompaniesView({ companies, total, user, countryCode, viewTab = 'active' }) {
   const router  = useRouter();
-  const canEdit = user.role === 'super_admin' || user.role === 'admin';
+  const canEdit  = user.role === 'super_admin' || user.role === 'admin';
+  const isSuper  = user.role === 'super_admin';
   const [showAdd, setShowAdd] = useState(false);
   const [newName, setNewName] = useState('');
   const [busy,    setBusy]    = useState(false);
+  const [openMenu, setOpenMenu] = useState(null);   // company name with open menu
 
   async function addCompany(e) {
     e.preventDefault();
@@ -61,9 +63,10 @@ function CompaniesView({ companies, total, user, countryCode }) {
   }
 
   async function renameCompany(oldName) {
+    setOpenMenu(null);
     const newN = prompt(`Rename "${oldName}" to:`, oldName);
     if (!newN || newN.trim() === oldName) return;
-    if (!confirm(`Rename ALL clients with company "${oldName}" → "${newN}"?`)) return;
+    if (!confirm(`Rename ALL candidates with company "${oldName}" → "${newN}"?`)) return;
     const r = await fetch('/api/bhat/companies/rename', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -71,35 +74,75 @@ function CompaniesView({ companies, total, user, countryCode }) {
     });
     if (r.ok) {
       const data = await r.json();
-      alert(`Renamed. ${data.clientsUpdated} client(s) updated.`);
+      alert(`Renamed. ${data.clientsUpdated} candidate(s) updated.`);
       router.replace(router.asPath);
     } else {
       alert((await r.json()).error || 'Rename failed');
     }
   }
 
-  async function deleteCompany(name) {
-    const choice = confirm(
-      `Delete company "${name}"?\n\n` +
-      `Click OK to UNASSIGN all candidates from this company.\n` +
-      `(They keep all their other data — only the company link is removed.)\n\n` +
-      `Click Cancel to abort.`
-    );
-    if (!choice) return;
+  async function archiveCompany(name) {
+    setOpenMenu(null);
+    if (!confirm(
+      `Archive "${name}"?\n\n` +
+      `This is REVERSIBLE — archived companies can be restored from the Archived tab.\n` +
+      `Candidates keep their data; the company just won't show in the active list.`
+    )) return;
+    const reason = prompt('Optional reason for archiving:') || '';
+    const r = await fetch('/api/bhat/companies/archive', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ country: countryCode, name, reason }),
+    });
+    if (r.ok) {
+      const data = await r.json();
+      alert(`✔ "${name}" archived. ${data.affectedCandidates} candidate(s) noted.`);
+      router.replace(router.asPath);
+    } else {
+      alert((await r.json()).error || 'Archive failed');
+    }
+  }
 
-    const r = await fetch('/api/bhat/companies/delete', {
+  async function restoreCompany(name) {
+    setOpenMenu(null);
+    if (!confirm(`Restore "${name}" to active companies?`)) return;
+    const r = await fetch('/api/bhat/companies/restore', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ country: countryCode, name }),
     });
     if (r.ok) {
+      router.replace(router.asPath);
+    } else {
+      alert((await r.json()).error || 'Restore failed');
+    }
+  }
+
+  async function permanentDelete(name) {
+    setOpenMenu(null);
+    const typed = prompt(
+      `⚠ PERMANENT DELETE — irreversible.\n\n` +
+      `Type the exact company name to confirm:\n\n${name}`
+    );
+    if (typed !== name) {
+      if (typed != null) alert('Name did not match. Cancelled.');
+      return;
+    }
+    const r = await fetch('/api/bhat/companies/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ country: countryCode, name, confirmName: typed }),
+    });
+    if (r.ok) {
       const data = await r.json();
-      alert(`Company "${name}" deleted. ${data.clientsAffected} candidate(s) set to Unassigned.`);
+      alert(`✔ "${name}" permanently deleted. ${data.affectedCandidates} candidate(s) unassigned.`);
       router.replace(router.asPath);
     } else {
       alert((await r.json()).error || 'Delete failed');
     }
   }
+
+  const isArchivedTab = viewTab === 'archived';
 
   return (
     <>
@@ -108,7 +151,7 @@ function CompaniesView({ companies, total, user, countryCode }) {
           <div className="bhat-page-title">📁 Documents — Companies</div>
           <div className="bhat-page-sub">Browse documents organised by company • {companies.length} companies • {total} files</div>
         </div>
-        {canEdit && (
+        {canEdit && !isArchivedTab && (
           <div className="bhat-page-actions">
             <button className="bhat-btn bhat-btn-primary" onClick={() => setShowAdd(v => !v)}>
               {showAdd ? 'Cancel' : '+ New Company'}
@@ -117,7 +160,19 @@ function CompaniesView({ companies, total, user, countryCode }) {
         )}
       </div>
 
-      {showAdd && canEdit && (
+      {/* Tabs */}
+      <div style={{ padding:'12px 24px 0', display:'flex', gap:6 }}>
+        <Link href="/bhat/documents"
+          style={tabStyle(!isArchivedTab)}>
+          📁 Active Companies
+        </Link>
+        <Link href="/bhat/documents?archived=1"
+          style={tabStyle(isArchivedTab)}>
+          🗄 Archived
+        </Link>
+      </div>
+
+      {showAdd && canEdit && !isArchivedTab && (
         <div style={{ padding:'14px 24px' }}>
           <form onSubmit={addCompany} className="bhat-panel" style={{ display:'flex', gap:10, alignItems:'flex-end' }}>
             <div className="bhat-form-group" style={{ flex:1, marginBottom:0 }}>
@@ -135,35 +190,85 @@ function CompaniesView({ companies, total, user, countryCode }) {
 
       <div style={{ padding:'22px 24px' }}>
         {companies.length === 0 ? (
-          <Empty msg="No companies yet. Click + New Company above to add one." />
+          <Empty msg={isArchivedTab
+            ? "No archived companies. Archived items will appear here."
+            : "No companies yet. Click + New Company above to add one."} />
         ) : (
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))', gap:14 }}>
             {companies.map(co => (
-              <div key={co.name} className="bhat-panel" style={{ position:'relative' }}>
-                <Link href={`/bhat/documents?company=${encodeURIComponent(co.name)}`}
-                  style={{ display:'block', cursor:'pointer' }}>
+              <div key={co.name}
+                className="bhat-panel bhat-co-card"
+                style={{ position:'relative', opacity: isArchivedTab ? 0.85 : 1 }}>
+                {/* Card body — clickable when not archived */}
+                {isArchivedTab ? (
                   <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-                    <div style={{
-                      width:48, height:48, borderRadius:10, fontSize:24,
-                      background:'var(--accent-glow)', color:'var(--accent)',
-                      display:'grid', placeItems:'center',
-                    }}>📁</div>
+                    <div style={{ width:48, height:48, borderRadius:10, fontSize:24,
+                      background:'var(--orange-dim)', color:'var(--orange)',
+                      display:'grid', placeItems:'center' }}>🗄</div>
                     <div style={{ flex:1, minWidth:0 }}>
                       <div style={{ fontSize:14, fontWeight:600, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
                         {co.name}
                       </div>
                       <div style={{ fontSize:11, color:'var(--text-3)' }}>
-                        {co.candidateCount} candidate{co.candidateCount !== 1 ? 's' : ''} · {co.fileCount} file{co.fileCount !== 1 ? 's' : ''}
+                        Archived · {co.candidateCount} candidate{co.candidateCount !== 1 ? 's' : ''}
                       </div>
                     </div>
                   </div>
-                </Link>
+                ) : (
+                  <Link href={`/bhat/documents?company=${encodeURIComponent(co.name)}`}
+                    style={{ display:'block' }}>
+                    <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+                      <div style={{ width:48, height:48, borderRadius:10, fontSize:24,
+                        background:'var(--accent-glow)', color:'var(--accent)',
+                        display:'grid', placeItems:'center' }}>📁</div>
+                      <div style={{ flex:1, minWidth:0 }}>
+                        <div style={{ fontSize:14, fontWeight:600, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                          {co.name}
+                        </div>
+                        <div style={{ fontSize:11, color:'var(--text-3)' }}>
+                          {co.candidateCount} candidate{co.candidateCount !== 1 ? 's' : ''} · {co.fileCount} file{co.fileCount !== 1 ? 's' : ''}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                )}
+
+                {/* Hover-only ⋯ menu */}
                 {canEdit && (
-                  <div style={{ display:'flex', gap:6, marginTop:10, paddingTop:10, borderTop:'1px solid var(--border)' }}>
-                    <button className="bhat-btn bhat-btn-ghost" style={{ padding:'4px 8px', fontSize:11 }}
-                      onClick={() => renameCompany(co.name)}>✏ Rename</button>
-                    <button className="bhat-btn bhat-btn-ghost" style={{ padding:'4px 8px', fontSize:11, color:'var(--red)' }}
-                      onClick={() => deleteCompany(co.name)}>🗑 Delete</button>
+                  <div className="bhat-co-menu" style={{ position:'absolute', top:10, right:10 }}>
+                    <button onClick={(e) => { e.stopPropagation(); setOpenMenu(openMenu === co.name ? null : co.name); }}
+                      style={{
+                        width:28, height:28, borderRadius:6, fontSize:14, lineHeight:1,
+                        background:'var(--bg-2)', color:'var(--text-2)',
+                        border:'1px solid var(--border)',
+                      }}>⋯</button>
+                    {openMenu === co.name && (
+                      <div style={{
+                        position:'absolute', top:32, right:0, zIndex:5,
+                        minWidth:160, background:'var(--bg-1)',
+                        border:'1px solid var(--border)', borderRadius:7,
+                        boxShadow:'0 4px 24px rgba(0,0,0,.4)',
+                        padding:4, display:'flex', flexDirection:'column', gap:2,
+                      }}>
+                        {!isArchivedTab && (
+                          <>
+                            <MenuItem onClick={() => renameCompany(co.name)}>✏ Rename</MenuItem>
+                            <MenuItem onClick={() => archiveCompany(co.name)} color="var(--orange)">🗄 Archive</MenuItem>
+                          </>
+                        )}
+                        {isArchivedTab && (
+                          <MenuItem onClick={() => restoreCompany(co.name)} color="var(--green)">↺ Restore</MenuItem>
+                        )}
+                        {isSuper && isArchivedTab && (
+                          <>
+                            <div style={{ height:1, background:'var(--border)', margin:'4px 0' }} />
+                            <MenuItem onClick={() => permanentDelete(co.name)} color="var(--red)">
+                              🗑 Permanently Delete
+                            </MenuItem>
+                          </>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -171,7 +276,37 @@ function CompaniesView({ companies, total, user, countryCode }) {
           </div>
         )}
       </div>
+
+      {/* Hover effect for the ⋯ menu — only show button on hover */}
+      <style jsx>{`
+        :global(.bhat-co-card .bhat-co-menu button) { opacity: 0; transition: opacity .15s; }
+        :global(.bhat-co-card:hover .bhat-co-menu button) { opacity: 1; }
+        :global(.bhat-co-card .bhat-co-menu button:focus) { opacity: 1; }
+      `}</style>
     </>
+  );
+}
+
+function tabStyle(active) {
+  return {
+    padding:'8px 14px', fontSize:13, borderRadius:7,
+    background: active ? 'var(--accent-glow)' : 'var(--bg-2)',
+    color:      active ? 'var(--accent)'     : 'var(--text-2)',
+    border:     active ? '1px solid var(--accent)' : '1px solid var(--border)',
+    fontWeight: active ? 600 : 500,
+  };
+}
+function MenuItem({ children, onClick, color }) {
+  return (
+    <button onClick={onClick}
+      style={{
+        textAlign:'left', padding:'7px 10px', fontSize:12, borderRadius:5,
+        color: color || 'var(--text-1)',
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bg-2)'}
+      onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
+      {children}
+    </button>
   );
 }
 
@@ -384,18 +519,39 @@ export async function getServerSideProps(ctx) {
   }
 
   // ----- LEVEL 1: list all companies -----
-  const byCompany = {};
-  // Seed with companies that exist as BhatCompany records (even with 0 candidates)
   const countryCode = user.currentCountry || 'TR';
-  const registered = await BhatCompany.find({ country: countryCode }).lean();
-  for (const r of registered) {
-    byCompany[r.name] = { name: r.name, candidates: [], fileCount: 0 };
+  const isArchivedTab = ctx.query.archived === '1';
+
+  // Pull all BhatCompany records and split by archived state
+  const allRegistered = await BhatCompany.find({ country: countryCode }).lean();
+  const archivedNames = new Set(
+    allRegistered.filter(r => r.archivedAt).map(r => r.name)
+  );
+
+  const byCompany = {};
+
+  if (isArchivedTab) {
+    // Archived view: only show archived BhatCompany rows
+    for (const r of allRegistered.filter(r => r.archivedAt)) {
+      byCompany[r.name] = { name: r.name, candidates: [], fileCount: 0 };
+    }
+  } else {
+    // Active view: registered companies that are NOT archived
+    for (const r of allRegistered.filter(r => !r.archivedAt)) {
+      byCompany[r.name] = { name: r.name, candidates: [], fileCount: 0 };
+    }
+    // Plus any company derived from clients that isn't archived
+    for (const c of allClients) {
+      const key = c.company || 'Unassigned';
+      if (archivedNames.has(key)) continue;       // hide if archived
+      if (!byCompany[key]) byCompany[key] = { name: key, candidates: [], fileCount: 0 };
+    }
   }
-  // Then aggregate from clients
+
+  // Add candidate ids
   for (const c of allClients) {
     const key = c.company || 'Unassigned';
-    if (!byCompany[key]) byCompany[key] = { name: key, candidates: [], fileCount: 0 };
-    byCompany[key].candidates.push(c._id.toString());
+    if (byCompany[key]) byCompany[key].candidates.push(c._id.toString());
   }
   for (const d of allDocs) {
     for (const co of Object.values(byCompany)) {
@@ -414,6 +570,7 @@ export async function getServerSideProps(ctx) {
       user, view: 'companies',
       companies, total: totalFiles,
       countryCode,
+      viewTab: isArchivedTab ? 'archived' : 'active',
       counts: { pipeline: allClients.length, documents: totalFiles },
     },
   };
