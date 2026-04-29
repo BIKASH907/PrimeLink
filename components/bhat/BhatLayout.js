@@ -41,13 +41,13 @@ export default function BhatLayout({ user, children, active, counts = {} }) {
             <Link href="/bhat/pipeline" className="bhat-tb-icon" title="Notifications">
               🔔<span className="bhat-badge"></span>
             </Link>
-            <div className="bhat-profile">
+            <Link href="/bhat/profile" className="bhat-profile" title="View profile / change password">
               <div className="bhat-avatar">{initials}</div>
               <div>
                 <div className="bhat-prof-name">{user?.name}</div>
                 <div className="bhat-prof-role">{ROLE_LABELS[user?.role] || user?.role}</div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
 
@@ -77,6 +77,12 @@ export default function BhatLayout({ user, children, active, counts = {} }) {
             <Link href="/bhat/cv" className={`bhat-nav-item ${active === 'cv' ? 'active' : ''}`}>
               <span className="bhat-ico">📝</span> CV Builder
             </Link>
+
+            {!isSub && (
+              <Link href="/bhat/finance" className={`bhat-nav-item ${active === 'finance' ? 'active' : ''}`}>
+                <span className="bhat-ico">💰</span> Finance
+              </Link>
+            )}
 
             <div className="bhat-nav-section">Operations</div>
             <Link href="/bhat/overview" className="bhat-nav-item">
