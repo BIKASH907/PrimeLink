@@ -388,33 +388,42 @@ img { max-width: 100%; height: auto; }
   font-size: 0.85rem;
 }
 
-/* ======== HERO — your image as full background, text on far left ======== */
+/* ======== HERO — image as full background, text hard-pinned to left ======== */
 .hero {
   position: relative;
-  min-height: 560px;
-  display: flex;
-  align-items: center;
+  min-height: 580px;
+  display: block;                /* not flex — keeps .hero-content positioning independent */
   background-image: url('/hero.png');
   background-size: cover;
-  background-position: right center;   /* push workers to the right edge */
+  /* Anchor at top so the workers' helmets stay fully visible; right so the
+     people sit on the right half of the viewport. */
+  background-position: right top;
   background-repeat: no-repeat;
   color: var(--white);
-  padding: 90px 0 54px;
+  padding: 0;
 }
 
-/* Override the standard container ONLY inside .hero so text can sit on the
-   absolute left of the viewport instead of being centered with a 1200px cap. */
+/* Force the standard 1200px-centered container to span full width inside the hero. */
 .hero .container {
-  max-width: 100%;
-  padding: 0 24px 0 48px;              /* match header logo offset on the left */
+  max-width: 100% !important;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
   position: relative;
+  height: 100%;
 }
 
+/* Absolutely position the content block on the LEFT, vertically centered.
+   This guarantees left-edge placement regardless of any parent rules. */
 .hero-content {
-  max-width: 460px;                    /* narrow column so text stays clear of workers */
+  position: absolute;
+  left: 4%;                      /* hugs the left edge of the viewport */
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 420px;
   text-align: left;
-  margin-left: 0;
-  margin-right: auto;
+  z-index: 5;
+  padding-top: 80px;             /* spacing below the sticky header */
 }
 
 .hero-eyebrow {
@@ -449,13 +458,13 @@ img { max-width: 100%; height: auto; }
 .hero-title {
   color: var(--white);
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.55rem, 2.6vw, 2.2rem);   /* slightly smaller so it fits the narrow column */
+  font-size: clamp(1.5rem, 2.4vw, 2.05rem);   /* fits 400px wide column */
   font-weight: 800;
   line-height: 1.15;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.4px;
   margin-bottom: 16px;
   text-align: left;
-  text-shadow: 0 2px 16px rgba(7,27,59,0.45); /* subtle darkening behind text only */
+  text-shadow: 0 2px 16px rgba(7,27,59,0.5);
 }
 
 .hero-title .highlight {
@@ -474,14 +483,14 @@ img { max-width: 100%; height: auto; }
 
 .hero-desc {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(0.88rem, 1vw, 0.98rem);
+  font-size: clamp(0.85rem, 0.95vw, 0.95rem);
   line-height: 1.6;
-  color: rgba(255,255,255,0.95);
-  max-width: 440px;
+  color: rgba(255,255,255,0.96);
+  max-width: 380px;
   margin-bottom: 28px;
   font-weight: 400;
   text-align: left;
-  text-shadow: 0 1px 12px rgba(7,27,59,0.45);
+  text-shadow: 0 1px 12px rgba(7,27,59,0.5);
 }
 
 .hero-buttons {
@@ -1380,7 +1389,17 @@ select.form-control {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .two-col { grid-template-columns: 1fr; gap: 30px; }
   .form-row { grid-template-columns: 1fr; }
-  .hero { min-height: auto; padding: 100px 0 60px; }
+  .hero { min-height: 520px; padding: 100px 0 60px; }
+  /* Reset absolute positioning on mobile — text flows normally */
+  .hero .container { padding: 0 24px !important; }
+  .hero-content {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    max-width: 100%;
+    padding: 0;
+  }
   .hero-grid { gap: 28px; }
   .hero-title { font-size: clamp(1.85rem, 7vw, 2.4rem); letter-spacing: -0.6px; }
   .hero-desc { font-size: 0.95rem; line-height: 1.6; }
