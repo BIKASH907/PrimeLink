@@ -28,10 +28,9 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* HERO — split-screen layout matching reference design */}
-      <section className="hero hero-v2">
-        <div className="hero-dots" aria-hidden="true"></div>
-        <div className="container hero-grid">
+      {/* HERO — your image as the full background */}
+      <section className="hero">
+        <div className="container">
           <div className="hero-content">
             <p className="hero-eyebrow">
               <span className="hero-eyebrow-flag" aria-hidden="true">🇷🇴</span>
@@ -52,18 +51,6 @@ export default function Home() {
                 {t('home.hero.btnApply')} <span aria-hidden="true" className="btn-arrow">→</span>
               </Link>
             </div>
-          </div>
-
-          <div className="hero-visual">
-            <div className="hero-image-frame" role="img" aria-label={t('home.hero.imageAlt')}>
-              <img
-                src="/hero.png"
-                alt={t('home.hero.imageAlt')}
-                className="hero-image"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              />
-            </div>
-            <span className="hero-accent-diagonal" aria-hidden="true"></span>
           </div>
         </div>
       </section>
