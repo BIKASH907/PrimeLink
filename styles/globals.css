@@ -142,9 +142,20 @@ img { max-width: 100%; height: auto; }
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  height: 75px;
+  height: 92px;          /* taller header so the bigger logo fits */
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.logo img {
+  max-height: 72px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header-inner { height: 76px; }
+  .logo img { max-height: 56px; }
 }
 
 .logo {
