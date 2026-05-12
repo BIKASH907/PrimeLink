@@ -28,10 +28,11 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* HERO — split-screen with curved image + trust strip + stats band */}
-      <section className="hero hero-v2">
-        <div className="hero-dots" aria-hidden="true"></div>
-        <div className="container hero-grid">
+      {/* HERO — full-image background with text overlay */}
+      <section className="hero hero-bg">
+        <div className="hero-bg-image" aria-hidden="true"></div>
+        <div className="hero-bg-overlay" aria-hidden="true"></div>
+        <div className="container">
           <div className="hero-content">
             <p className="hero-eyebrow">
               <span className="hero-eyebrow-flag" aria-hidden="true">🇷🇴</span>
@@ -52,22 +53,6 @@ export default function Home() {
                 {t('home.hero.btnApply')} <span aria-hidden="true" className="btn-arrow">→</span>
               </Link>
             </div>
-          </div>
-
-          <div className="hero-visual">
-            <div className="hero-image-frame" role="img" aria-label={t('home.hero.imageAlt')}>
-              <img
-                src="/hero.png"
-                alt={t('home.hero.imageAlt')}
-                className="hero-image"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              />
-              <div className="hero-image-placeholder" aria-hidden="true">
-                <div className="hero-image-icon">👷‍♂️</div>
-                <p className="hero-image-caption">{t('home.hero.imagePlaceholder')}</p>
-              </div>
-            </div>
-            <span className="hero-accent-diagonal" aria-hidden="true"></span>
           </div>
         </div>
       </section>
