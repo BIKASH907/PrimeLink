@@ -78,10 +78,14 @@ export default function Apply() {
                 <label>{L('nationality')} <span className="required">*</span></label>
                 <select className="form-control" name="nationality" required value={form.nationality} onChange={handleChange}>
                   <option value="">{L('selectNationality')}</option>
-                  <option value="Nepali">Nepali</option>
-                  <option value="Indian">Indian</option>
-                  <option value="Bangladeshi">Bangladeshi</option>
-                  <option value="Sri Lankan">Sri Lankan</option>
+                  <option value="Nepali">{L('natNepali') || 'Nepali'}</option>
+                  <option value="Indian">{L('natIndian') || 'Indian'}</option>
+                  <option value="Bangladeshi">{L('natBangladeshi') || 'Bangladeshi'}</option>
+                  <option value="Sri Lankan">{L('natSriLankan') || 'Sri Lankan'}</option>
+                  <option value="Kenyan">{L('natKenyan') || 'Kenyan'}</option>
+                  <option value="Ugandan">{L('natUgandan') || 'Ugandan'}</option>
+                  <option value="Ethiopian">{L('natEthiopian') || 'Ethiopian'}</option>
+                  <option value="Ghanaian">{L('natGhanaian') || 'Ghanaian'}</option>
                   <option value="Other">{L('indOther')}</option>
                 </select>
               </div>
@@ -89,10 +93,14 @@ export default function Apply() {
                 <label>{L('country')} <span className="required">*</span></label>
                 <select className="form-control" name="country" required value={form.country} onChange={handleChange}>
                   <option value="">{L('selectCountry')}</option>
-                  <option value="Nepal">Nepal</option>
-                  <option value="India">India</option>
-                  <option value="Bangladesh">Bangladesh</option>
-                  <option value="Sri Lanka">Sri Lanka</option>
+                  <option value="Nepal">{L('ctryNepal') || 'Nepal'}</option>
+                  <option value="India">{L('ctryIndia') || 'India'}</option>
+                  <option value="Bangladesh">{L('ctryBangladesh') || 'Bangladesh'}</option>
+                  <option value="Sri Lanka">{L('ctrySriLanka') || 'Sri Lanka'}</option>
+                  <option value="Kenya">{L('ctryKenya') || 'Kenya'}</option>
+                  <option value="Uganda">{L('ctryUganda') || 'Uganda'}</option>
+                  <option value="Ethiopia">{L('ctryEthiopia') || 'Ethiopia'}</option>
+                  <option value="Ghana">{L('ctryGhana') || 'Ghana'}</option>
                   <option value="Other">{L('indOther')}</option>
                 </select>
               </div>

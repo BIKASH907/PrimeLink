@@ -70,7 +70,7 @@ export default function Header() {
                 className={`lang-toggle-btn ${lang === 'ro' ? 'active' : ''}`}
                 onClick={() => setLang('ro')}
                 aria-pressed={lang === 'ro'}
-                title="Schimbă în Română"
+                title={t('common.languageRomanian')}
               >
                 <span className="lang-flag" aria-hidden="true">🇷🇴</span> RO
               </button>
@@ -79,7 +79,7 @@ export default function Header() {
                 className={`lang-toggle-btn ${lang === 'en' ? 'active' : ''}`}
                 onClick={() => setLang('en')}
                 aria-pressed={lang === 'en'}
-                title="Switch to English"
+                title={t('common.languageEnglish')}
               >
                 <span className="lang-flag" aria-hidden="true">🇬🇧</span> EN
               </button>
@@ -100,14 +100,14 @@ export default function Header() {
             className={`lang-option ${lang === 'ro' ? 'active' : ''}`}
             onClick={() => setLang('ro')}
           >
-            Română
+            🇷🇴 {t('common.languageRomanian')}
           </button>
           <button
             type="button"
             className={`lang-option ${lang === 'en' ? 'active' : ''}`}
             onClick={() => setLang('en')}
           >
-            English
+            🇬🇧 {t('common.languageEnglish')}
           </button>
         </div>
         <Link href="/">{t('nav.home')}</Link>
