@@ -391,39 +391,34 @@ img { max-width: 100%; height: auto; }
 /* ======== HERO — image as full background, text hard-pinned to left ======== */
 .hero {
   position: relative;
-  min-height: 580px;
-  display: block;                /* not flex — keeps .hero-content positioning independent */
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;   /* horizontal: content stays on the left */
   background-image: url('/hero.png');
   background-size: cover;
-  /* Anchor at top so the workers' helmets stay fully visible; right so the
-     people sit on the right half of the viewport. */
-  background-position: right top;
+  background-position: right top;/* anchor top-right so all 3 helmets show */
   background-repeat: no-repeat;
   color: var(--white);
-  padding: 0;
+  padding: 110px 0 70px;
 }
 
-/* Force the standard 1200px-centered container to span full width inside the hero. */
+/* Cancel the standard 1200px-centered container ONLY inside .hero. */
 .hero .container {
   max-width: 100% !important;
-  width: 100%;
+  width: 100% !important;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 0 4% !important;      /* 4% gutter on both sides of the viewport */
   position: relative;
-  height: 100%;
 }
 
-/* Absolutely position the content block on the LEFT, vertically centered.
-   This guarantees left-edge placement regardless of any parent rules. */
 .hero-content {
-  position: absolute;
-  left: 4%;                      /* hugs the left edge of the viewport */
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 420px;
+  max-width: 440px;
+  margin: 0;                     /* no auto-centering */
+  padding: 0;
   text-align: left;
+  position: relative;
   z-index: 5;
-  padding-top: 80px;             /* spacing below the sticky header */
 }
 
 .hero-eyebrow {
