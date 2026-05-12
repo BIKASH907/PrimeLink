@@ -64,15 +64,26 @@ export default function Header() {
           </nav>
 
           <div className="header-actions">
-            <button
-              type="button"
-              className="lang-switcher"
-              onClick={toggleLang}
-              aria-label="Switch language"
-              title={lang === 'ro' ? 'Switch to English' : 'Schimbă în Română'}
-            >
-              {lang === 'ro' ? 'RO' : 'EN'}
-            </button>
+            <div className="lang-toggle" role="group" aria-label="Language">
+              <button
+                type="button"
+                className={`lang-toggle-btn ${lang === 'ro' ? 'active' : ''}`}
+                onClick={() => setLang('ro')}
+                aria-pressed={lang === 'ro'}
+                title="Schimbă în Română"
+              >
+                <span className="lang-flag" aria-hidden="true">🇷🇴</span> RO
+              </button>
+              <button
+                type="button"
+                className={`lang-toggle-btn ${lang === 'en' ? 'active' : ''}`}
+                onClick={() => setLang('en')}
+                aria-pressed={lang === 'en'}
+                title="Switch to English"
+              >
+                <span className="lang-flag" aria-hidden="true">🇬🇧</span> EN
+              </button>
+            </div>
             <Link href="/employer-inquiry" className="btn btn-primary btn-sm">{t('nav.hireWorkers')}</Link>
             <Link href="/apply" className="btn btn-amber btn-sm">{t('nav.applyNow')}</Link>
             <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu">

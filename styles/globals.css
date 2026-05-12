@@ -244,41 +244,52 @@ img { max-width: 100%; height: auto; }
   gap: 12px;
 }
 
-.lang-switcher {
+/* ---- Pill-style EN | RO toggle in the navbar ---- */
+.lang-toggle {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  height: 36px;
-  min-width: 50px;
-  padding: 0 12px;
-  background: transparent;
+  padding: 3px;
+  background: var(--gray-50, #f5f6f8);
   border: 1.5px solid var(--gray-200, #e5e7eb);
-  border-radius: var(--radius-sm, 6px);
-  color: var(--navy);
-  font-family: 'Outfit', sans-serif;
+  border-radius: 100px;
+  gap: 2px;
+}
+
+.lang-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  color: var(--gray-500);
+  font-family: 'Poppins', 'Outfit', sans-serif;
   font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.5px;
+  font-size: 0.78rem;
+  letter-spacing: 0.4px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.lang-switcher:hover {
-  border-color: var(--blue);
-  color: var(--blue);
-  background: var(--blue-pale, rgba(0, 102, 204, 0.05));
+.lang-toggle-btn .lang-flag {
+  font-size: 0.95rem;
+  line-height: 1;
 }
 
-.header.scrolled .lang-switcher {
-  border-color: rgba(255, 255, 255, 0.3);
+.lang-toggle-btn:hover:not(.active) {
+  color: var(--navy);
+}
+
+.lang-toggle-btn.active {
+  background: var(--navy);
   color: var(--white);
+  box-shadow: 0 2px 8px rgba(7,27,59,0.25);
 }
 
-.header.scrolled .lang-switcher:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--white);
-  color: var(--white);
-}
+/* Backward-compat keep .lang-switcher rule (currently unused) */
+.lang-switcher { display: none; }
 
 .lang-switcher-mobile {
   display: flex;
