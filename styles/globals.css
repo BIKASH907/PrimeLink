@@ -388,30 +388,32 @@ img { max-width: 100%; height: auto; }
   font-size: 0.85rem;
 }
 
-/* ======== HERO — your image as full background ======== */
+/* ======== HERO — your image as full background, text on far left ======== */
 .hero {
   position: relative;
-  min-height: 560px;            /* 10% shorter than the previous 620px */
+  min-height: 560px;
   display: flex;
   align-items: center;
   background-image: url('/hero.png');
   background-size: cover;
-  background-position: center;
+  background-position: right center;   /* push workers to the right edge */
   background-repeat: no-repeat;
   color: var(--white);
-  padding: 90px 0 54px;          /* 10% less vertical padding */
+  padding: 90px 0 54px;
 }
 
+/* Override the standard container ONLY inside .hero so text can sit on the
+   absolute left of the viewport instead of being centered with a 1200px cap. */
 .hero .container {
+  max-width: 100%;
+  padding: 0 24px 0 48px;              /* match header logo offset on the left */
   position: relative;
-  display: flex;                 /* anchors content to the left */
-  justify-content: flex-start;
 }
 
 .hero-content {
-  max-width: 540px;              /* 10% narrower */
+  max-width: 460px;                    /* narrow column so text stays clear of workers */
   text-align: left;
-  margin-left: 0;                /* hugs the left edge of the container */
+  margin-left: 0;
   margin-right: auto;
 }
 
@@ -447,12 +449,13 @@ img { max-width: 100%; height: auto; }
 .hero-title {
   color: var(--white);
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.65rem, 2.9vw, 2.5rem);   /* 10% smaller */
+  font-size: clamp(1.55rem, 2.6vw, 2.2rem);   /* slightly smaller so it fits the narrow column */
   font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.7px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
   margin-bottom: 16px;
   text-align: left;
+  text-shadow: 0 2px 16px rgba(7,27,59,0.45); /* subtle darkening behind text only */
 }
 
 .hero-title .highlight {
@@ -471,13 +474,14 @@ img { max-width: 100%; height: auto; }
 
 .hero-desc {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(0.9rem, 1.1vw, 1rem);     /* 10% smaller */
-  line-height: 1.65;
-  color: rgba(255,255,255,0.88);
-  max-width: 520px;
-  margin-bottom: 32px;
+  font-size: clamp(0.88rem, 1vw, 0.98rem);
+  line-height: 1.6;
+  color: rgba(255,255,255,0.95);
+  max-width: 440px;
+  margin-bottom: 28px;
   font-weight: 400;
   text-align: left;
+  text-shadow: 0 1px 12px rgba(7,27,59,0.45);
 }
 
 .hero-buttons {
@@ -704,6 +708,12 @@ img { max-width: 100%; height: auto; }
   align-items: center;
 }
 
+/* Single-metric layout — center the lone stat */
+.metrics-grid-single {
+  grid-template-columns: auto;
+  justify-content: center;
+}
+
 .metric-item {
   display: flex;
   align-items: center;
@@ -713,6 +723,7 @@ img { max-width: 100%; height: auto; }
 }
 
 .metric-item:last-child { border-right: none; }
+.metrics-grid-single .metric-item { border-right: none; padding: 0; }
 
 .metric-icon {
   display: flex;
