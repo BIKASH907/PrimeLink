@@ -28,35 +28,69 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* HERO */}
-      <section className="hero">
-        <div className="container">
+      {/* HERO — split-screen premium redesign */}
+      <section className="hero hero-split">
+        <div className="hero-bg-glow" aria-hidden="true"></div>
+        <div className="container hero-grid">
           <div className="hero-content">
-            <p className="section-label" style={{ color: 'var(--amber)' }}>🇷🇴 {t('home.hero.label')}</p>
-            <h1>
+            <p className="hero-eyebrow">🇷🇴 {t('home.hero.label')}</p>
+            <h1 className="hero-title">
               {t('home.hero.titlePart1')} <span className="highlight">{t('home.hero.titleHighlight')}</span> {t('home.hero.titlePart2')}
             </h1>
-            <p>{t('home.hero.desc')}</p>
+            <p className="hero-desc">{t('home.hero.desc')}</p>
+
             <div className="hero-buttons">
-              <Link href="/employer-inquiry" className="btn btn-amber btn-lg">{t('home.hero.btnHire')}</Link>
-              <Link href="/apply" className="btn btn-white btn-lg">{t('home.hero.btnApply')}</Link>
+              <Link href="/employer-inquiry" className="btn btn-primary-gold btn-hero">
+                {t('home.hero.btnHire')} <span aria-hidden="true">→</span>
+              </Link>
+              <Link href="/jobs" className="btn btn-glass btn-hero">
+                {t('home.hero.btnApply')}
+              </Link>
             </div>
+
+            <ul className="hero-trust-row" aria-label="Trust indicators">
+              <li><span className="trust-check" aria-hidden="true">✓</span> {t('home.hero.trustLicensed')}</li>
+              <li><span className="trust-check" aria-hidden="true">✓</span> {t('home.hero.trustScreened')}</li>
+              <li><span className="trust-check" aria-hidden="true">✓</span> {t('home.hero.trustLegal')}</li>
+              <li><span className="trust-check" aria-hidden="true">✓</span> {t('home.hero.trustFast')}</li>
+            </ul>
+
             <div className="hero-stats">
               <div className="hero-stat">
-                <h3>7820</h3>
+                <h3>{t('home.hero.stat1Num')}</h3>
                 <p>{t('home.hero.stat1')}</p>
               </div>
               <div className="hero-stat">
-                <h3>18+</h3>
+                <h3>{t('home.hero.stat2Num')}</h3>
                 <p>{t('home.hero.stat2')}</p>
               </div>
               <div className="hero-stat">
-                <h3>EU</h3>
-                <p>{t('home.hero.statLabel3')}</p>
+                <h3>{t('home.hero.stat3Num')}</h3>
+                <p>{t('home.hero.stat3')}</p>
               </div>
               <div className="hero-stat">
-                <h3>4</h3>
+                <h3>{t('home.hero.stat4Num')}</h3>
                 <p>{t('home.hero.stat4')}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-visual">
+            <div className="hero-image-wrap" role="img" aria-label={t('home.hero.imageAlt')}>
+              {/* Replace this background-image in CSS (or drop a file at /public/hero-workers.jpg) */}
+              <div className="hero-image-placeholder">
+                <div className="hero-image-icon" aria-hidden="true">👷‍♂️</div>
+                <p className="hero-image-caption">{t('home.hero.imagePlaceholder')}</p>
+              </div>
+              <div className="hero-image-overlay" aria-hidden="true"></div>
+
+              <div className="hero-glass-card">
+                <p className="glass-card-title">{t('home.hero.glassTitle')}</p>
+                <ul className="glass-card-list">
+                  <li><span className="glass-check" aria-hidden="true">✓</span> {t('home.hero.glassItem1')}</li>
+                  <li><span className="glass-check" aria-hidden="true">✓</span> {t('home.hero.glassItem2')}</li>
+                  <li><span className="glass-check" aria-hidden="true">✓</span> {t('home.hero.glassItem3')}</li>
+                </ul>
               </div>
             </div>
           </div>

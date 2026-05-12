@@ -26,6 +26,7 @@ dist/
 *.env
 !.env.example
 
+<<<<<<< HEAD
 # ----- Database -----
 *.db
 *.sqlite
@@ -70,3 +71,9 @@ logs/
 *.key
 *-credentials.json
 google-vision-key.json
+=======
+.vercel
+.env*.local
+
+.vercel
+>>>>>>> 798767c (feat: premium hero redesign + broader Asia and Africa branding)
