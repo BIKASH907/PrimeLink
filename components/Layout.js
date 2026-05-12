@@ -21,10 +21,10 @@ export default function Layout({ children, title, description }) {
   const rawPath = router?.asPath || '/';
   const basePath = stripLocale(rawPath);
 
-  // Per-locale URLs for canonical + hreflang.
-  const roUrl = `${SITE_URL}${basePath === '/' ? '' : basePath}`;
-  const enUrl = `${SITE_URL}/en${basePath === '/' ? '' : basePath}`;
-  const canonicalUrl = lang === 'ro' ? roUrl : enUrl;
+  // English is the default at `/`, Romanian is prefixed at `/ro`.
+  const enUrl = `${SITE_URL}${basePath === '/' ? '' : basePath}`;
+  const roUrl = `${SITE_URL}/ro${basePath === '/' ? '' : basePath}`;
+  const canonicalUrl = lang === 'en' ? enUrl : roUrl;
 
   const pageTitle = title
     ? `${title} | Primelink Human Capital`
@@ -56,11 +56,11 @@ export default function Layout({ children, title, description }) {
         <meta name="twitter:description" content={pageDesc} />
 
         {/* hreflang — each language now has its own URL.
-            x-default points to Romanian (the canonical primary language). */}
+            x-default points to English (the canonical primary language). */}
+        <link rel="alternate" hrefLang="en" href={enUrl} />
         <link rel="alternate" hrefLang="ro-RO" href={roUrl} />
         <link rel="alternate" hrefLang="ro" href={roUrl} />
-        <link rel="alternate" hrefLang="en" href={enUrl} />
-        <link rel="alternate" hrefLang="x-default" href={roUrl} />
+        <link rel="alternate" hrefLang="x-default" href={enUrl} />
 
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalUrl} />
