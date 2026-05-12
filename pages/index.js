@@ -28,69 +28,132 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* HERO — split-screen premium redesign */}
-      <section className="hero hero-split">
-        <div className="hero-bg-glow" aria-hidden="true"></div>
+      {/* HERO — split-screen with curved image + trust strip + stats band */}
+      <section className="hero hero-v2">
+        <div className="hero-dots" aria-hidden="true"></div>
         <div className="container hero-grid">
           <div className="hero-content">
-            <p className="hero-eyebrow">🇷🇴 {t('home.hero.label')}</p>
+            <p className="hero-eyebrow">
+              <span className="hero-eyebrow-flag" aria-hidden="true">🇷🇴</span>
+              {t('home.hero.label')}
+            </p>
             <h1 className="hero-title">
-              {t('home.hero.titlePart1')} <span className="highlight">{t('home.hero.titleHighlight')}</span> {t('home.hero.titlePart2')}
+              {t('home.hero.titlePart1')}{' '}
+              <span className="highlight">{t('home.hero.titleHighlight')}</span>{' '}
+              {t('home.hero.titlePart2')}
             </h1>
+            <span className="hero-accent-line" aria-hidden="true"></span>
             <p className="hero-desc">{t('home.hero.desc')}</p>
-
             <div className="hero-buttons">
-              <Link href="/employer-inquiry" className="btn btn-primary-gold btn-hero">
-                {t('home.hero.btnHire')} <span aria-hidden="true">→</span>
+              <Link href="/employer-inquiry" className="btn-hero btn-hero-primary">
+                {t('home.hero.btnHire')} <span aria-hidden="true" className="btn-arrow">→</span>
               </Link>
-              <Link href="/jobs" className="btn btn-glass btn-hero">
-                {t('home.hero.btnApply')}
+              <Link href="/apply" className="btn-hero btn-hero-secondary">
+                {t('home.hero.btnApply')} <span aria-hidden="true" className="btn-arrow">→</span>
               </Link>
-            </div>
-
-            <ul className="hero-trust-row" aria-label="Trust indicators">
-              <li><span className="trust-check" aria-hidden="true">✓</span> {t('home.hero.trustLicensed')}</li>
-              <li><span className="trust-check" aria-hidden="true">✓</span> {t('home.hero.trustScreened')}</li>
-              <li><span className="trust-check" aria-hidden="true">✓</span> {t('home.hero.trustLegal')}</li>
-              <li><span className="trust-check" aria-hidden="true">✓</span> {t('home.hero.trustFast')}</li>
-            </ul>
-
-            <div className="hero-stats">
-              <div className="hero-stat">
-                <h3>{t('home.hero.stat1Num')}</h3>
-                <p>{t('home.hero.stat1')}</p>
-              </div>
-              <div className="hero-stat">
-                <h3>{t('home.hero.stat2Num')}</h3>
-                <p>{t('home.hero.stat2')}</p>
-              </div>
-              <div className="hero-stat">
-                <h3>{t('home.hero.stat3Num')}</h3>
-                <p>{t('home.hero.stat3')}</p>
-              </div>
-              <div className="hero-stat">
-                <h3>{t('home.hero.stat4Num')}</h3>
-                <p>{t('home.hero.stat4')}</p>
-              </div>
             </div>
           </div>
 
           <div className="hero-visual">
-            <div className="hero-image-wrap" role="img" aria-label={t('home.hero.imageAlt')}>
-              {/* Replace this background-image in CSS (or drop a file at /public/hero-workers.jpg) */}
-              <div className="hero-image-placeholder">
-                <div className="hero-image-icon" aria-hidden="true">👷‍♂️</div>
+            <div className="hero-image-frame" role="img" aria-label={t('home.hero.imageAlt')}>
+              <img
+                src="/hero.png"
+                alt={t('home.hero.imageAlt')}
+                className="hero-image"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
+              <div className="hero-image-placeholder" aria-hidden="true">
+                <div className="hero-image-icon">👷‍♂️</div>
                 <p className="hero-image-caption">{t('home.hero.imagePlaceholder')}</p>
               </div>
-              <div className="hero-image-overlay" aria-hidden="true"></div>
+            </div>
+            <span className="hero-accent-diagonal" aria-hidden="true"></span>
+          </div>
+        </div>
+      </section>
 
-              <div className="hero-glass-card">
-                <p className="glass-card-title">{t('home.hero.glassTitle')}</p>
-                <ul className="glass-card-list">
-                  <li><span className="glass-check" aria-hidden="true">✓</span> {t('home.hero.glassItem1')}</li>
-                  <li><span className="glass-check" aria-hidden="true">✓</span> {t('home.hero.glassItem2')}</li>
-                  <li><span className="glass-check" aria-hidden="true">✓</span> {t('home.hero.glassItem3')}</li>
-                </ul>
+      {/* TRUST STRIP — 4 cards under hero */}
+      <section className="trust-strip-section">
+        <div className="container">
+          <div className="trust-strip">
+            <div className="trust-card">
+              <div className="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div className="trust-text">
+                <h4>{t('home.trustStrip.card1Title')}</h4>
+                <p>{t('home.trustStrip.card1Desc')}</p>
+              </div>
+            </div>
+            <div className="trust-card">
+              <div className="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div className="trust-text">
+                <h4>{t('home.trustStrip.card2Title')}</h4>
+                <p>{t('home.trustStrip.card2Desc')}</p>
+              </div>
+            </div>
+            <div className="trust-card">
+              <div className="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div className="trust-text">
+                <h4>{t('home.trustStrip.card3Title')}</h4>
+                <p>{t('home.trustStrip.card3Desc')}</p>
+              </div>
+            </div>
+            <div className="trust-card">
+              <div className="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 11V5a2 2 0 0 0-4 0v6"/><path d="M14 10V4a2 2 0 0 0-4 0v8"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8a8 8 0 0 0 16 0 4 4 0 0 0-4-4"/></svg>
+              </div>
+              <div className="trust-text">
+                <h4>{t('home.trustStrip.card4Title')}</h4>
+                <p>{t('home.trustStrip.card4Desc')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* METRICS BAND — dark navy stats row */}
+      <section className="metrics-band">
+        <div className="container">
+          <div className="metrics-grid">
+            <div className="metric-item">
+              <div className="metric-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div className="metric-text">
+                <h3>{t('home.metrics.stat1Num')}</h3>
+                <p>{t('home.metrics.stat1')}</p>
+              </div>
+            </div>
+            <div className="metric-item">
+              <div className="metric-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+              </div>
+              <div className="metric-text">
+                <h3>{t('home.metrics.stat2Num')}</h3>
+                <p>{t('home.metrics.stat2')}</p>
+              </div>
+            </div>
+            <div className="metric-item">
+              <div className="metric-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div className="metric-text">
+                <h3>{t('home.metrics.stat3Num')}</h3>
+                <p>{t('home.metrics.stat3')}</p>
+              </div>
+            </div>
+            <div className="metric-item">
+              <div className="metric-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+              </div>
+              <div className="metric-text">
+                <h3>{t('home.metrics.stat4Num')}</h3>
+                <p>{t('home.metrics.stat4')}</p>
               </div>
             </div>
           </div>
