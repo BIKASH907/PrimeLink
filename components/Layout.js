@@ -1,12 +1,14 @@
 import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
+import { useLanguage } from '../lib/i18n';
 
 export default function Layout({ children, title, description }) {
+  const { t } = useLanguage();
   const pageTitle = title
     ? `${title} | Primelink Human Capital`
-    : 'Primelink Human Capital — Asian and African Workforce Recruitment in Romania';
-  const pageDesc = description || 'Primelink Human Capital S.R.L. connects skilled Asian and African workers with Romanian employers. Licensed staffing agency specializing in temporary and permanent workforce placement.';
+    : t('layout.defaultTitle');
+  const pageDesc = description || t('layout.defaultDescription');
 
   return (
     <>

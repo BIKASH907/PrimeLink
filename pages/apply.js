@@ -2,8 +2,10 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useLanguage } from '../lib/i18n';
 
 export default function Apply() {
+  const { t } = useLanguage();
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', phone: '', nationality: '', country: '',
     dateOfBirth: '', passportNumber: '', education: '', experience: '', skills: '',
@@ -20,174 +22,156 @@ export default function Apply() {
       const res = await fetch('/api/apply', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
       const data = await res.json();
       if (res.ok) {
-        toast.success('Application submitted successfully! We will review it and contact you.');
+        toast.success(t('apply.success'));
         setForm({ firstName: '', lastName: '', email: '', phone: '', nationality: '', country: '', dateOfBirth: '', passportNumber: '', education: '', experience: '', skills: '', preferredIndustry: '', englishLevel: '', availableFrom: '', message: '' });
       } else {
-        toast.error(data.error || 'Something went wrong');
+        toast.error(data.error || t('apply.errorGeneric'));
       }
     } catch (err) {
-      toast.error('Network error. Please try again.');
+      toast.error(t('apply.errorNetwork'));
     }
     setLoading(false);
   };
 
+  const L = (k) => t(`apply.labels.${k}`);
+
   return (
-    <Layout title="Apply Now" description="Apply for jobs in Romania. Submit your application and our team will match you with available positions.">
+    <Layout title={t('nav.applyNow')} description={t('apply.metaDesc')}>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><Link href="/">Home</Link> / <span>Apply</span></div>
-          <h1>Apply for a Job in Romania</h1>
-          <p>Fill in the form below and take your first step toward working in Europe.</p>
+          <div className="breadcrumb"><Link href="/">{t('common.home')}</Link> / <span>{t('nav.applyNow')}</span></div>
+          <h1>{t('apply.heroTitle')}</h1>
+          <p>{t('apply.heroSubtitle')}</p>
         </div>
       </section>
 
       <section className="section">
         <div className="container" style={{ maxWidth: '850px' }}>
           <div style={{ background: 'var(--blue-pale)', padding: '20px 24px', borderRadius: 'var(--radius-md)', marginBottom: '32px', borderLeft: '4px solid var(--blue)' }}>
-            <strong>Important:</strong> This application is free. Primelink Human Capital never charges workers illegal recruitment fees. All costs are transparently communicated.
+            <strong>{t('apply.important')}</strong> {t('apply.importantText')}
           </div>
 
           <form onSubmit={handleSubmit}>
-            <h3 style={{ marginBottom: '20px' }}>Personal Information</h3>
+            <h3 style={{ marginBottom: '20px' }}>{t('apply.personalInfo')}</h3>
             <div className="form-row">
               <div className="form-group">
-                <label>First Name <span className="required">*</span></label>
-                <input className="form-control" name="firstName" required value={form.firstName} onChange={handleChange} placeholder="Your first name" />
+                <label>{L('firstName')} <span className="required">*</span></label>
+                <input className="form-control" name="firstName" required value={form.firstName} onChange={handleChange} placeholder={L('firstNamePh')} />
               </div>
               <div className="form-group">
-                <label>Last Name <span className="required">*</span></label>
-                <input className="form-control" name="lastName" required value={form.lastName} onChange={handleChange} placeholder="Your last name" />
+                <label>{L('lastName')} <span className="required">*</span></label>
+                <input className="form-control" name="lastName" required value={form.lastName} onChange={handleChange} placeholder={L('lastNamePh')} />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label>Email <span className="required">*</span></label>
-                <input className="form-control" name="email" type="email" required value={form.email} onChange={handleChange} placeholder="your@email.com" />
+                <label>{L('email')} <span className="required">*</span></label>
+                <input className="form-control" name="email" type="email" required value={form.email} onChange={handleChange} placeholder={L('emailPh')} />
               </div>
               <div className="form-group">
-                <label>Phone / WhatsApp <span className="required">*</span></label>
-                <input className="form-control" name="phone" required value={form.phone} onChange={handleChange} placeholder="+977 XXXXXXXXX" />
+                <label>{L('phone')} <span className="required">*</span></label>
+                <input className="form-control" name="phone" required value={form.phone} onChange={handleChange} placeholder={L('phonePh')} />
               </div>
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label>Nationality <span className="required">*</span></label>
+                <label>{L('nationality')} <span className="required">*</span></label>
                 <select className="form-control" name="nationality" required value={form.nationality} onChange={handleChange}>
-                  <option value="">Select nationality</option>
+                  <option value="">{L('selectNationality')}</option>
                   <option value="Nepali">Nepali</option>
                   <option value="Indian">Indian</option>
                   <option value="Bangladeshi">Bangladeshi</option>
                   <option value="Sri Lankan">Sri Lankan</option>
-                  <option value="Pakistani">Pakistani</option>
-                  <option value="Filipino">Filipino</option>
-                  <option value="Kenyan">Kenyan</option>
-                  <option value="Nigerian">Nigerian</option>
-                  <option value="Ethiopian">Ethiopian</option>
-                  <option value="Pakistan">Pakistan</option>
-                  <option value="Philippines">Philippines</option>
-                  <option value="Kenya">Kenya</option>
-                  <option value="Nigeria">Nigeria</option>
-                  <option value="Ethiopia">Ethiopia</option>
-                  <option value="Other">Other</option>
+                  <option value="Other">{L('indOther')}</option>
                 </select>
               </div>
               <div className="form-group">
-                <label>Country of Residence <span className="required">*</span></label>
+                <label>{L('country')} <span className="required">*</span></label>
                 <select className="form-control" name="country" required value={form.country} onChange={handleChange}>
-                  <option value="">Select country</option>
+                  <option value="">{L('selectCountry')}</option>
                   <option value="Nepal">Nepal</option>
                   <option value="India">India</option>
                   <option value="Bangladesh">Bangladesh</option>
                   <option value="Sri Lanka">Sri Lanka</option>
-                  <option value="Pakistani">Pakistani</option>
-                  <option value="Filipino">Filipino</option>
-                  <option value="Kenyan">Kenyan</option>
-                  <option value="Nigerian">Nigerian</option>
-                  <option value="Ethiopian">Ethiopian</option>
-                  <option value="Pakistan">Pakistan</option>
-                  <option value="Philippines">Philippines</option>
-                  <option value="Kenya">Kenya</option>
-                  <option value="Nigeria">Nigeria</option>
-                  <option value="Ethiopia">Ethiopia</option>
-                  <option value="Other">Other</option>
+                  <option value="Other">{L('indOther')}</option>
                 </select>
               </div>
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label>Date of Birth</label>
+                <label>{L('dob')}</label>
                 <input className="form-control" name="dateOfBirth" type="date" value={form.dateOfBirth} onChange={handleChange} />
               </div>
               <div className="form-group">
-                <label>Passport Number</label>
-                <input className="form-control" name="passportNumber" value={form.passportNumber} onChange={handleChange} placeholder="Passport number" />
+                <label>{L('passport')}</label>
+                <input className="form-control" name="passportNumber" value={form.passportNumber} onChange={handleChange} placeholder={L('passportPh')} />
               </div>
             </div>
 
-            <h3 style={{ marginTop: '36px', marginBottom: '20px' }}>Qualifications & Experience</h3>
+            <h3 style={{ marginTop: '36px', marginBottom: '20px' }}>{t('apply.qualifications')}</h3>
             <div className="form-row">
               <div className="form-group">
-                <label>Education Level</label>
+                <label>{L('education')}</label>
                 <select className="form-control" name="education" value={form.education} onChange={handleChange}>
-                  <option value="">Select level</option>
-                  <option value="primary">Primary School</option>
-                  <option value="secondary">Secondary School (SLC/SEE)</option>
-                  <option value="higher_secondary">Higher Secondary (+2)</option>
-                  <option value="diploma">Diploma / Technical</option>
-                  <option value="bachelors">Bachelor's Degree</option>
-                  <option value="masters">Master's Degree</option>
+                  <option value="">{L('selectLevel')}</option>
+                  <option value="primary">{L('eduPrimary')}</option>
+                  <option value="secondary">{L('eduSecondary')}</option>
+                  <option value="higher_secondary">{L('eduHigher')}</option>
+                  <option value="diploma">{L('eduDiploma')}</option>
+                  <option value="bachelors">{L('eduBachelors')}</option>
+                  <option value="masters">{L('eduMasters')}</option>
                 </select>
               </div>
               <div className="form-group">
-                <label>English Level</label>
+                <label>{L('english')}</label>
                 <select className="form-control" name="englishLevel" value={form.englishLevel} onChange={handleChange}>
-                  <option value="">Select level</option>
-                  <option value="none">No English</option>
-                  <option value="basic">Basic (a few words)</option>
-                  <option value="intermediate">Intermediate (can communicate)</option>
-                  <option value="advanced">Advanced (fluent conversation)</option>
-                  <option value="fluent">Fluent / Native</option>
+                  <option value="">{L('selectLevel')}</option>
+                  <option value="none">{L('engNone')}</option>
+                  <option value="basic">{L('engBasic')}</option>
+                  <option value="intermediate">{L('engIntermediate')}</option>
+                  <option value="advanced">{L('engAdvanced')}</option>
+                  <option value="fluent">{L('engFluent')}</option>
                 </select>
               </div>
             </div>
             <div className="form-group">
-              <label>Work Experience</label>
-              <textarea className="form-control" name="experience" value={form.experience} onChange={handleChange} placeholder="Describe your work experience — positions held, companies, duration, countries..." style={{ minHeight: '100px' }} />
+              <label>{L('experience')}</label>
+              <textarea className="form-control" name="experience" value={form.experience} onChange={handleChange} placeholder={L('experiencePh')} style={{ minHeight: '100px' }} />
             </div>
             <div className="form-group">
-              <label>Skills & Certifications</label>
-              <textarea className="form-control" name="skills" value={form.skills} onChange={handleChange} placeholder="List your skills, certifications, trade qualifications..." style={{ minHeight: '80px' }} />
+              <label>{L('skills')}</label>
+              <textarea className="form-control" name="skills" value={form.skills} onChange={handleChange} placeholder={L('skillsPh')} style={{ minHeight: '80px' }} />
             </div>
 
-            <h3 style={{ marginTop: '36px', marginBottom: '20px' }}>Job Preferences</h3>
+            <h3 style={{ marginTop: '36px', marginBottom: '20px' }}>{t('apply.jobPrefs')}</h3>
             <div className="form-row">
               <div className="form-group">
-                <label>Preferred Industry</label>
+                <label>{L('preferredIndustry')}</label>
                 <select className="form-control" name="preferredIndustry" value={form.preferredIndustry} onChange={handleChange}>
-                  <option value="">Any industry</option>
-                  <option value="construction">Construction</option>
-                  <option value="manufacturing">Manufacturing</option>
-                  <option value="hospitality">Hospitality</option>
-                  <option value="agriculture">Agriculture</option>
-                  <option value="logistics">Logistics & Warehousing</option>
-                  <option value="cleaning">Cleaning & Facility Services</option>
-                  <option value="healthcare">Healthcare</option>
-                  <option value="retail">Retail</option>
-                  <option value="other">Other</option>
+                  <option value="">{L('anyIndustry')}</option>
+                  <option value="construction">{L('indConstruction')}</option>
+                  <option value="manufacturing">{L('indManufacturing')}</option>
+                  <option value="hospitality">{L('indHospitality')}</option>
+                  <option value="agriculture">{L('indAgriculture')}</option>
+                  <option value="logistics">{L('indLogistics')}</option>
+                  <option value="cleaning">{L('indCleaning')}</option>
+                  <option value="healthcare">{L('indHealthcare')}</option>
+                  <option value="retail">{L('indRetail')}</option>
+                  <option value="other">{L('indOther')}</option>
                 </select>
               </div>
               <div className="form-group">
-                <label>Available From</label>
+                <label>{L('availableFrom')}</label>
                 <input className="form-control" name="availableFrom" type="date" value={form.availableFrom} onChange={handleChange} />
               </div>
             </div>
             <div className="form-group">
-              <label>Additional Message</label>
-              <textarea className="form-control" name="message" value={form.message} onChange={handleChange} placeholder="Anything else you'd like us to know..." style={{ minHeight: '80px' }} />
+              <label>{L('additionalMessage')}</label>
+              <textarea className="form-control" name="message" value={form.message} onChange={handleChange} placeholder={L('additionalMessagePh')} style={{ minHeight: '80px' }} />
             </div>
 
             <button type="submit" className="btn btn-amber btn-lg" disabled={loading} style={{ width: '100%', marginTop: '10px' }}>
-              {loading ? 'Submitting...' : 'Submit Application →'}
+              {loading ? L('submitting') : L('submit')}
             </button>
           </form>
         </div>

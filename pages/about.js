@@ -1,15 +1,44 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import { COMPANY } from '../components/Header';
+import { useLanguage } from '../lib/i18n';
 
 export default function About() {
+  const { t } = useLanguage();
+
+  const values = [
+    { icon: '⚖️', key: 'v1' },
+    { icon: '🤝', key: 'v2' },
+    { icon: '✅', key: 'v3' },
+    { icon: '🔄', key: 'v4' },
+  ];
+
+  const regRows = [
+    [t('about.registration.legalName'), COMPANY.legal],
+    [t('about.registration.cui'), COMPANY.cui],
+    [t('about.registration.tradeReg'), COMPANY.regNo],
+    [t('about.registration.euid'), COMPANY.euid],
+    [t('about.registration.cert'), t('about.registration.certVal')],
+    [t('about.registration.legalForm'), t('about.registration.legalFormVal')],
+    [t('about.registration.capital'), t('about.registration.capitalVal')],
+    [t('about.registration.eurEquiv'), t('about.registration.eurEquivVal')],
+    [t('about.registration.caen'), t('about.registration.caenVal')],
+    [t('about.registration.duration'), t('about.registration.durationVal')],
+    [t('about.registration.office'), t('about.registration.officeVal')],
+    [t('about.registration.court'), t('about.registration.courtVal')],
+    [t('about.registration.auth'), t('about.registration.authVal')],
+    [t('about.registration.admin'), t('about.registration.adminVal')],
+    [t('about.registration.mandate'), t('about.registration.mandateVal')],
+    [t('about.registration.status'), t('about.registration.statusVal')],
+  ];
+
   return (
-    <Layout title="About Us" description="Learn about Primelink Human Capital S.R.L. — a Romanian-registered staffing agency connecting Asian and African workers with European employers.">
+    <Layout title={t('nav.aboutUs')} description={t('about.metaDesc')}>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><Link href="/">Home</Link> / <span>About Us</span></div>
-          <h1>About Primelink Human Capital</h1>
-          <p>Bridging Asian and African talent with Romanian opportunity — legally, ethically, and efficiently.</p>
+          <div className="breadcrumb"><Link href="/">{t('common.home')}</Link> / <span>{t('nav.aboutUs')}</span></div>
+          <h1>{t('about.heroTitle')}</h1>
+          <p>{t('about.heroSubtitle')}</p>
         </div>
       </section>
 
@@ -17,22 +46,11 @@ export default function About() {
         <div className="container">
           <div className="two-col">
             <div className="two-col-text">
-              <p className="section-label">Our Story</p>
-              <h2>Built to Bridge Continents</h2>
-              <p>
-                {COMPANY.legal} was founded with a clear mission: to address Romania's growing labor shortage by
-                connecting the country's employers with the vast, motivated workforce of Asia and Africa — particularly
-                Nepal, India, Bangladesh, Sri Lanka, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more.
-              </p>
-              <p>
-                As Romania's economy grows and its domestic workforce shrinks due to emigration and demographic
-                shifts, industries like construction, manufacturing, hospitality, and agriculture face critical staffing gaps.
-                Meanwhile, millions of skilled and semi-skilled workers in Asia and Africa seek legitimate pathways to European employment.
-              </p>
-              <p>
-                Primelink Human Capital exists to create that pathway — transparently, legally, and with the
-                highest standards of worker welfare and employer satisfaction.
-              </p>
+              <p className="section-label">{t('about.story.label')}</p>
+              <h2>{t('about.story.title')}</h2>
+              <p>{COMPANY.legal}{t('about.story.p1Post')}</p>
+              <p>{t('about.story.p2')}</p>
+              <p>{t('about.story.p3')}</p>
             </div>
             <div className="two-col-image">🏛️</div>
           </div>
@@ -43,22 +61,14 @@ export default function About() {
         <div className="container">
           <div className="grid-2">
             <div>
-              <p className="section-label">Our Mission</p>
-              <h3 style={{ marginBottom: '16px' }}>To be Romania's most trusted international staffing partner</h3>
-              <p style={{ color: 'var(--gray-500)', lineHeight: '1.8' }}>
-                We aim to set the industry standard for ethical recruitment of Asian and African workers into Romania
-                and the broader EU market. Every placement we make is built on transparency, legal compliance,
-                and mutual benefit for both employers and workers.
-              </p>
+              <p className="section-label">{t('about.mission.label')}</p>
+              <h3 style={{ marginBottom: '16px' }}>{t('about.mission.title')}</h3>
+              <p style={{ color: 'var(--gray-500)', lineHeight: '1.8' }}>{t('about.mission.desc')}</p>
             </div>
             <div>
-              <p className="section-label">Our Vision</p>
-              <h3 style={{ marginBottom: '16px' }}>A world where talent flows freely and fairly</h3>
-              <p style={{ color: 'var(--gray-500)', lineHeight: '1.8' }}>
-                We envision a future where international labor mobility is efficient, dignified, and accessible —
-                where a skilled worker in Nepal or India can find meaningful employment in Europe through
-                trusted channels, and where Romanian businesses never have to turn down projects due to staffing shortages.
-              </p>
+              <p className="section-label">{t('about.vision.label')}</p>
+              <h3 style={{ marginBottom: '16px' }}>{t('about.vision.title')}</h3>
+              <p style={{ color: 'var(--gray-500)', lineHeight: '1.8' }}>{t('about.vision.desc')}</p>
             </div>
           </div>
         </div>
@@ -67,21 +77,16 @@ export default function About() {
       <section className="section">
         <div className="container">
           <div className="section-header">
-            <p className="section-label">Our Values</p>
-            <h2>What Drives Us</h2>
+            <p className="section-label">{t('about.values.label')}</p>
+            <h2>{t('about.values.title')}</h2>
           </div>
           <div className="grid-4">
-            {[
-              { icon: '⚖️', title: 'Legal Compliance', desc: 'Every operation adheres to Romanian, EU, and source-country labor laws.' },
-              { icon: '🤝', title: 'Ethical Recruitment', desc: 'Zero tolerance for exploitation. Fair fees, transparent processes, worker protection.' },
-              { icon: '✅', title: 'Quality First', desc: 'Rigorous screening ensures only qualified, motivated candidates are placed.' },
-              { icon: '🔄', title: 'End-to-End Support', desc: 'From sourcing to settlement, we support both employers and workers throughout.' },
-            ].map((v, i) => (
+            {values.map((v, i) => (
               <div className="card" key={i}>
                 <div className="card-body" style={{ textAlign: 'center' }}>
                   <div style={{ fontSize: '2.2rem', marginBottom: '14px' }}>{v.icon}</div>
-                  <h4 className="card-title">{v.title}</h4>
-                  <p className="card-text">{v.desc}</p>
+                  <h4 className="card-title">{t(`about.values.${v.key}Title`)}</h4>
+                  <p className="card-text">{t(`about.values.${v.key}Desc`)}</p>
                 </div>
               </div>
             ))}
@@ -92,29 +97,14 @@ export default function About() {
       <section className="section section-dark">
         <div className="container">
           <div className="section-header">
-            <p className="section-label">Company Registration</p>
-            <h2>Officially Registered in Romania</h2>
-            <p style={{ color: 'rgba(255,255,255,0.6)' }}>Full legal transparency — our company details are public record.</p>
+            <p className="section-label">{t('about.registration.label')}</p>
+            <h2>{t('about.registration.title')}</h2>
+            <p style={{ color: 'rgba(255,255,255,0.6)' }}>{t('about.registration.subtitle')}</p>
           </div>
           <div style={{ maxWidth: '700px', margin: '0 auto', background: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-lg)', padding: '36px', border: '1px solid rgba(255,255,255,0.1)' }}>
             <table style={{ width: '100%', fontSize: '0.95rem' }}>
               <tbody>
-                {[
-                  ['Legal Name', COMPANY.legal],
-                  ['CUI (Tax ID)', COMPANY.cui],
-                  ['Trade Registry Nr.', COMPANY.regNo],
-                  ['EUID', COMPANY.euid],
-                  ['Certificate', 'Seria B Nr. 5780913 — Issued 01.04.2026'],
-                  ['Legal Form', 'Societate cu Răspundere Limitată (S.R.L.)'],
-                  ['Primary CAEN', '7820 — Temporary Staffing Agency'],
-                  ['Duration', 'Unlimited (Nedeterminată)'],
-                  ['Registered Office', 'Str. Aleksandr Sergheevici Pușkin, Nr. 8, Ap. 2, Sector 1, București'],
-                  ['Registry Court', 'Oficiul Registrului Comerțului de pe lângă Tribunalul București'],
-                  ['Authorization', 'Încheierea nr. 263477 din 30.03.2026'],
-                  ['Administrator', 'BHAT BIKASH — Full Powers (Puteri Depline)'],
-                  ['Admin Mandate', '49 years (23.03.2026 — 23.03.2075)'],
-                  ['Status', 'Active (Funcțiune)'],
-                ].map(([label, value], i) => (
+                {regRows.map(([label, value], i) => (
                   <tr key={i}>
                     <td style={{ padding: '10px 0', color: 'rgba(255,255,255,0.5)', verticalAlign: 'top', width: '40%' }}>{label}</td>
                     <td style={{ padding: '10px 0', color: 'var(--white)', fontWeight: 500 }}>{value}</td>
@@ -129,11 +119,11 @@ export default function About() {
       <section className="section">
         <div className="container">
           <div className="cta-banner">
-            <h2>Partner With Us</h2>
-            <p>Whether you need workers for your Romanian business or want to explore a B2B staffing partnership — let's talk.</p>
+            <h2>{t('about.cta.title')}</h2>
+            <p>{t('about.cta.subtitle')}</p>
             <div className="cta-buttons">
-              <Link href="/employer-inquiry" className="btn btn-amber btn-lg">Employer Inquiry</Link>
-              <Link href="/contact" className="btn btn-white btn-lg">Contact Us</Link>
+              <Link href="/employer-inquiry" className="btn btn-amber btn-lg">{t('about.cta.btn1')}</Link>
+              <Link href="/contact" className="btn btn-white btn-lg">{t('about.cta.btn2')}</Link>
             </div>
           </div>
         </div>

@@ -1,36 +1,45 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import { COMPANY } from '../components/Header';
+import { useLanguage } from '../lib/i18n';
 
 export default function WhyChooseUs() {
+  const { t } = useLanguage();
+
+  const reasons = [
+    { icon: '🏛️', key: 'r1', custom: true },
+    { icon: '🌏', key: 'r2' },
+    { icon: '⚖️', key: 'r3' },
+    { icon: '📋', key: 'r4' },
+    { icon: '🔍', key: 'r5' },
+    { icon: '🛡️', key: 'r6' },
+    { icon: '💼', key: 'r7' },
+    { icon: '📞', key: 'r8' },
+  ];
+
   return (
-    <Layout title="Why Choose Us" description="Why Primelink Human Capital is the trusted choice for international workforce recruitment in Romania.">
+    <Layout title={t('nav.whyChooseUs')} description={t('whyChooseUs.metaDesc')}>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><Link href="/">Home</Link> / <span>Why Choose Us</span></div>
-          <h1>Why Choose Primelink</h1>
-          <p>Legally registered, ethically operated, and results-driven.</p>
+          <div className="breadcrumb"><Link href="/">{t('common.home')}</Link> / <span>{t('nav.whyChooseUs')}</span></div>
+          <h1>{t('whyChooseUs.heroTitle')}</h1>
+          <p>{t('whyChooseUs.heroSubtitle')}</p>
         </div>
       </section>
 
       <section className="section">
         <div className="container">
           <div className="grid-2" style={{ gap: '50px' }}>
-            {[
-              { icon: '🏛️', title: 'Legally Registered Romanian Company', desc: `We are ${COMPANY.legal}, registered with the Romanian Trade Registry (CUI: ${COMPANY.cui}, Nr. ${COMPANY.regNo}). Every operation is fully compliant with Romanian and EU law.` },
-              { icon: '🌏', title: 'Deep Asian and African Networks', desc: 'Our founder has deep roots in Asia and Africa with established recruitment partnerships across Nepal, India, Bangladesh, Sri Lanka, Philippines, Pakistan, Kenya, Nigeria, Ethiopia, and more. We understand both cultures.' },
-              { icon: '⚖️', title: 'Ethical Recruitment Standards', desc: 'We adhere to ILO Fair Recruitment principles. No exploitative fees, no deception, no forced labor. Workers are informed, consenting, and protected at every stage.' },
-              { icon: '📋', title: 'End-to-End Service', desc: 'We don\'t just source candidates — we handle screening, documentation, permits, travel, placement, and ongoing support. One partner for the entire process.' },
-              { icon: '🔍', title: 'Rigorous Screening', desc: 'Every candidate undergoes skills testing, video interviews, medical examinations, background checks, and reference verification before presentation to employers.' },
-              { icon: '🛡️', title: 'Replacement Guarantee', desc: 'If a placed worker is genuinely unsuitable within 30 days, we provide a replacement at no additional recruitment cost.' },
-              { icon: '💼', title: 'Industry Expertise', desc: 'We specialize in the sectors with the highest demand — construction, manufacturing, hospitality, agriculture, logistics. We know what employers need.' },
-              { icon: '📞', title: '24/7 Support', desc: 'Both employers and workers have access to our support team. Language assistance, conflict resolution, emergency help — we\'re always available.' },
-            ].map((r, i) => (
+            {reasons.map((r, i) => (
               <div key={i} style={{ display: 'flex', gap: '20px' }}>
                 <div style={{ fontSize: '2rem', flexShrink: 0 }}>{r.icon}</div>
                 <div>
-                  <h4 style={{ marginBottom: '8px' }}>{r.title}</h4>
-                  <p style={{ color: 'var(--gray-500)', lineHeight: '1.7', fontSize: '0.93rem' }}>{r.desc}</p>
+                  <h4 style={{ marginBottom: '8px' }}>{t(`whyChooseUs.${r.key}Title`)}</h4>
+                  <p style={{ color: 'var(--gray-500)', lineHeight: '1.7', fontSize: '0.93rem' }}>
+                    {r.custom
+                      ? `${t('whyChooseUs.r1Desc1')} ${COMPANY.legal}${t('whyChooseUs.r1Desc2')} ${COMPANY.cui}${t('whyChooseUs.r1Desc3')} ${COMPANY.regNo}${t('whyChooseUs.r1Desc4')}`
+                      : t(`whyChooseUs.${r.key}Desc`)}
+                  </p>
                 </div>
               </div>
             ))}
@@ -41,11 +50,11 @@ export default function WhyChooseUs() {
       <section className="section">
         <div className="container">
           <div className="cta-banner">
-            <h2>Experience the Primelink Difference</h2>
-            <p>Let us show you why leading Romanian companies choose Primelink for their workforce needs.</p>
+            <h2>{t('whyChooseUs.cta.title')}</h2>
+            <p>{t('whyChooseUs.cta.subtitle')}</p>
             <div className="cta-buttons">
-              <Link href="/employer-inquiry" className="btn btn-amber btn-lg">Get Started</Link>
-              <Link href="/contact" className="btn btn-white btn-lg">Talk to Us</Link>
+              <Link href="/employer-inquiry" className="btn btn-amber btn-lg">{t('whyChooseUs.cta.btn1')}</Link>
+              <Link href="/contact" className="btn btn-white btn-lg">{t('whyChooseUs.cta.btn2')}</Link>
             </div>
           </div>
         </div>

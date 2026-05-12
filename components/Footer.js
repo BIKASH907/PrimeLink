@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { COMPANY } from './Header';
+import { useLanguage } from '../lib/i18n';
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="footer">
@@ -10,85 +12,75 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link href="/" style={{ display: 'inline-block', marginBottom: '8px' }}>
-              <img src="/logo.png" alt="Primelink Human Capital" style={{ height: '70px', width: 'auto', objectFit: 'contain', background: 'white', borderRadius: '10px', padding: '6px 12px' }} />
+              <img src="/logo.png" alt="Primelink Human Capital" style={{ height: '60px', width: 'auto' }} />
             </Link>
-            <p>
-              Your trusted partner for international workforce recruitment in Romania.
-              We connect skilled workers from Asia and Africa
-              with Romanian employers across all major industries.
-            </p>
+            <p>{t('footer.brandText')}</p>
             <div style={{ marginTop: '20px', fontSize: '0.85rem', lineHeight: '1.8' }}>
-              <strong style={{ color: 'var(--white)' }}>Registered Office:</strong><br />
+              <strong style={{ color: 'var(--white)' }}>{t('footer.registeredOffice')}</strong><br />
               {COMPANY.address}
             </div>
           </div>
 
           <div>
-            <h4>Company</h4>
+            <h4>{t('footer.company')}</h4>
             <ul className="footer-links">
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/team">Our Team</Link></li>
-              <li><Link href="/services">Services</Link></li>
-              <li><Link href="/why-choose-us">Why Choose Us</Link></li>
-              <li><Link href="/testimonials">Testimonials</Link></li>
-              <li><Link href="/blog">Blog</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
+              <li><Link href="/about">{t('footer.links.aboutUs')}</Link></li>
+              <li><Link href="/team">{t('footer.links.ourTeam')}</Link></li>
+              <li><Link href="/services">{t('footer.links.services')}</Link></li>
+              <li><Link href="/why-choose-us">{t('footer.links.whyChooseUs')}</Link></li>
+              <li><Link href="/testimonials">{t('footer.links.testimonials')}</Link></li>
+              <li><Link href="/blog">{t('footer.links.blog')}</Link></li>
+              <li><Link href="/contact">{t('footer.links.contact')}</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4>For Employers</h4>
+            <h4>{t('footer.forEmployers')}</h4>
             <ul className="footer-links">
-              <li><Link href="/for-employers">Employer Solutions</Link></li>
-              <li><Link href="/employer-inquiry">Request Workers</Link></li>
-              <li><Link href="/industries">Industries We Serve</Link></li>
-              <li><Link href="/recruitment-process">How It Works</Link></li>
-              <li><Link href="/faq">FAQ</Link></li>
+              <li><Link href="/for-employers">{t('footer.links.employerSolutions')}</Link></li>
+              <li><Link href="/employer-inquiry">{t('footer.links.requestWorkers')}</Link></li>
+              <li><Link href="/industries">{t('footer.links.industriesWeServe')}</Link></li>
+              <li><Link href="/recruitment-process">{t('footer.links.howItWorks')}</Link></li>
+              <li><Link href="/faq">{t('footer.links.faq')}</Link></li>
             </ul>
-            <h4 style={{ marginTop: '24px' }}>For Workers</h4>
+            <h4 style={{ marginTop: '24px' }}>{t('footer.forWorkers')}</h4>
             <ul className="footer-links">
-              <li><Link href="/for-workers">Worker Information</Link></li>
-              <li><Link href="/jobs">Job Listings</Link></li>
-              <li><Link href="/apply">Apply Now</Link></li>
-              <li><Link href="/why-romania">Why Romania</Link></li>
+              <li><Link href="/for-workers">{t('footer.links.workerInformation')}</Link></li>
+              <li><Link href="/jobs">{t('footer.links.jobListings')}</Link></li>
+              <li><Link href="/apply">{t('footer.links.applyNow')}</Link></li>
+              <li><Link href="/why-romania">{t('footer.links.whyRomania')}</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4>Contact</h4>
+            <h4>{t('footer.contact')}</h4>
             <ul className="footer-links">
               <li>📍 Str. Aleksandr Sergheevici Pușkin, Nr. 8, Ap. 2, Sector 1, București</li>
               <li>📧 <a href="mailto:info@primelinkhumancapital.com">info@primelinkhumancapital.com</a></li>
-              <li>📞 <a href="tel:+37063343573">+370 633 43573</a></li>
+              <li>📞 <a href="tel:+40XXXXXXXXX">+40 XXX XXX XXX</a></li>
             </ul>
-            <h4 style={{ marginTop: '24px' }}>Legal Details</h4>
+            <h4 style={{ marginTop: '24px' }}>{t('footer.legalDetails')}</h4>
             <ul className="footer-links" style={{ fontSize: '0.82rem' }}>
               <li>CUI: {COMPANY.cui}</li>
-              <li>Reg. Nr.: {COMPANY.regNo}</li>
+              <li>{t('footer.regNo')} {COMPANY.regNo}</li>
               <li>EUID: {COMPANY.euid}</li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; {year} {COMPANY.legal}. All rights reserved.</p>
+          <p>&copy; {year} {COMPANY.legal}. {t('footer.allRightsReserved')}.</p>
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-            <Link href="/privacy-policy" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>Privacy Policy</Link>
-            <Link href="/terms" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>Terms & Conditions</Link>
-            <Link href="/cookie-policy" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>Cookie Policy</Link>
+            <Link href="/privacy-policy" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>{t('footer.privacyPolicy')}</Link>
+            <Link href="/terms" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>{t('footer.termsConditions')}</Link>
+            <Link href="/cookie-policy" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>{t('footer.cookiePolicy')}</Link>
           </div>
         </div>
       </div>
 
       <div className="footer-legal">
         <div className="container">
-          <strong>{COMPANY.legal}</strong> | CUI: {COMPANY.cui} | Nr. Registrul Comerțului: {COMPANY.regNo} |
-          EUID: {COMPANY.euid} | Certificat de Înregistrare: Seria B Nr. 5780913 |
-          Sediu Social: {COMPANY.address} |
-          Capital Social: 20.000 LEI |
-          CAEN Principal: 7820 — Activități ale agențiilor de plasare temporară a forței de muncă și furnizarea altor resurse umane |
-          Înregistrată prin Încheierea nr. 263477 din 30.03.2026 la Oficiul Registrului Comerțului de pe lângă Tribunalul București |
-          Administrator: BHAT BIKASH — Puteri Depline
+          <strong>{COMPANY.legal}</strong> | {t('footer.legalDisclaimer')}
         </div>
       </div>
     </footer>
