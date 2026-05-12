@@ -11,12 +11,12 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link href="/" style={{ display: 'inline-block', marginBottom: '8px' }}>
-              <img src="/logo.png" alt="Primelink Human Capital" style={{ height: '60px', width: 'auto' }} />
+            <Link href="/" className="footer-logo-link">
+              <img src="/logo.png" alt="Primelink Human Capital" className="footer-logo-img" />
             </Link>
             <p>{t('footer.brandText')}</p>
-            <div style={{ marginTop: '20px', fontSize: '0.85rem', lineHeight: '1.8' }}>
-              <strong style={{ color: 'var(--white)' }}>{t('footer.registeredOffice')}</strong><br />
+            <div className="footer-address">
+              <strong>{t('footer.registeredOffice')}</strong><br />
               {COMPANY.address}
             </div>
           </div>
