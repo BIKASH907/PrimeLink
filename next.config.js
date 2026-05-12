@@ -11,6 +11,14 @@ const nextConfig = {
   images: {
     domains: ['res.cloudinary.com'],
   },
+  // Bilingual routing: Romanian is the default (served at /), English at /en.
+  // localeDetection is disabled so the URL is the single source of truth —
+  // visitors land on the Romanian site unless they explicitly navigate to /en.
+  i18n: {
+    locales: ['ro', 'en'],
+    defaultLocale: 'ro',
+    localeDetection: false,
+  },
 };
 
 module.exports = nextConfig;
