@@ -391,13 +391,13 @@ img { max-width: 100%; height: auto; }
 /* ======== HERO — split-screen matching the reference design ======== */
 .hero {
   position: relative;
-  min-height: 76vh;            /* 15% shorter than previous 90vh */
+  min-height: 620px;           /* compact, like the reference */
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, #0B2150 0%, #0E2A66 55%, #123D8D 100%);
   color: var(--white);
   overflow: hidden;
-  padding: 110px 0 70px;
+  padding: 100px 0 60px;
 }
 
 .hero-dots {
@@ -469,11 +469,11 @@ img { max-width: 100%; height: auto; }
 .hero-title {
   color: var(--white);
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  font-size: clamp(1.85rem, 3.2vw, 2.8rem);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -1px;
-  margin-bottom: 20px;
+  line-height: 1.12;
+  letter-spacing: -0.8px;
+  margin-bottom: 18px;
 }
 
 .hero-title .highlight {
@@ -566,12 +566,12 @@ img { max-width: 100%; height: auto; }
 .hero-image-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 4;
-  max-height: 500px;
+  aspect-ratio: 1625 / 968;   /* matches the actual photo so no workers get cropped */
+  max-height: 460px;
   overflow: hidden;
-  /* Soft concave curve on the left edge — matches the reference design */
+  /* Gentle concave curve on the left edge — eats only ~9% so all 3 workers stay visible */
   clip-path: polygon(
-    18% 0%, 12% 6%, 7% 14%, 3% 24%, 1% 36%, 0% 50%, 1% 64%, 3% 76%, 7% 86%, 12% 94%, 18% 100%,
+    10% 0%, 6% 8%, 3% 18%, 1% 30%, 0% 50%, 1% 70%, 3% 82%, 6% 92%, 10% 100%,
     100% 100%, 100% 0%
   );
   background: linear-gradient(135deg, #1B3B7A 0%, #0E2C66 100%);
@@ -597,7 +597,7 @@ img { max-width: 100%; height: auto; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
   display: block;
   z-index: 2; /* sits on top of placeholder */
 }
