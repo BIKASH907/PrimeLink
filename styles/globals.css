@@ -391,7 +391,7 @@ img { max-width: 100%; height: auto; }
 /* ======== HERO — your image as full background ======== */
 .hero {
   position: relative;
-  min-height: 620px;
+  min-height: 560px;            /* 10% shorter than the previous 620px */
   display: flex;
   align-items: center;
   background-image: url('/hero.png');
@@ -399,15 +399,20 @@ img { max-width: 100%; height: auto; }
   background-position: center;
   background-repeat: no-repeat;
   color: var(--white);
-  padding: 100px 0 60px;
+  padding: 90px 0 54px;          /* 10% less vertical padding */
 }
 
 .hero .container {
   position: relative;
+  display: flex;                 /* anchors content to the left */
+  justify-content: flex-start;
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 540px;              /* 10% narrower */
+  text-align: left;
+  margin-left: 0;                /* hugs the left edge of the container */
+  margin-right: auto;
 }
 
 .hero-eyebrow {
@@ -442,11 +447,12 @@ img { max-width: 100%; height: auto; }
 .hero-title {
   color: var(--white);
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.85rem, 3.2vw, 2.8rem);
+  font-size: clamp(1.65rem, 2.9vw, 2.5rem);   /* 10% smaller */
   font-weight: 800;
   line-height: 1.12;
-  letter-spacing: -0.8px;
-  margin-bottom: 18px;
+  letter-spacing: -0.7px;
+  margin-bottom: 16px;
+  text-align: left;
 }
 
 .hero-title .highlight {
@@ -465,12 +471,13 @@ img { max-width: 100%; height: auto; }
 
 .hero-desc {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
-  line-height: 1.7;
-  color: rgba(255,255,255,0.82);
-  max-width: 580px;
-  margin-bottom: 36px;
+  font-size: clamp(0.9rem, 1.1vw, 1rem);     /* 10% smaller */
+  line-height: 1.65;
+  color: rgba(255,255,255,0.88);
+  max-width: 520px;
+  margin-bottom: 32px;
   font-weight: 400;
+  text-align: left;
 }
 
 .hero-buttons {
@@ -484,11 +491,11 @@ img { max-width: 100%; height: auto; }
   align-items: center;
   justify-content: center;
   gap: 10px;
-  height: 56px;
-  padding: 0 28px;
+  height: 50px;                  /* 10% smaller */
+  padding: 0 25px;
   border-radius: 10px;
   font-family: 'Poppins', sans-serif;
-  font-size: 0.98rem;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.2px;
   text-decoration: none;
